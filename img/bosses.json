@@ -1,0 +1,292 @@
+{"frames": {
+
+"Attack1_IceBlock.png":
+{
+	"frame": {"x":1056,"y":384,"w":384,"h":64},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":384,"h":64},
+	"sourceSize": {"w":384,"h":64}
+},
+"Attack2_3_FireBall.png":
+{
+	"frame": {"x":1920,"y":78,"w":10,"h":10},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":10,"h":10},
+	"sourceSize": {"w":10,"h":10}
+},
+"Attack3_orb_of_venom.png":
+{
+	"frame": {"x":1976,"y":64,"w":6,"h":6},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":6,"h":6},
+	"sourceSize": {"w":6,"h":6}
+},
+"Attack4_Ray.png":
+{
+	"frame": {"x":1920,"y":64,"w":56,"h":14},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":56,"h":14},
+	"sourceSize": {"w":56,"h":14}
+},
+"Demon_Boss.png":
+{
+	"frame": {"x":960,"y":384,"w":96,"h":96},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":96,"h":96},
+	"sourceSize": {"w":96,"h":96}
+},
+"Demon_Boss_attack1.png":
+{
+	"frame": {"x":576,"y":192,"w":384,"h":96},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":384,"h":96},
+	"sourceSize": {"w":384,"h":96}
+},
+"Demon_Boss_attack2.png":
+{
+	"frame": {"x":0,"y":0,"w":768,"h":96},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":768,"h":96},
+	"sourceSize": {"w":768,"h":96}
+},
+"Demon_Boss_attack3.png":
+{
+	"frame": {"x":0,"y":192,"w":576,"h":96},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":576,"h":96},
+	"sourceSize": {"w":576,"h":96}
+},
+"Demon_Boss_attack4.png":
+{
+	"frame": {"x":768,"y":0,"w":384,"h":96},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":384,"h":96},
+	"sourceSize": {"w":384,"h":96}
+},
+"Demon_Boss_death.png":
+{
+	"frame": {"x":768,"y":96,"w":384,"h":96},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":384,"h":96},
+	"sourceSize": {"w":384,"h":96}
+},
+"Demon_Boss_hurt.png":
+{
+	"frame": {"x":576,"y":288,"w":384,"h":96},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":384,"h":96},
+	"sourceSize": {"w":384,"h":96}
+},
+"Demon_Boss_run.png":
+{
+	"frame": {"x":0,"y":96,"w":768,"h":96},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":768,"h":96},
+	"sourceSize": {"w":768,"h":96}
+},
+"Demon_Boss_sneer.png":
+{
+	"frame": {"x":0,"y":288,"w":576,"h":96},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":576,"h":96},
+	"sourceSize": {"w":576,"h":96}
+},
+"Demon_Boss_walk.png":
+{
+	"frame": {"x":0,"y":384,"w":576,"h":96},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":576,"h":96},
+	"sourceSize": {"w":576,"h":96}
+},
+"Mage_boss.png":
+{
+	"frame": {"x":1920,"y":0,"w":64,"h":64},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+	"sourceSize": {"w":64,"h":64}
+},
+"Mage_boss_attack1.png":
+{
+	"frame": {"x":1056,"y":448,"w":384,"h":64},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":384,"h":64},
+	"sourceSize": {"w":384,"h":64}
+},
+"Mage_boss_attack2.png":
+{
+	"frame": {"x":1056,"y":512,"w":384,"h":64},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":384,"h":64},
+	"sourceSize": {"w":384,"h":64}
+},
+"Mage_boss_attack3.png":
+{
+	"frame": {"x":1344,"y":192,"w":384,"h":64},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":384,"h":64},
+	"sourceSize": {"w":384,"h":64}
+},
+"Mage_boss_attack4.png":
+{
+	"frame": {"x":1344,"y":256,"w":384,"h":64},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":384,"h":64},
+	"sourceSize": {"w":384,"h":64}
+},
+"Mage_boss_death.png":
+{
+	"frame": {"x":1344,"y":320,"w":384,"h":64},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":384,"h":64},
+	"sourceSize": {"w":384,"h":64}
+},
+"Mage_boss_hurt.png":
+{
+	"frame": {"x":1728,"y":192,"w":256,"h":64},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":64},
+	"sourceSize": {"w":256,"h":64}
+},
+"Mage_boss_run.png":
+{
+	"frame": {"x":1440,"y":384,"w":384,"h":64},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":384,"h":64},
+	"sourceSize": {"w":384,"h":64}
+},
+"Mage_boss_sneer.png":
+{
+	"frame": {"x":1440,"y":448,"w":384,"h":64},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":384,"h":64},
+	"sourceSize": {"w":384,"h":64}
+},
+"Mage_boss_walk.png":
+{
+	"frame": {"x":1440,"y":512,"w":384,"h":64},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":384,"h":64},
+	"sourceSize": {"w":384,"h":64}
+},
+"Ooze_boss.png":
+{
+	"frame": {"x":960,"y":480,"w":96,"h":96},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":96,"h":96},
+	"sourceSize": {"w":96,"h":96}
+},
+"Ooze_boss_attack1.png":
+{
+	"frame": {"x":576,"y":384,"w":384,"h":96},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":384,"h":96},
+	"sourceSize": {"w":384,"h":96}
+},
+"Ooze_boss_attack2.png":
+{
+	"frame": {"x":576,"y":480,"w":384,"h":96},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":384,"h":96},
+	"sourceSize": {"w":384,"h":96}
+},
+"Ooze_boss_attack3.png":
+{
+	"frame": {"x":960,"y":192,"w":384,"h":96},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":384,"h":96},
+	"sourceSize": {"w":384,"h":96}
+},
+"Ooze_boss_attack4.png":
+{
+	"frame": {"x":1152,"y":0,"w":384,"h":96},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":384,"h":96},
+	"sourceSize": {"w":384,"h":96}
+},
+"Ooze_boss_death.png":
+{
+	"frame": {"x":0,"y":480,"w":576,"h":96},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":576,"h":96},
+	"sourceSize": {"w":576,"h":96}
+},
+"Ooze_boss_hurt.png":
+{
+	"frame": {"x":1152,"y":96,"w":384,"h":96},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":384,"h":96},
+	"sourceSize": {"w":384,"h":96}
+},
+"Ooze_boss_run.png":
+{
+	"frame": {"x":1536,"y":0,"w":384,"h":96},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":384,"h":96},
+	"sourceSize": {"w":384,"h":96}
+},
+"Ooze_boss_sneer.png":
+{
+	"frame": {"x":1536,"y":96,"w":384,"h":96},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":384,"h":96},
+	"sourceSize": {"w":384,"h":96}
+},
+"Ooze_boss_walk.png":
+{
+	"frame": {"x":960,"y":288,"w":384,"h":96},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":384,"h":96},
+	"sourceSize": {"w":384,"h":96}
+},
+"Sneer_skull.png":
+{
+	"frame": {"x":1930,"y":78,"w":10,"h":10},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":10,"h":10},
+	"sourceSize": {"w":10,"h":10}
+}},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "bosses.png",
+	"format": "RGBA8888",
+	"size": {"w":1984,"h":576},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:545d825226dda01e94c1e9ea5627a9a4:a688ba69785e5a7999cd8c0fd511029c:480445fcc1ef53c0fb2c08da4c212c2f$"
+}
+}
