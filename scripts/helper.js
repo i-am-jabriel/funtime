@@ -46,7 +46,11 @@ Number.prototype.extend({
   },
   scaleByWidth(){return this * (window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth) / elementReferences?.['canvas']?.width / zoom;},
   scaleByHeight(){return this * (window.innerHeight|| document.documentElement.clientHeight|| document.body.clientHeight) / elementReferences?.['canvas']?.height /  zoom;},
-  moveTowards(value, maxStep){return this > value ? Math.max(this - maxStep, value) : Math.min(this + maxStep, value)}
+  moveTowards(value, maxStep){return this > value ? Math.max(this - maxStep, value) : Math.min(this + maxStep, value)},
+  moveTowardsTheta(theta, delta) {
+    const diff = theta - this;
+    return Math.abs(diff) > delta ? this + Math.sign(diff) * delta : theta;
+  }
 });
 
 
@@ -105,10 +109,62 @@ export class Range{
   }
 }
 
+Array.prototype.extend({
+  pick(n = 1){
+      return n == 1 ? this[Random.intRange(0, this.length - 1)] : this.sort(() => .5 - Math.random()).slice(0,n);
+  },
+  remove(item){
+      let index = this.indexOf(item);
+      if(index == -1)return;
+      return this.splice(index, 1)[0];
+  },
+  serialize(parent = true){
+      let data = [...this], i = 0;
+      const len = this.length;
+      for(;i < len; i++){
+          data[i] = data[i]?.serialize?.(false) || data[i];
+      }
+      return parent ? stringify(data) : data;
+  },
+  deserialize(json){
+      let data = typeof json == 'string' ? parse(json) : json, i = 0;
+      const len = this.length;
+      for(;i < len; i++){
+          data[i] = data[i]?.deserialize?.(data[i]) || data[i];
+          if(typeof data[i] == 'function')data[i] = data[i].bind(this);
+      }
+      return data;
+  },
+  shuffle(){
+      let elements = [...this];
+      this.length = 0;
+      let element;
+      while(elements.length){ 
+          element = elements.pick();
+          this.push(element);
+          elements.remove(element);
+      }
+      return this;
+  },
+  moveToBack(element) {
+      if(!this.includes(element))return;
+      this.remove(element);
+      this.push(element);
+  }
+});
+
 export let debug = true;
 export let playing = true;
+export const players = [];
 export const setPlaying = n => playing = n;
 export const canvas = document.querySelector("canvas");
+export const camera = {x: 0, y:0}
+canvas.w = canvas.width;
+canvas.h = canvas.height;
+Object.assign(canvas, {
+  get x(){ return camera.x },
+  get y() { return camera.y }
+});
 export const context = canvas.getContext("2d");
 setTimeout(() => canvas.focus(), 200);
 
@@ -143,7 +199,16 @@ export function applyOverTime(t,a,b) {
     f();
     return f;
 }
-
+//Apply Over Time Forwards and Backwards
+export function rubberBand(t, a, b){
+  return applyOverTime(t, x => {
+      if(x < .5) a(x * 2)
+      else a((1 - x)/.5, true);
+  } ,()=>{
+      a(0, true);
+      b?.();
+  });
+}
 export const scoreElement = document.querySelector('.score');
 export let score = 0;
 export const updateScore = n =>{
@@ -190,6 +255,8 @@ export const getThetaFromDirections = obj => {
   return (obj.right && obj.down ? Math.PI : 0) + directions.reduce((a, c) => a + obj[c] * directionToRad[c], 0) / bools;
 }
 
+export const getTheta = (dx, dy) => Math.atan2(dy, dx);
+
 Object.prototype.extend({
   getProp(name){
       const split = name.split('.').reverse();
@@ -221,4 +288,14 @@ Object.prototype.extend({
 // export const camelCaser = (str, proper) => str?.toLowerCase().replace(proper ? /[ _]+./ : / +./gi, x => x.toUpperCase().slice(-1));
 export const camelCaser = (str, proper) => {
   return str?.toLowerCase().replace(proper ? /[ _]+./ : / +./gi, x => x.toUpperCase().slice(-1)).replace(proper ? /[ _]+./ : / +./gi, x => x.toUpperCase().slice(-1));
+}
+
+export function arrayFrom(a, b, pre='', post=''){
+  let max = Math.max(a, b);
+  let min = Math.min(a, b);
+  let output = [];
+  for(; min <= max; min++){
+      output.push(`${pre}${min}${post}`);
+  }
+  return output;
 }

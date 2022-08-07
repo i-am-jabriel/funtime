@@ -61,18 +61,20 @@ export default class Enemy extends StageObject {
       this.damageNumber.stagger = 0;
     }
     this.damageNumber.value += damage;
-    this.damageNumber.text = Math.floor(this.damageNumber.value);
-    if(prob(this.damageNumber.stagger += damage * 1.2)){
+    this.damageNumber.text = Math.ceil(this.damageNumber.value);
+    if(prob(this.damageNumber.stagger += damage)){
       this.damageNumber.stagger = 0;
       this.startAnimation('hurt');
     }
     if(this.hasGravity && Math.floor(this.damageNumber.stagger) % 3 === 0){
       this.damageNumber.stagger++;
-      const theta = this.getRotation(attacker);
-      applyOverTime(Random.range(100, 200) * damage + 75, (x, dt) => {
-        const forceX = damage * .05 * Math.cos(theta) / this.weight * x;
-        const forceY = damage * .05 * Math.sin(theta) / this.weight * x - Random.range(.002, .004);
-        this.gravityForce -= this.gravityForce * dt * .0001 * x;
+      const theta = attacker.rotation || this.getRotation(attacker);
+      const weight = 1 / (this.weight ** .3);
+      const time = (Random.range(40, 70) * damage * weight) ** .3 + Random.range(80, 200) + 60 * weight;
+      applyOverTime(time, (x, dt) => {
+        const forceX = damage * .06 * Math.cos(theta) / this.weight * (x * .5 + .5);
+        const forceY = damage * .08 * Math.sin(theta) / this.weight * (x * .5 + .5) - Random.range(.003, .005);
+        this.gravityForce -= this.gravityForce * dt * .0003 * x * weight;
         this.x += forceX * dt;
         this.y += forceY * dt;
       });

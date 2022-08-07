@@ -136,7 +136,7 @@ export class Player extends StageObject{
           // this.jumpForce *= .4;
         },
         2: () => {
-          applyOverTime(125, (x, dt) => this.aoeAttack(70, 0, 160, 110, dt * Random.range(.06, .12)));
+          applyOverTime(125, (x, dt) => this.aoeAttack(40, 10, 120, 120, dt * Random.range(.06, .12)));
           // this.gravityForce *= .99;
         }
       },
@@ -279,5 +279,8 @@ export class Player extends StageObject{
       if (this.animation === "wallSlide") this.startAnimation("airborne");
       setTimeout(() => (this.wallJump = false), 350);
     }
+  }
+  takeDamage(attacker,damage){
+    console.log('ouch',attacker.name||attacker.constructor.name,'dealt',damage)
   }
 };

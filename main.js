@@ -1,7 +1,7 @@
 import Boss from "./scripts/Boss.js";
 import DamageNumber from "./scripts/DamageNumber.js";
 import Enemy from "./scripts/Enemy.js";
-import { render, canvas, context, coin, playing, setPlaying, debug} from "./scripts/helper.js";
+import { render, canvas, context, coin, playing, setPlaying, debug, players} from "./scripts/helper.js";
 import { Player } from "./scripts/Player.js";
 
 
@@ -11,6 +11,7 @@ import { Player } from "./scripts/Player.js";
 const mario = new Player;
 mario.img = new Image();
 mario.img.src = "./img/adventurer-v1-5-Sheet.png";
+players.push(mario);
 window.mario = mario;
 
 window.boss = new Boss('Ogre');
