@@ -159,8 +159,8 @@ export const players = [];
 export const setPlaying = n => playing = n;
 export const canvas = document.querySelector("canvas");
 export const camera = {x: 0, y:0}
-canvas.w = canvas.width;
-canvas.h = canvas.height;
+canvas.w = canvas.width * .95;
+canvas.h = canvas.height * 1.2;
 Object.assign(canvas, {
   get x(){ return camera.x },
   get y() { return camera.y }
@@ -171,33 +171,31 @@ setTimeout(() => canvas.focus(), 200);
 export const frameCount = new Range(0, 0);
 export function applyOverTime(t,a,b) {
   let count = 0
-  let time = Date.now();
-    let stop = false;
-    let f = ()=>{
-        if(frameCount.value){
-            return window.requestAnimationFrame(f);
-        }
-        let now = Date.now();
-        if(!playing){
-            time = now;
-            return;
-        }
-        let dt = now - time;
-        count += dt;
-        time = now;
-        let val = Math.min(1,count/t);
-        a(val,dt);
-        if(stop)return;
-        if(val === 1){
-            if(b)b();
-        }else{
-            window.requestAnimationFrame(f);
-        }
-    }
-    // f.extend({stop: () => stop = true});
-    f.stop = () => stop = true;
-    f();
-    return f;
+  let time = 0;
+  let f = (now) => {
+      if(frameCount.value)return window.requestAnimationFrame(f);
+      // let now = Date.now();
+      if(!playing){
+          time = now;
+          return window.requestAnimationFrame(f);
+      }
+      if(!f.running) return;
+      if(!time) time = now;
+      let dt = now - time;
+      count += dt;
+      time = now;
+      let val = Math.min(1,count/t);
+      a(val,dt);
+      if(val === 1){
+        f.running = false;
+        if(b)b();
+      }else window.requestAnimationFrame(f);
+  }
+  f.running = true;
+  f.extend({stop: () => f.running = false});
+  // f.stop = () => stop = true;
+  f(0);
+  return f;
 }
 //Apply Over Time Forwards and Backwards
 export function rubberBand(t, a, b){
@@ -209,6 +207,8 @@ export function rubberBand(t, a, b){
       b?.();
   });
 }
+
+export function rubberBandAsync(t, a) { return new Promise(res => rubberBand(t, a, res))}
 export const scoreElement = document.querySelector('.score');
 export let score = 0;
 export const updateScore = n =>{
@@ -283,12 +283,16 @@ Object.prototype.extend({
       }
       return this;
   },
+  objectFromKeys(...args){
+    return args.reduce((a,c) => this[c] !== undefined ? a.setProp(c, this[c]) : a , {});
+  }
 });
 
 // export const camelCaser = (str, proper) => str?.toLowerCase().replace(proper ? /[ _]+./ : / +./gi, x => x.toUpperCase().slice(-1));
-export const camelCaser = (str, proper) => {
-  return str?.toLowerCase().replace(proper ? /[ _]+./ : / +./gi, x => x.toUpperCase().slice(-1)).replace(proper ? /[ _]+./ : / +./gi, x => x.toUpperCase().slice(-1));
-}
+// export const camelCaser = (str, proper) => {
+export const camelCaser = (str, keys = ' ') => str?.toLowerCase().replace(new RegExp(`[${keys}]+.`,'gi'), x => x.toUpperCase().slice(-1));
+  // return str?.toLowerCase().replace(proper ? /[ _]+./ : / +./gi, x => x.toUpperCase().slice(-1)).replace(proper ? /[ _]+./ : / +./gi, x => x.toUpperCase().slice(-1));
+// }
 
 export function arrayFrom(a, b, pre='', post=''){
   let max = Math.max(a, b);

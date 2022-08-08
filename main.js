@@ -9,8 +9,6 @@ import { Player } from "./scripts/Player.js";
 // an object is a container of variables
 
 const mario = new Player;
-mario.img = new Image();
-mario.img.src = "./img/adventurer-v1-5-Sheet.png";
 players.push(mario);
 window.mario = mario;
 
@@ -27,11 +25,11 @@ let gamepad = null;
 
 draw();
 
-function draw() {
+function draw(now) {
   // clear the canvas so that we can redraw all the objects in their new positions
   context.clearRect(0, 0, canvas.width, canvas.height);
-  const now = performance.now();
-  const dt = (now - lastTick) * 0.1;
+  // const now = performance.now();
+  const dt = (now - lastTick) * 0.1 || 0;
 
   lastTick = now;
   gamepad && pollControllers();
@@ -111,7 +109,7 @@ window.addEventListener("gamepaddisconnected", e => gamepad = null);
 window.addEventListener("keydown", (e) => {
   if (e.key === "Escape") {
     setPlaying(!playing);
-    if (playing) draw();
+    if (playing) draw(lastTick);
   }
   if (debug && e.key.toLowerCase() === 'p') window.debug()
   // stop the event from bubbling  (stop the key presses from doing what they normally do)

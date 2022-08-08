@@ -1,6 +1,7 @@
 import { Atlas } from "./Atlas.js";
 import Enemy from "./Enemy.js";
 import { canvas, camelCaser, Range, prob, players, rubberBand, applyOverTime, lerp } from "./helper.js";
+import { Particle } from "./Particle.js";
 // import bossJson from '../img/bosses-0.json';
 
 export default class Boss extends Enemy{
@@ -30,7 +31,7 @@ export default class Boss extends Enemy{
     this.action = 0;
     this.actionRate = .8;
     this.actionRate = 8;
-    this.attacks = ['swing', 'stomp','jump'];
+    this.attacks = ['swing', 'stomp', 'jump','dive'];//, ...Array.from(new Array(10) ,() => 'dive')];
     this.inverseDirection = true;
     this.animations = {
       idle: {
@@ -49,7 +50,7 @@ export default class Boss extends Enemy{
         frameRate: .3,
         frames: 6,
         transition: () => {
-          if(this.hitbox.cx.between(canvas.w * .4, canvas.w * .6)){
+          if(this.hitbox.cx.between(canvas.w * .35, canvas.w * .65)){
             this.action = 0;
             return 'idle';
           }
@@ -77,26 +78,84 @@ export default class Boss extends Enemy{
         transition: 'idle',
         frameRate: .08,
         onEnterFrame: {
-          2: () => this.animationPaused = true && setTimeout(() => this.animationPaused = false, 200),
+          2: () => this.pauseAnimation(250),
           5: () => this.aoeAttack(-40, 0, 100, 120, 1, players),
-          6: () => this.animationPaused = true && setTimeout(() => this.animationPaused = false, 200),
-        }
+          6: () => this.pauseAnimation(150),
+        },
       },
       jump: {
         animation: 'demonBossAttack3',
-        frames: 8,
+        frames: 4,
+        frameX: 0,
+        frameRate: .12,
         transition: 'jumpWait',
         onEnterFrame: {
-          0: () => rubberBand(300, x => this.scaleY = lerp(1, .5, x ** 0.4)),
-          4: () => applyOverTime(300, (x, dt) => this.y -= 2 * x * dt),
-          6: () => applyOverTime(500, (x,dt) => this.gravityForce -= this.gravityForce * .1 * dt)
+          0: () => {
+            const startY = this.y, endY = startY + this.h;
+            this.attack = [rubberBand(600, x => {
+              this.scaleY = lerp(1, .5, x ** .25);
+              this.y = lerp(startY, endY, x ** .25);
+            })];
+            this.pauseAnimation(200);
+          },
+          2: () => {
+            this.animationPaused = true;
+            this.attack.push(applyOverTime(1200, (x, dt) => {
+              this.x += dt * (this.hitbox.cx > mario.hitbox.cx ? -1 : 1) * .1;
+              this.y -= (.1 + (.4 * ((1 - x) ** 1.2) )) * dt;
+              this.gravityForce = this.gravityForce.moveTowards(0, this.gravityForce * (.15 + x * .35) * dt);
+            }, () => this.animationPaused = false));
+          },
+        },
+        onExit: () => {
+          this.attack?.forEach?.(attack => attack.running && attack.stop());
+          this.attack = null;
+          this.scaleY = 1;
         }
       },
       jumpWait: {
         animation: 'demonBossAttack3',
-        frameX: 2,
-        frames: 1,
-        transition: () => this.isGrounded && 'idle'
+        frameX: 3,
+        frames: 3,
+        frameRate: .03,
+        onEveryFrame: (dt) => {
+          if(this.animationPaused) return this.frameCount += (dt * .1) % 3;
+          this.x += dt * (this.hitbox.cx > mario.hitbox.cx ? -1 : 1) * .4;
+          if(!this.isGrounded) return;
+          this._hitbox = null
+          this.aoeAttack(0, this.hitbox.h * .5, this.hitbox.w * 2.25, this.hitbox.h * .5, 1, players);
+          Particle.spawn('basicExplosion', this.hitbox.cx, this.hitbox.cy + this.hitbox.h * .3)
+          this.pauseAnimation(300)
+            .then(() => this.startAnimation('idle'));
+          
+        }
+      },
+      dive: {
+        animation: 'demonBossAttack1',
+        frameX: -4,
+        frames: 4,
+        transition: 'idle',
+        onEnterFrame: {
+          2: () => {
+            this.animationPaused = true;
+            this.attack = rubberBand(300, x => {
+              this.scaleY = lerp(1, .75, x ** .1);
+            }, () => {
+              const endPos = this.x - 400 * this.direction, startPos = this.x;
+              this.attack =  applyOverTime(1200, x => {
+                x.between(.25, .94) && this.aoeAttack(-20, 0, this.hitbox.w * .75, this.hitbox.h , .5, players);
+                this.x = lerp(startPos, endPos + 100 * this.direction * x, (x ** 3.2));
+              },()=> this.attack = null || (this.animationPaused = false));
+            });
+          }
+        },
+        onExit: cancelled => {
+          this.scaleY = 1;
+          if(this.attack?.running && cancelled){
+            this.animationPaused = false;
+            this.attack.stop();
+          }
+        }
       }
     }
   }
@@ -111,7 +170,7 @@ export default class Boss extends Enemy{
     this.h = this.originalH + this.breathe.value;
     if(this.breathe.direction === -1) this.y -= deltaSize;
 
-    if(this.isOffstage){
+    if(this.isOffstage && !this.inAnimation('jump','jumpWait')){
       this.chargeToCenter();
     }
     if(this.animation === 'run'){
@@ -127,7 +186,7 @@ export default class Boss extends Enemy{
   startAnimation(animation){
     if((this.animation === 'run' && animation === 'hurt') || 
     (animation === 'hurt' && this.animation !== 'idle' && prob(10 / this.weight))) return;
-    Enemy.prototype.startAnimation.call(this, animation)
+    Enemy.prototype.startAnimation.apply(this, arguments)
   }
   chargeToCenter(){
     this.startAnimation('run');
@@ -140,7 +199,7 @@ window.Boss = Boss;
 fetch('./../img/bosses.json')
   .then(res => res.json())
   .then(bossJson => {
-    Boss.atlas.addImagesFromJson(bossJson, Boss.img, str => camelCaser(str.replace(/^attack\d+_(\d+_*)*\d*/i,''), true));
+    Boss.atlas.addImagesFromJson(bossJson, Boss.img, str => camelCaser(str.replace(/^attack\d+_(\d+_*)*\d*/i,''), ' _'));
     Object.keys(Boss.atlas.images).forEach(img => {
       Boss.atlas.images[img].frameW = img.match(/mage/i) ? 64 : 96;
       Boss.atlas.images[img].frameH = img.match(/mage/i) ? 64 : 96;

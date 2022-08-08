@@ -1,4 +1,4 @@
-import { canvas, updateScore, isColliding, coin, coinSFX, applyOverTime, Random } from "./helper.js";
+import { canvas, updateScore, isColliding, coin, coinSFX, applyOverTime, Random, lerp } from "./helper.js";
 import StageObject from "./StageObject.js";
 import Fireball from "./Fireball.js";
 
@@ -19,9 +19,9 @@ export class Player extends StageObject{
   speed = 1.8;
   renderMethod = 'string';
   // explosive force of jump
-  jumpPower = 7;
+  jumpPower = 5;
   // how fast it tapers (bigger = faster)
-  jumpDamp = 1.9;
+  jumpDamp = 2;
   gravityRate = 0.05;
   up = false;
   down = false;
@@ -104,8 +104,17 @@ export class Player extends StageObject{
       startX: 4,
       startY: 0,
       frames: 4,
-      hitboxOffset: 0.85,
-      hitboxYOffset: 0.35
+      hitboxOffset: .7,
+      hitboxYOffset: .35,
+      tangible: false,
+      onEnterFrame: {
+        0: () => {
+          if(!this.animations.crouch.tangible) 
+            this.attack = applyOverTime(500, x => this.animations.crouch.hitboxOffset = lerp(1, .72, x ** 4))
+          this.animations.crouch.tangible = true;
+        }
+      },
+      onExit: () => this.animations.crouch.tangible = false || this.attack.stop() || (this.attack = null)
     },
     standup: {
       startX: 6,
@@ -136,7 +145,7 @@ export class Player extends StageObject{
           // this.jumpForce *= .4;
         },
         2: () => {
-          applyOverTime(125, (x, dt) => this.aoeAttack(40, 10, 120, 120, dt * Random.range(.06, .12)));
+          applyOverTime(125, (x, dt) => this.aoeAttack(40, -40, 125, 110, dt * Random.range(.06, .12)));
           // this.gravityForce *= .99;
         }
       },
@@ -155,6 +164,10 @@ export class Player extends StageObject{
         }
       }
     }
+  }
+  constructor(){
+    super();
+    this.img = Player.img;
   }
   get canAttack(){
     return this.inAnimation("idle", "run", "slide", "jump", "airborne", "crouch", 'doubleJump','land')
@@ -202,9 +215,8 @@ export class Player extends StageObject{
         this.jumping = true;
       }
       if(this.inAnimation('jump', 'doubleJump','swing')){
-        let newForce = (Math.pow(this.jumpDamp, -this.gravityForce) + 0.1) || 0;
-        this.jumpForce =
-        this.jumpPower * newForce;
+        let newForce = (Math.pow((100 - this.gravityForce * .4) / 100, this.jumpDamp) + .1) || .01;
+        this.jumpForce = this.jumpPower * newForce;
         this.y -= this.jumpForce * dt;
       }
     } else if (this.jumping) {
@@ -281,6 +293,8 @@ export class Player extends StageObject{
     }
   }
   takeDamage(attacker,damage){
-    console.log('ouch',attacker.name||attacker.constructor.name,'dealt',damage)
+    // console.log('ouch',attacker.name||attacker.constructor.name,'dealt',damage)
   }
 };
+Player.img = new Image();
+Player.img.src = "./img/adventurer-v1-5-Sheet.png";

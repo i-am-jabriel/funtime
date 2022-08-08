@@ -64,7 +64,7 @@ export default class Enemy extends StageObject {
     this.damageNumber.text = Math.ceil(this.damageNumber.value);
     if(prob(this.damageNumber.stagger += damage)){
       this.damageNumber.stagger = 0;
-      this.startAnimation('hurt');
+      this.startAnimation('hurt', true);
     }
     if(this.hasGravity && Math.floor(this.damageNumber.stagger) % 3 === 0){
       this.damageNumber.stagger++;

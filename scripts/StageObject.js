@@ -4,7 +4,7 @@ export default class StageObject {
   hitboxOffset = 1;
   gravityForce = 0;
   gravityRate = 0.05;
-  frameCount = -1;
+  frameCount = 0;
   frameRate = .14;
   lastFrame = -1;
   _direction = 1
@@ -15,13 +15,15 @@ export default class StageObject {
     if(!this.animations || !currentAnimation) return this;
     if (this._hitbox) return this._hitbox;
     const hitboxOffset = currentAnimation.hitboxOffset || this.hitboxOffset || 0;
-    const xOffset = this.w * (currentAnimation.hitboxXOffset || this.hitboxXOffset || 0) * this.direction;
-    const yOffset = this.h * (currentAnimation.hitboxYOffset || this.hitboxYOffset || 0);
+    const width = this.w * (this.scaleX || 1);
+    const height = this.h * (this.scaleY || 1);
+    const xOffset = width * (currentAnimation.hitboxXOffset || this.hitboxXOffset || 0) * this.direction;
+    const yOffset = height * (currentAnimation.hitboxYOffset || this.hitboxYOffset || 0);
     return Object.assign(this._hitbox = {
-      x: this.x + this.w * hitboxOffset * 0.5 + xOffset,
-      y: this.y + this.h * hitboxOffset * 0.5 + yOffset,
-      w: this.w - this.w * hitboxOffset,
-      h: this.h - this.h * hitboxOffset
+      x: this.x + width * hitboxOffset * 0.5 + xOffset,
+      y: this.y + height * hitboxOffset * 0.5 + yOffset,
+      w: width - width * hitboxOffset,
+      h: height - height * hitboxOffset
     },{
       cx: this._hitbox.x + this._hitbox.w * .5,
       cy: this._hitbox.y + this._hitbox.h * .5
@@ -40,8 +42,13 @@ export default class StageObject {
   inAnimation(...args) {
     return args.includes(this.animation);
   }
-  startAnimation(animation) {
+  startAnimation(animation, cancelled) {
     if(!this.animations?.[animation])return;
+    if(this.animationPaused) {
+      clearTimeout(this.animationPaused);
+      this.animationPaused = null;
+    }
+    this.currentAnimation.onExit?.(cancelled);
     this.animation = animation;
     this.frameCount = 0;
     this.lastFrame = -1;
@@ -51,33 +58,38 @@ export default class StageObject {
     this.onEnterFrame?.(dt);
     this.hasGravity && this.gravity(dt);
     const currentAnimation = this.currentAnimation;
-    let x = 0, y = 0,frameX = 0, frameY = 0, 
-      frameW = currentAnimation?.frameW || this.frameW,
-      frameH = currentAnimation?.frameH || this.frameH,
-      frameCountX = currentAnimation?.frameCountX || this.frameCountX,
-      frameRate = currentAnimation?.frameRate || this.frameRate || .15;
+    // let x = 0, y = 0,frameX = 0, frameY = 0, 
+    //   frameW = currentAnimation?.frameW || this.frameW,
+    //   frameH = currentAnimation?.frameH || this.frameH,
+    //   frameCountX = currentAnimation?.frameCountX || this.frameCountX,
+    //   frameRate = currentAnimation?.frameRate || this.frameRate || .15;
+    const frameData = Object.assign({x: 0, y: 0, frameX: 0, frameY: 0, frameW: 0, frameH: 0, frame:0}, 
+      this.objectFromKeys('frameCountX', 'frameW', 'frameH', 'frameRate'),
+      currentAnimation);
+    currentAnimation?.onEveryFrame?.(dt);
     if(this.atlas && (this.atlas.unpacked || this.atlasUnpacked)) {
       const ai = this.atlas.images[currentAnimation.animation];
-      if(!ai) return prob(5) && console.warn('invalid animation', this.atlas.images);
-      if(ai.x) x = ai.x;
+      if(!ai) return prob(5) && console.warn('invalid animation', this.name, currentAnimation.animation);
+      /*if(ai.x) x = ai.x;
       if(ai.y) y = ai.y;
       if(ai.frameH) frameH = ai.frameH;
       if(ai.frameW) frameW = ai.frameW;
       if(ai.frameCountX) frameCountX = ai.frameCountX;
-      if(ai.frameRate) frameRate = ai.frameRate;
+      if(ai.frameRate) frameRate = ai.frameRate;*/
+      Object.assign(frameData, ai);
     }
     if(this.animations){
-      if(!this.animationPaused) this.frameCount += dt * frameRate;
-      let frame = Math.floor(this.frameCount);
-      if (frame > this.lastFrame) {
-        for (let i = this.lastFrame + 1; i <= frame; i++) {
+      if(!this.animationPaused) this.frameCount += dt * frameData.frameRate;
+      frameData.frame = Math.floor(this.frameCount);
+      if (frameData.frame > this.lastFrame) {
+        for (let i = this.lastFrame + 1; i <= frameData.frame; i++) {
           currentAnimation.onEnterFrame?.[i]?.();
         }
-        this.lastFrame = frame;
+        this.lastFrame = frameData.frame;
       }
       if (this.frameCount >= currentAnimation.frames) {
         let transition = currentAnimation.transition;
-        if(typeof transition === 'function') transition = transition();
+        if(typeof transition === 'function') transition = transition(this);
         if(transition)
           this.startAnimation(transition);
         else {
@@ -85,12 +97,17 @@ export default class StageObject {
           this.lastFrame = -1;
         }
       }
-      frame = Math.floor(this.frameCount);
-      frameX += (currentAnimation.startX || 0) + frame;
-      if(frameCountX){
-        let offsetY = frameX < frameCountX - 1 ? 0 : Math.floor(frameX / frameCountX);
-        frameY += (currentAnimation.startY || 0) + offsetY;
-        frameX %= frameCountX;
+      frameData.frame = Math.max(Math.floor(this.frameCount),0);
+      if(currentAnimation.animations && this.atlas){
+        const ai = this.atlas.images[currentAnimation.animations[frameData.frame]];
+        if(!ai) return prob(5) && console.warn('invalid animation', this.name, currentAnimation.animations[frameData.frame], frameData.frame);
+        Object.assign(frameData, ai, { frameW: ai.width, frameH: ai.height });
+      }
+      if(frameData.frameCountX){
+        frameData.frameX += (currentAnimation.startX || 0) + frameData.frame;
+        let offsetY = frameData.frameX < frameData.frameCountX - 1 ? 0 : Math.floor(frameData.frameX / frameData.frameCountX);
+        frameData.frameY += (currentAnimation.startY || 0) + offsetY;
+        frameData.frameX %= frameData.frameCountX;
       }
     }
     if(debug){
@@ -109,8 +126,8 @@ export default class StageObject {
     context.save();
     const width = this.w * (this.scaleX || 1), halfW = width * .5;
     const height = this.h * (this.scaleY || 1), halfH = height * .5;
-    this.owner && console.log(width, height, frameCountX, frameX, frameY, frameW, frameH, frameRate);
     context.translate(this.x + halfW, this.y + halfH);
+    // context.translate(this.x,)
     context.fillStyle = this.color;
     if(this.renderMethod === 'rect') context.fillRect(-halfW, -halfH, width, height);
     if(this.renderMethod === 'circle') {
@@ -121,8 +138,14 @@ export default class StageObject {
     context.scale(this.direction, 1);
     if(this.rotation)
       context.rotate(this.rotation);
+    // this.name && prob(3) && console.log(frameData)
+    // if(Object.values(frameData).some(x => isNaN(x))){
+    //   console.warn(frameData, 'frame', frame)
+    //   debugger;
+    // }
+    this.img && this.name === 'basicExplosion' && this.debug && console.log(frameData)
     if(this.img) 
-      context.drawImage(this.img, x + frameX * frameW, y + frameY * frameH, frameW, frameH, -halfW, -halfH, width, height);
+      context.drawImage(this.img, frameData.x + frameData.frameX * frameData.frameW, frameData.y + frameData.frameY * frameData.frameH, frameData.frameW, frameData.frameH, -halfW, -halfH, width, height);
     if(this.text) {
       context.textAlign = 'center';
       context.font = `${this.fontSize}px ${this.font}`;
@@ -141,7 +164,9 @@ export default class StageObject {
     if(!w) damage = y;
     const hit = !!targets.filter((enemy) => isColliding(hitbox, enemy.hitbox || enemy) && enemy.takeDamage(this, damage)).length;
     if(debug) {
-      (this.debugAoe||=[]).push(hitbox);
+      // (this.debugAoe||=[]).push(hitbox);
+      !this.debugAoe && (this.debugAoe = []);
+      this.debugAoe.push(hitbox);
       hitbox.hit = hit;
       setTimeout(() => { 
         const index = this.debugAoe.indexOf(hitbox);
@@ -152,8 +177,9 @@ export default class StageObject {
   }
   gravity(dt) {
     // if mario is below the floor set him to the floor
-    if (this.y >= canvas.height - this.h && this.gravityForce >= 0) {
-      this.y = canvas.height - this.h;
+    const height = this.h * (this.scaleY || 1);
+    if (this.y >= canvas.height - height && this.gravityForce >= 0) {
+      this.y = canvas.height - height;
       if (this.animation === "wallSlide") this.direction *= -1;
       if (this.inAnimation('airborne', 'wallSlide')) this.startAnimation("land");
       this.isGrounded = true;
@@ -171,5 +197,9 @@ export default class StageObject {
   }
   getRotation(target){
     return Math.atan2(this.cy - target.cy, this.cx - target.cx);  
+  }
+  pauseAnimation(time) {
+    if(this.animationPaused) clearTimeout(this.animationPaused);
+    return new Promise(res => this.animationPaused = setTimeout(() => this.animationPaused = null || res(), time))
   }
 }

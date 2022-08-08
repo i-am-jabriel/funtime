@@ -14,7 +14,7 @@ export default class Fireball extends Particle {
   
   animations = {
     fireball: {
-      animation: '10FireBall/fire-ball',
+      animation: '10FireBallFireBall',
       startX: 1,
       startY: 0,
       frameW: 64,
@@ -61,9 +61,7 @@ export default class Fireball extends Particle {
     if (this.size <= 0) return this.destroy();
     const damp = 0.1 * dt * Math.pow(this.frames / this.maxFrames, 2);
     this.direction = 1;
-    Math.random() > .9 && console.log(this);
     enemies.forEach((enemy) => {
-
       if(isColliding(this.hitbox, enemy.hitbox) && enemy.takeDamage(this, this.damage * dt)){
         const size = ((enemy.hitbox.w * enemy.hitbox.h) ** .5);
         this.x = this.x.moveTowards(enemy.hitbox.cx - this.w * .5 + Random.range(-.2, .2) * size, dt * this.dx * 6 + dt + this.size * 4 * dt + 10 * dt);
@@ -89,7 +87,7 @@ export default class Fireball extends Particle {
       this.dx *= 0.8;
       this.size *= .9;
     }
-    if ((this.frames -= dt) <= 0 || Math.abs(this.dx) < .001 || this.size < .1) {
+    if (Math.abs(this.dx) < .001 || this.size < .1) {
       // this.frames <= 0 && console.log('out of frames');
       // Math.abs(this.dx) < .001 && console.log('too slow');
       // this.size < .1 && console.log('too small');
@@ -98,8 +96,5 @@ export default class Fireball extends Particle {
     }
     this.w = this.h = this.size;
     this.rotation = this.rotation.moveTowardsTheta(getTheta(this.dx, this.dy), .05 * dt);
-  }
-  destroy() {
-    render.splice(render.indexOf(this), 1);
   }
 }

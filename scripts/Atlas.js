@@ -10,7 +10,7 @@ export class Atlas {
     // Object.values(json).forEach(image => {
       // this.addImage(new AtlasImage())
       this.addImages(Object.keys(json.frames)
-          .reduce((a, c) => a.setProp((formatter ? formatter(c) : c).replace(/\..{3,4}$/, ''), new AtlasImage(json.frames[c].frame.x + 1, json.frames[c].frame.y + 1, json.frames[c].frame.w - 1, json.frames[c].frame.h - 1).setProp('img', img)), {}));
+          .reduce((a, c) => a.setProp((formatter ? formatter(c) : c).replace(/\..{3,4}$/, ''), new AtlasImage(json.frames[c].frame.x + 1, json.frames[c].frame.y + 1, json.frames[c].frame.w, json.frames[c].frame.h).setProp('img', img)), {}));
   // });
     console.log(this.images);
   }
