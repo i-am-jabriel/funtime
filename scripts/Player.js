@@ -1,4 +1,4 @@
-import { canvas, updateScore, isColliding, coin, coinSFX, applyOverTime, Random, lerp } from "./helper.js";
+import { canvas, updateScore, isColliding, coin, coinSFX, applyOverTime, Random, lerp, wait } from "./helper.js";
 import StageObject from "./StageObject.js";
 import Fireball from "./Fireball.js";
 
@@ -10,6 +10,8 @@ export class Player extends StageObject{
   hasGravity = true;
   drawX = 2;
   drawY = 4;
+  weight = .05;
+  health = new Range(-1, -1);
   name = 'mario';
   hitboxOffset = 0.3;
   turbo = false;
@@ -114,7 +116,7 @@ export class Player extends StageObject{
           this.animations.crouch.tangible = true;
         }
       },
-      onExit: () => this.animations.crouch.tangible = false || this.attack.stop() || (this.attack = null)
+      onExit: () => this.animations.crouch.tangible = false || this.attack?.stop?.() || (this.attack = null)
     },
     standup: {
       startX: 6,
@@ -163,6 +165,12 @@ export class Player extends StageObject{
           setInterval(()=> this.canFireball = true, 750);
         }
       }
+    },
+    hurt: {
+      startX: 3,
+      startY: 8,
+      frames: 4,
+      transition: 'idle',
     }
   }
   constructor(){
@@ -293,7 +301,12 @@ export class Player extends StageObject{
     }
   }
   takeDamage(attacker,damage){
-    // console.log('ouch',attacker.name||attacker.constructor.name,'dealt',damage)
+    console.log('ouch',attacker.name||attacker.constructor.name,'dealt',damage);
+    StageObject.prototype.takeDamage.apply(this, arguments);
+    this.startAnimation('hurt', true);
+    this.intangible = true;
+    (this.intangibleTimer ||= new Range(0, 2)).value = 0;
+    wait(2500).then(() => this.intangible = false);
   }
 };
 Player.img = new Image();

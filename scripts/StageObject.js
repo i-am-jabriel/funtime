@@ -1,4 +1,4 @@
-import { canvas, debug, context, enemies, isColliding, prob } from "./helper.js";
+import { canvas, debug, context, enemies, isColliding, prob, Random, applyOverTime, updateScore } from "./helper.js";
 
 export default class StageObject {
   hitboxOffset = 1;
@@ -10,6 +10,7 @@ export default class StageObject {
   _direction = 1
   get direction() { return this._direction * (this.inverseDirection ? -1 : 1)};
   set direction(value) { this._direction = value; }
+  get canBeAttacked() { return !this.intangible && this.hitBoxOffset !== 0; }
   get hitbox() {
     const currentAnimation = this.currentAnimation;
     if(!this.animations || !currentAnimation) return this;
@@ -67,6 +68,12 @@ export default class StageObject {
       this.objectFromKeys('frameCountX', 'frameW', 'frameH', 'frameRate'),
       currentAnimation);
     currentAnimation?.onEveryFrame?.(dt);
+    if(this.intangible){
+      this.intangibleTimer ||= new Range(0, 2);
+      this.intangibleTimer.value += dt * .1;
+      if(this.intangibleTimer.value >= 1) this.intangibleTimer.value %= 1;
+      if(this.intangibleTimer.value > .5) return;
+    }
     if(this.atlas && (this.atlas.unpacked || this.atlasUnpacked)) {
       const ai = this.atlas.images[currentAnimation.animation];
       if(!ai) return prob(5) && console.warn('invalid animation', this.name, currentAnimation.animation);
@@ -160,9 +167,13 @@ export default class StageObject {
     context.restore();
   }
   aoeAttack(x, y, w, h, damage, targets = enemies) {
-    const hitbox = w ? {x: this.hitbox.cx + this.direction * x + (this.direction === 1 ? -w * .5 - this.hitbox.w * .5  : -w * .5 + this.hitbox.w * .5), y: this.hitbox.cy + y - h * .5, w, h} : x;
-    if(!w) damage = y;
-    const hit = !!targets.filter((enemy) => isColliding(hitbox, enemy.hitbox || enemy) && enemy.takeDamage(this, damage)).length;
+    let hitbox = x;
+    if(Number(x) === x) hitbox = {x: this.hitbox.cx + this.direction * x + (this.direction === 1 ? -w * .5 - this.hitbox.w * .5  : -w * .5 + this.hitbox.w * .5), y: this.hitbox.cy + y - h * .5, w, h};
+    else {
+      damage = y;
+      targets = w || enemies;
+    }
+    const hit = !!targets.filter((enemy) => enemy.canBeAttacked && isColliding(hitbox, enemy.hitbox || enemy) && enemy.takeDamage(this, damage)).length;
     if(debug) {
       // (this.debugAoe||=[]).push(hitbox);
       !this.debugAoe && (this.debugAoe = []);
@@ -201,5 +212,48 @@ export default class StageObject {
   pauseAnimation(time) {
     if(this.animationPaused) clearTimeout(this.animationPaused);
     return new Promise(res => this.animationPaused = setTimeout(() => this.animationPaused = null || res(), time))
+  }
+  async takeDamage(attacker, damage) {
+    if(!this.health) return;
+    this.health.value -= damage;
+    if(this.damageNumber){
+      this.damageNumber.reset(this.cx, this.cy);
+      clearTimeout(this.damageNumber.timer);
+    } else {
+      if(!StageObject.DamageNumber) {
+        const DamageNumber = await import('./DamageNumber.js');
+        StageObject.DamageNumber = DamageNumber.default;
+      }
+      this.damageNumber = new StageObject.DamageNumber(damage, this.cx, this.cy);
+      this.damageNumber.stagger = 0;
+    }
+    this.damageNumber.value += damage;
+    this.damageNumber.text = Math.ceil(this.damageNumber.value);
+    if(prob(this.damageNumber.stagger += damage)){
+      this.damageNumber.stagger = 0;
+      this.startAnimation('hurt', true);
+    }
+    if(this.hasGravity && Math.floor(this.damageNumber.stagger) % Math.round(5 * this.weight) === 0){
+      this.damageNumber.stagger++;
+      const theta = attacker.rotation || this.getRotation(attacker);
+      const weight = 1 / (this.weight ** .3);
+      const time = (Random.range(40, 70) * damage * weight) ** .3 + Random.range(80, 200) + 60 * weight;
+      applyOverTime(time, (x, dt) => {
+        const forceX = damage * .06 * Math.cos(theta) / this.weight * (x * .5 + .5);
+        const forceY = damage * .08 * Math.sin(theta) / this.weight * (x * .5 + .5) - Random.range(.003, .005);
+        this.gravityForce -= this.gravityForce * dt * .0003 * x * weight;
+        this.x += forceX * dt;
+        this.y += forceY * dt;
+      });
+    }
+    this.damageNumber.timer = setTimeout(() => {
+      this.damageNumber = null;
+    }, 250);
+    if(this.health.vMax === 0){
+      this.destroy();
+      updateScore(5);
+      return false;
+    }
+    return true;
   }
 }

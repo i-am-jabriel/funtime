@@ -1,8 +1,8 @@
-import { Atlas } from "./Atlas.js";
-import Enemy from "./Enemy.js";
-import { canvas, camelCaser, Range, prob, players, rubberBand, applyOverTime, lerp } from "./helper.js";
-import { Particle } from "./Particle.js";
-// import bossJson from '../img/bosses-0.json';
+import { Atlas } from "../Atlas.js";
+import Enemy from "../Enemy.js";
+import { canvas, camelCaser, Range, prob, players, rubberBand, applyOverTime, lerp, wait } from "../helper.js";
+import { Particle } from "../Particle.js";
+import Spike from "./Demon/Spike.js";
 
 export default class Boss extends Enemy{
   static atlas = new Atlas();
@@ -31,7 +31,7 @@ export default class Boss extends Enemy{
     this.action = 0;
     this.actionRate = .8;
     this.actionRate = 8;
-    this.attacks = ['swing', 'stomp', 'jump','dive'];//, ...Array.from(new Array(10) ,() => 'dive')];
+    this.attacks = ['swing', 'stomp', 'jump','dive']//, ...Array.from(new Array(10) ,() => 'stomp')];
     this.inverseDirection = true;
     this.animations = {
       idle: {
@@ -58,19 +58,17 @@ export default class Boss extends Enemy{
       },
       stomp: {
         animation: 'demonBossAttack1',
-        frameX: -2,
+        frameX: -1,
         frames: 4,
         frameRate: .07,
+        transition: 'idle',
         onEnterFrame: {
-          3: () => this.stompPending = setTimeout(() => this.stompPending = null, 2000)
-        },
-        transition: () => {
-          if(this.stompPending){
-            this.frameCount = 3;
-            return;
+          3: async () => {
+            this.pauseAnimation(2000);
+            await wait(250);
+            this.animationPaused && Spike.spawn(this);
           }
-          return 'idle';
-        }
+        },
       },
       swing: {
         animation: 'demonBossAttack2',

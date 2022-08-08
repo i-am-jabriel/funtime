@@ -1,5 +1,7 @@
 export const render = [];
 
+export const wait = ms => new Promise(res => setTimeout(res, ms));
+
 Object.defineProperty(Object.prototype, 'extend', {
   value: function(data, soft){ 
       for(let key in data){
@@ -153,7 +155,7 @@ Array.prototype.extend({
   }
 });
 
-export let debug = true;
+export let debug = false;
 export let playing = true;
 export const players = [];
 export const setPlaying = n => playing = n;

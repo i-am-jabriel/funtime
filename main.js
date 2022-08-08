@@ -1,4 +1,4 @@
-import Boss from "./scripts/Boss.js";
+import Boss from "./scripts/Boss/Boss.js";
 import DamageNumber from "./scripts/DamageNumber.js";
 import Enemy from "./scripts/Enemy.js";
 import { render, canvas, context, coin, playing, setPlaying, debug, players} from "./scripts/helper.js";

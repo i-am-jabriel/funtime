@@ -29,6 +29,12 @@ export class Particle extends StageObject{
         // renderMethod: 'rect',
         // color: 'blue'
       }
+    },
+    spike: {
+      animation:'6SpikesSpikes',
+      frameW: 66,
+      frames: 10,
+      transition: obj => obj.w = 0 || obj.destroy()
     }
   }
 
@@ -39,8 +45,8 @@ export class Particle extends StageObject{
     render.splice(render.indexOf(this), 1);
   }
 
-  static spawn(name, x, y){
-    let particle = new Particle({
+  static spawn(name, x, y, type = Particle){
+    let data = Object.assign({
       name,
       x,
       y,
@@ -48,8 +54,12 @@ export class Particle extends StageObject{
       atlas: Particle.atlas,
       animations: Particle.animations,
       animation: name,
-      ...(Particle.animations[name]?.data || {})
-    });
+    }, Particle.animations[name]?.data)
+    if(typeof x === 'object') {
+      Object.assign(data, x);
+      type = y || Particle;
+    }
+    let particle = new type(data);
     particle.x -= particle.w * .5;
     particle.y -= particle.h * .5;
     // if(prob(1)) particle.debug = true;
