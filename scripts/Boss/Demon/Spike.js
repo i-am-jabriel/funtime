@@ -3,13 +3,13 @@ import { Particle } from "../../Particle.js";
 
 export default class Spike extends Particle{
   static async spawn(owner){
-    const count = 12, start = owner.hitbox.cx - 50 * owner.direction, end = owner.hitbox.cx - 450 * owner.direction;
+    const count = 12, start = owner.hitbox.cx - 50 * owner.direction, end = owner.hitbox.cx - 500 * owner.direction;
     for(let i = 0; i < count; i++){
       Particle.spawn('Spike', {
         owner,
         x: lerp(start, end, i / count),
         y: canvas.height - 25,
-        w: 50,
+        w: 65,
         h: 50,
         frameW: 66,
         frameH: 27,
@@ -31,9 +31,8 @@ export default class Spike extends Particle{
   onEnterFrame(dt){
     Particle.prototype.onEnterFrame.apply(this, arguments);
     this.frameRate += .001 * dt;
-    this.h += 5 * this.frameRate * dt;
-    this.y -= 5 * this.frameRate * dt;
-    this.w = 50;
+    this.h += 22 * this.frameRate * dt;
+    this.y -= 22 * this.frameRate * dt;
     if(this.frameCount > 4 && !this.exploded){
       this.owner.aoeAttack(this, 1, players);
       this.exploded = true;

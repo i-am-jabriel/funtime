@@ -14,7 +14,8 @@ window.mario = mario;
 
 window.boss = new Boss('Ogre');
 
-setInterval(() => new Enemy, 2000);
+// setInterval(() => new Enemy, 2000);
+setInterval(() => new Enemy, 20000);
 
 canvas.imageSmoothingEnabled = false;
 

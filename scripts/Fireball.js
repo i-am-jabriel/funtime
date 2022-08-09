@@ -10,16 +10,19 @@ export default class Fireball extends Particle {
   renderMethod = 'circle';
   color = 'rgba(251, 192, 147, .03)'
   atlasUnpacked = true;
-  frameRate = 2;
+  frameRate = .5;
+  name = 'fireball'
   
   animations = {
     fireball: {
       animation: '10FireBallFireBall',
-      startX: 1,
+      startX: 0,
       startY: 0,
-      frameW: 64,
-      frameH: 25,
-      frames: 4,
+      frameW: 67,
+      frameH: 28,
+      frameCountX: 100,
+      frames: 6,
+
       // frameCountX: 3
     }
   }
@@ -42,10 +45,10 @@ export default class Fireball extends Particle {
     // this.dx = (8 - (6 * (mario.up || mario.down) *  (i - 4) / 4)) * (-mario.left * mario.right || (((mario.up || mario.down) ? (mario.left || mario.right) : 1) * mario.direction));
     // this.dy = -mario.up * 8 + mario.down * 6 + 1 * (i - 4) * (!mario.up && !mario.down);
     this.dx = 10 * Math.cos(theta) + 5 * ratio;
-    this.dy = 12 * Math.sin(-theta) - (10 * ratio) * !(owner.up || owner.down) + owner.gravityForce * .05 - owner.jumpForce * .1;
+    this.dy = 12 * Math.sin(-theta) - (10 * ratio) * !(owner.up || owner.down) + owner.gravityForce * .05 - owner.jumpPower.value * .1;
     this.direction = this.dx / Math.abs(this.dx);
     this.rotation = getTheta(this.dx, this.dy,1);
-    this.size = 40;
+    this.size = 50;
     this.dSize = 0.18;
     this.frames = 144;
     this.maxFrames = 144;
@@ -69,7 +72,7 @@ export default class Fireball extends Particle {
         this.dx -= .3 * this.dx * dt - .4 * this.direction * dt;
         this.dy -= .3 * this.dy * dt - .4 * this.dy / Math.abs(this.dy) * dt;
         this.size += .005 * this.size * dt - .22 * dt + .18 * (1 - damp);
-        this.damage -= 250 * this.damage * (1 - damp) - .008  * this.size * dt - this.damage * dt * .02 * this.size + this.damage * dt * .05;
+        this.damage -= 250 * this.damage * (1 - damp) - .004  * this.size * dt - this.damage * dt * .01 * this.size + this.damage * dt * .05;
         this.damage = Math.max(this.damage, .001);
         this.size = Math.max(this.size, .01);
         if(prob(this.size * .5 * this.damage)){
@@ -95,6 +98,6 @@ export default class Fireball extends Particle {
       return this.destroy();
     }
     this.w = this.h = this.size;
-    this.rotation = this.rotation.moveTowardsTheta(getTheta(this.dx, this.dy), .05 * dt);
+    this.rotation = this.rotation.moveTowardsTheta(getTheta(this.dx, this.dy), .01 * dt);
   }
 }

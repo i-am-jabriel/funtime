@@ -1,6 +1,7 @@
-import { canvas, updateScore, isColliding, coin, coinSFX, applyOverTime, Random, lerp, wait } from "./helper.js";
-import StageObject from "./StageObject.js";
-import Fireball from "./Fireball.js";
+import { canvas, updateScore, isColliding, coin, coinSFX, applyOverTime, Random, lerp, wait, Range } from './helper.js';
+import StageObject from './StageObject.js';
+import Fireball from './Fireball.js';
+import HUD from './UI/HUD.js';
 
 export class Player extends StageObject{
   x = 200;
@@ -10,21 +11,20 @@ export class Player extends StageObject{
   hasGravity = true;
   drawX = 2;
   drawY = 4;
-  weight = .05;
+  weight = .3;
   health = new Range(-1, -1);
   name = 'mario';
   hitboxOffset = 0.3;
   turbo = false;
   direction = 1;
   gravityForce = 0;
-  color = "rgba(255, 100, 0, 0.05)";
-  speed = 1.8;
+  color = 'rgba(255, 100, 0, 0.05)';
+  speed = 1.9;
   renderMethod = 'string';
   // explosive force of jump
-  jumpPower = 5;
+  jumpPower = new Range(0, 8.8, 0);
   // how fast it tapers (bigger = faster)
-  jumpDamp = 2;
-  gravityRate = 0.05;
+  jumpDamp = .16;
   up = false;
   down = false;
   left = false;
@@ -33,15 +33,13 @@ export class Player extends StageObject{
   doubleJump = true;
   canJump = true;
   // current jump velocity
-  jumpForce = 0;
-  animation = "idle";
+  animation = 'idle';
   canFireball = true;
-  wallSlideJumpDamp = 0.15;
-  wallSlideJumpFlatDamp = 0.1;
+  wallSlideJumpDamp = 0.12;
+  wallSlideJumpFlatDamp = 0.08;
   wallSlideDamp = 0.05;
   wallSlideJumpMomentumRatio = 0.15;
   isGrounded = false;
-  gravityForce = 0;
   frameW = 50;
   frameH = 37;
   frameCountX = 7;
@@ -65,7 +63,7 @@ export class Player extends StageObject{
       startY: 2,
       frames: 4,
       hitboxOffset: 0.5,
-      transition: "airborne"
+      transition: 'airborne'
     },
     airborne: {
       startX: 1,
@@ -77,14 +75,14 @@ export class Player extends StageObject{
       startX: 2,
       startY: 2,
       frames: 8,
-      transition: "airborne",
+      transition: 'airborne',
       hitboxOffset: 0.8
     },
     land: {
       startX: 0,
       startY: 2,
       frames: 2,
-      transition: "idle",
+      transition: 'idle',
       hitboxOffset: 0.65,
       hitboxYOffset: 0.05
     },
@@ -92,7 +90,7 @@ export class Player extends StageObject{
       startX: 3,
       startY: 3,
       frames: 5,
-      transition: "run",
+      transition: 'run',
       hitboxOffset: 0.8,
       hitboxYOffset: 0.3
     },
@@ -124,27 +122,28 @@ export class Player extends StageObject{
       frames: 3,
       hitboxOffset: 0.75,
       hitboxYOffset: 0.3,
-      transition: "idle"
+      transition: 'idle'
     },
     swing: {
       startX: 4,
       startY: 13,
       frames: 5,
+      frameRate: .2,
       hitboxXOffset: -.3,
       hitboxYOffset: 0.2,
       hitboxOffset: .7,
       onEnterFrame: {
         0: () => {
-          let force = .4 * this.direction;
+          let force = .5 * this.direction;
           applyOverTime(300, (x, dt) => {
             if(this.left || this.right) this.x += force * ((1-x) ** 1.4) * dt;
             // this.gravityForce -= .001 * dt;
             this.gravityForce -=  this.gravityForce * .003 * dt * x;
-            if(this.jumpForce > .1) this.jumpForce -= this.jumpForce * .4 * dt;
-            else this.jumpForce = 0;
+            // if(this.jumpPower.value > .1) this.jumpPower.value -= this.jumpPower.value * .4 * dt;
+            // else this.jumpPower.value = 0;
           });
           // this.gravityForce *= .99;
-          // this.jumpForce *= .4;
+          // this.jumpPower.value *= .4;
         },
         2: () => {
           applyOverTime(125, (x, dt) => this.aoeAttack(40, -40, 125, 110, dt * Random.range(.06, .12)));
@@ -178,10 +177,10 @@ export class Player extends StageObject{
     this.img = Player.img;
   }
   get canAttack(){
-    return this.inAnimation("idle", "run", "slide", "jump", "airborne", "crouch", 'doubleJump','land')
+    return this.inAnimation('idle', 'run', 'slide', 'jump', 'airborne', 'crouch', 'doubleJump','land')
   }
   onEnterFrame(dt) {
-    if ((!this.left && !this.right) || this.animation === "crouch") {
+    if ((!this.left && !this.right) || this.animation === 'crouch') {
       if (this.turboTimeout && !this.turbo) clearInterval(this.turboTimeout);
       this.moving = false;
       this.turboTimeout = null;
@@ -196,26 +195,26 @@ export class Player extends StageObject{
     }
     if (this.jumping && !this.jump && !this.up) {
       this.jumping = false;
-      if (this.animation === "jump") this.startAnimation("airborne");
-      this.jumpForce = 0;
+      if (this.animation === 'jump') this.startAnimation('airborne');
+      this.jumpPower.value = 0;
     }
-    if (this.moving && this.animation === "idle") this.startAnimation("run");
-    if (!this.moving && this.animation === "run")
-      this.startAnimation("idle");
+    if (this.moving && this.animation === 'idle') this.startAnimation('run');
+    if (!this.moving && this.animation === 'run')
+      this.startAnimation('idle');
     if (
       (this.up || this.jump) &&
       (this.canJump || this.jumping || this.wallJump || this.doubleJump) &&
-      this.animation !== "wallSlide"
+      this.animation !== 'wallSlide'
     ) {
-      if (!this.jumping && this.canAttack) {
+      if (!this.jumping && (this.canAttack || this.animation === 'swing')) {
         this.startAnimation(
-          this.canJump || this.wallJump ? "jump" : "doubleJump"
+          this.canJump || this.wallJump ? 'jump' : 'doubleJump'
         );
-        if (this.animation === "doubleJump"){
+        if (this.animation === 'doubleJump'){
           this.doubleJump = false;
-          this.gravityForce *= 0.1;
+          this.gravityForce *= 0.3;
         }
-        this.jumpForce = 0;
+        this.jumpPower.value = this.jumpPower.max;
         this.canJump = false;
         // this.jumping = setTimeout(()=> {
         //   this.jumping = false;
@@ -223,26 +222,27 @@ export class Player extends StageObject{
         this.jumping = true;
       }
       if(this.inAnimation('jump', 'doubleJump','swing')){
-        let newForce = (Math.pow((100 - this.gravityForce * .4) / 100, this.jumpDamp) + .1) || .01;
-        this.jumpForce = this.jumpPower * newForce;
-        this.y -= this.jumpForce * dt;
+        // let newForce = (Math.pow((100 - this.gravityForce * .4) / 100, this.jumpDamp) + .1) || .01;
+        this.jumpPower.value -= this.jumpDamp * dt;
+        this.y -= this.jumpPower.value * dt;
+        this.gravityForce -= (1 / this.jumpDamp) * dt * .004;
       }
     } else if (this.jumping) {
       // this.gravityForce *= .2;
       this.jumping = false;
-      // this.jumpForce = 0;
+      // this.jumpPower.value = 0;
     }
     if (this.down) {
       if (!this.isGrounded) this.y += this.speed * dt;
       else if (this.turbo) {
         this.turbo = false;
-        this.startAnimation("slide");
+        this.startAnimation('slide');
       } else if (!this.inAnimation('slide', 'swing','crouch','fireball')) {
-          this.startAnimation("crouch");
+          this.startAnimation('crouch');
       }
     }
-    if (this.animation === "crouch" && !this.down) {
-      this.startAnimation("standup");
+    if (this.animation === 'crouch' && !this.down) {
+      this.startAnimation('standup');
     }
     if (this.left) {
       if (this.moving) this.x -= this.speed * dt * (this.turbo ? 1.33 : 1);
@@ -252,10 +252,10 @@ export class Player extends StageObject{
       if (this.moving) this.x += this.speed * dt * (this.turbo ? 1.33 : 1);
       this.direction = 1;
     }
-    if (this.animation === "slide")
+    if (this.animation === 'slide')
       this.x += this.speed * dt * this.direction;
     if (this.swing && this.canAttack ){
-      this.startAnimation("swing");
+      this.startAnimation('swing');
     }
     if (this.fireball && this.canFireball && this.canAttack)
       this.startAnimation('fireball');
@@ -280,23 +280,23 @@ export class Player extends StageObject{
       this.x = wall;
       this.isOnWall = true;
       this.gravityForce -= this.wallSlideDamp * this.gravityForce * dt;
-      if (this.jumpForce) {
-        this.jumpForce -=
-          this.wallSlideJumpFlatDamp * dt * this.jumpForce +
+      if (this.jumpPower.value) {
+        this.jumpPower.value -=
+          this.wallSlideJumpFlatDamp * dt * this.jumpPower.value +
           this.wallSlideJumpDamp * dt;
         this.gravityForce -=
-          this.jumpForce * dt * this.wallSlideJumpMomentumRatio;
-        if (this.jumpForce < 0.1) this.jumpForce = 0;
+          this.jumpPower.value * dt * this.wallSlideJumpMomentumRatio;
+        if (this.jumpPower.value < 0.1) this.jumpPower.value = 0;
       }
-      if (!this.inAnimation("wallSlide", "idle", "run", "land"))
-        this.startAnimation("wallSlide");
+      if (!this.inAnimation('wallSlide', 'idle', 'run', 'land'))
+        this.startAnimation('wallSlide');
     } else if (this.isOnWall) {
       this.canJump = true;
       this.isOnWall = false;
       this.wallJump = true;
       this.doubleJump = true;
       this.gravityForce *= 0.1;
-      if (this.animation === "wallSlide") this.startAnimation("airborne");
+      if (this.animation === 'wallSlide') this.startAnimation('airborne');
       setTimeout(() => (this.wallJump = false), 350);
     }
   }
@@ -310,4 +310,4 @@ export class Player extends StageObject{
   }
 };
 Player.img = new Image();
-Player.img.src = "./img/adventurer-v1-5-Sheet.png";
+Player.img.src = './img/adventurer-v1-5-Sheet.png';

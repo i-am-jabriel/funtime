@@ -2,10 +2,17 @@ body{
   margin: 0;
   overflow: hidden;
 }
-canvas{
+body .main-canvas{
   background: gray;
+  z-index: 0;
+}
+canvas{
   height: 100vh;
   width: 100vw;
+  top:0;
+  left:0;
+  position: absolute;
+  z-index: 1;
 /*   width: 100vw; */
 /*   overflow: hidden; */
 /*   height: 0; */

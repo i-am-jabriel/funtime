@@ -1,4 +1,4 @@
-import { canvas, debug, context, enemies, isColliding, prob, Random, applyOverTime, updateScore } from "./helper.js";
+import { canvas, debug, context as mainContext, enemies, isColliding, prob, Random, applyOverTime, updateScore, lerp } from "./helper.js";
 
 export default class StageObject {
   hitboxOffset = 1;
@@ -9,7 +9,7 @@ export default class StageObject {
   lastFrame = -1;
   _direction = 1
   get direction() { return this._direction * (this.inverseDirection ? -1 : 1)};
-  set direction(value) { this._direction = value; }
+  set direction(value) { this._direction = value * (this.inverseDirection ? -1 : 1); }
   get canBeAttacked() { return !this.intangible && this.hitBoxOffset !== 0; }
   get hitbox() {
     const currentAnimation = this.currentAnimation;
@@ -58,6 +58,7 @@ export default class StageObject {
     this._hitbox = null;
     this.onEnterFrame?.(dt);
     this.hasGravity && this.gravity(dt);
+    const context = this.context || mainContext;
     const currentAnimation = this.currentAnimation;
     // let x = 0, y = 0,frameX = 0, frameY = 0, 
     //   frameW = currentAnimation?.frameW || this.frameW,
@@ -68,6 +69,20 @@ export default class StageObject {
       this.objectFromKeys('frameCountX', 'frameW', 'frameH', 'frameRate'),
       currentAnimation);
     currentAnimation?.onEveryFrame?.(dt);
+    if(debug){
+      if(this.hitbox && this.name){
+        context.fillStyle = "rgba(255, 255, 0, 0.1)";
+        context.fillRect(this.hitbox.x, this.hitbox.y, this.hitbox.w, this.hitbox.h);
+      }
+      if(this.debugAoe?.length){
+        const alpha = lerp(.25, .01, (((this.debugAoe.length - 1) / 12) ** 0.45).clamp(0, 1));
+        this.debugAoe.forEach(aoe => {
+          // const alpha = this.name !== 'mario' ? '.2' : '.01'
+          context.fillStyle = aoe.hit ? `rgba(0,255,0, ${alpha})` : `rgba(255, 0, 255, ${alpha})`;
+          context.fillRect(aoe.x, aoe.y, aoe.w, aoe.h);
+        });
+      }
+    }
     if(this.intangible){
       this.intangibleTimer ||= new Range(0, 2);
       this.intangibleTimer.value += dt * .1;
@@ -117,19 +132,6 @@ export default class StageObject {
         frameData.frameX %= frameData.frameCountX;
       }
     }
-    if(debug){
-      if(this.hitbox && this.name){
-        context.fillStyle = "rgba(255, 255, 0, 0.1)";
-        context.fillRect(this.hitbox.x, this.hitbox.y, this.hitbox.w, this.hitbox.h);
-      }
-      if(this.debugAoe?.length){
-        this.debugAoe.forEach(aoe => {
-          const alpha = this.name !== 'mario' ? '.2' : '.01'
-          context.fillStyle = aoe.hit ? `rgba(0,255,0, ${alpha})` : `rgba(255, 0, 255, ${alpha})`;
-          context.fillRect(aoe.x, aoe.y, aoe.w, aoe.h);
-        });
-      }
-    }
     context.save();
     const width = this.w * (this.scaleX || 1), halfW = width * .5;
     const height = this.h * (this.scaleY || 1), halfH = height * .5;
@@ -150,7 +152,6 @@ export default class StageObject {
     //   console.warn(frameData, 'frame', frame)
     //   debugger;
     // }
-    this.img && this.name === 'basicExplosion' && this.debug && console.log(frameData)
     if(this.img) 
       context.drawImage(this.img, frameData.x + frameData.frameX * frameData.frameW, frameData.y + frameData.frameY * frameData.frameH, frameData.frameW, frameData.frameH, -halfW, -halfH, width, height);
     if(this.text) {
@@ -168,12 +169,21 @@ export default class StageObject {
   }
   aoeAttack(x, y, w, h, damage, targets = enemies) {
     let hitbox = x;
-    if(Number(x) === x) hitbox = {x: this.hitbox.cx + this.direction * x + (this.direction === 1 ? -w * .5 - this.hitbox.w * .5  : -w * .5 + this.hitbox.w * .5), y: this.hitbox.cy + y - h * .5, w, h};
-    else {
+    if(Number(x) === x) {
+      this._hitbox = null;
+      hitbox = {
+        x: this.hitbox.cx + this.direction * x - w * .5,
+        y: this.hitbox.cy + y - h * .5,
+        w,
+        h
+      },
+      hitbox.cx = hitbox.x + hitbox.w * .5;
+      hitbox.cy = hitbox.y + hitbox.y * .5;
+  } else {
       damage = y;
       targets = w || enemies;
     }
-    const hit = !!targets.filter((enemy) => enemy.canBeAttacked && isColliding(hitbox, enemy.hitbox || enemy) && enemy.takeDamage(this, damage)).length;
+    const hit = !!targets.filter((enemy) => enemy.canBeAttacked && isColliding(hitbox, enemy.hitbox || enemy) && enemy.takeDamage(this, damage, hitbox)).length;
     if(debug) {
       // (this.debugAoe||=[]).push(hitbox);
       !this.debugAoe && (this.debugAoe = []);
@@ -207,13 +217,13 @@ export default class StageObject {
     this.wallCollision?.(dt);
   }
   getRotation(target){
-    return Math.atan2(this.cy - target.cy, this.cx - target.cx);  
+    return Math.atan2(this.hitbox.cy - target.hitbox?.cy || target.cy, this.hitbox.cx - target.hitbox?.cy || target.cy);  
   }
   pauseAnimation(time) {
     if(this.animationPaused) clearTimeout(this.animationPaused);
     return new Promise(res => this.animationPaused = setTimeout(() => this.animationPaused = null || res(), time))
   }
-  async takeDamage(attacker, damage) {
+  async takeDamage(attacker, damage, source) {
     if(!this.health) return;
     this.health.value -= damage;
     if(this.damageNumber){
@@ -228,19 +238,21 @@ export default class StageObject {
       this.damageNumber.stagger = 0;
     }
     this.damageNumber.value += damage;
-    this.damageNumber.text = Math.ceil(this.damageNumber.value);
-    if(prob(this.damageNumber.stagger += damage)){
+    this.damageNumber.text = this.damageNumber.value.between(0, 1) ? this.damageNumber.value.toFixed(1) : Math.round(this.damageNumber.value);
+    const weight = 4 / (this.weight ** .6);
+    if(prob(this.damageNumber.stagger += damage * weight * .1 )){
       this.damageNumber.stagger = 0;
-      this.startAnimation('hurt', true);
+      if(this.animation !== 'hurt') this.startAnimation('hurt', true);
     }
-    if(this.hasGravity && Math.floor(this.damageNumber.stagger) % Math.round(5 * this.weight) === 0){
+    if(this.hasGravity && (this.weight < 1 || !(Math.ceil(this.damageNumber.stagger) % Math.round(7 * this.weight).clamp(0, 20)))){
       this.damageNumber.stagger++;
+      // TODO: fix hitbox sourcing angels
+      // const theta = attacker.rotation || this.getRotation(source || attacker);
       const theta = attacker.rotation || this.getRotation(attacker);
-      const weight = 1 / (this.weight ** .3);
-      const time = (Random.range(40, 70) * damage * weight) ** .3 + Random.range(80, 200) + 60 * weight;
+      const time = (Random.range(40, 70) * damage * weight) ** .5 + Random.range(80, 200) + 60 * weight + 100;
+      const forceX = damage * .07 * Math.cos(theta) * weight;
+      const forceY = damage * .09 * Math.sin(theta) * weight - Random.range(.004, .006)
       applyOverTime(time, (x, dt) => {
-        const forceX = damage * .06 * Math.cos(theta) / this.weight * (x * .5 + .5);
-        const forceY = damage * .08 * Math.sin(theta) / this.weight * (x * .5 + .5) - Random.range(.003, .005);
         this.gravityForce -= this.gravityForce * dt * .0003 * x * weight;
         this.x += forceX * dt;
         this.y += forceY * dt;

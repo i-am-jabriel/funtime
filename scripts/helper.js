@@ -155,14 +155,15 @@ Array.prototype.extend({
   }
 });
 
-export let debug = false;
+export let debug = true;
 export let playing = true;
 export const players = [];
 export const setPlaying = n => playing = n;
 export const canvas = document.querySelector("canvas");
 export const camera = {x: 0, y:0}
-canvas.w = canvas.width * .95;
+canvas.w = canvas.width * .9;
 canvas.h = canvas.height * 1.2;
+canvas.x += canvas.width * .5;
 Object.assign(canvas, {
   get x(){ return camera.x },
   get y() { return camera.y }
@@ -187,7 +188,7 @@ export function applyOverTime(t,a,b) {
       count += dt;
       time = now;
       let val = Math.min(1,count/t);
-      a(val,dt);
+      a(val, dt);
       if(val === 1){
         f.running = false;
         if(b)b();
@@ -201,9 +202,9 @@ export function applyOverTime(t,a,b) {
 }
 //Apply Over Time Forwards and Backwards
 export function rubberBand(t, a, b){
-  return applyOverTime(t, x => {
-      if(x < .5) a(x * 2)
-      else a((1 - x)/.5, true);
+  return applyOverTime(t, (x, dt) => {
+      if(x < .5) a(x * 2, dt)
+      else a((1 - x)/.5, dt, true);
   } ,()=>{
       a(0, true);
       b?.();
@@ -287,12 +288,16 @@ Object.prototype.extend({
   },
   objectFromKeys(...args){
     return args.reduce((a,c) => this[c] !== undefined ? a.setProp(c, this[c]) : a , {});
+  },
+  copyValues(obj, ...properties){
+    properties.forEach(key => this[key] = obj[key]);
+    return this;
   }
 });
 
 // export const camelCaser = (str, proper) => str?.toLowerCase().replace(proper ? /[ _]+./ : / +./gi, x => x.toUpperCase().slice(-1));
 // export const camelCaser = (str, proper) => {
-export const camelCaser = (str, keys = ' ') => str?.toLowerCase().replace(new RegExp(`[${keys}]+.`,'gi'), x => x.toUpperCase().slice(-1));
+export const camelCaser = (str, keys = ' ') => str?.toLowerCase().replace(keys instanceof RegExp ? keys : new RegExp(`[${keys}]+.`,'gi'), x => x.toUpperCase().slice(-1));
   // return str?.toLowerCase().replace(proper ? /[ _]+./ : / +./gi, x => x.toUpperCase().slice(-1)).replace(proper ? /[ _]+./ : / +./gi, x => x.toUpperCase().slice(-1));
 // }
 
@@ -305,3 +310,12 @@ export function arrayFrom(a, b, pre='', post=''){
   }
   return output;
 }
+
+export const createContext = (parent = '.game-container') => {
+  const newCanvas = document.createElement('canvas');
+  parent = typeof parent === 'string' ? document.querySelector(parent) : parent;
+  parent.appendChild(newCanvas);
+  return newCanvas.getContext('2d');
+}
+
+export const newImage = (src) => { return new Image().setProp('src',src); }

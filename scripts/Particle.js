@@ -21,10 +21,10 @@ export class Particle extends StageObject{
         w: 150,
         h: 50,
         onEnterFrame(dt){
-          this.w += 2 * dt;
+          this.w += 4 * dt;
           this.h += 1 * dt;
           this.y -= .5 * dt;
-          this.x -= 1 * dt;
+          this.x -= 2 * dt;
         }
         // renderMethod: 'rect',
         // color: 'blue'
@@ -71,15 +71,10 @@ export class Particle extends StageObject{
 
 Particle.img.src = './../img/particles.png';
 window.Particle = Particle;
+Particle.atlas.fetchJsonAddImages('./../img/particles.json', Particle.img, str => camelCaser(str.replace(/png\//i, '').replace(/^attack\d+_\d+_*\d*/i,''), ' _/-'))
 
-fetch('./../img/particles.json')
-  .then(res => res.json())
-  .then(bossJson => {
-    Particle.atlas.addImagesFromJson(bossJson, Particle.img, str => camelCaser(str.replace(/png\//i, '').replace(/^attack\d+_(\d+_*)*\d*/i,''), ' _/-'));
-    
-    /*Object.keys(Particle.atlas.images).forEach(img => {
-      Particle.atlas.images[img].frameW = img.match(/mage/i) ? 64 : 96;
-      Particle.atlas.images[img].frameH = img.match(/mage/i) ? 64 : 96;
-      Particle.atlas.images[img].frameCountX = Particle.atlas.images[img].width / Boss.atlas.images[img].frameW;
-    })*/
-  });
+// Object.keys(Particle.atlas.images).forEach(img => {
+//   Particle.atlas.images[img].frameW = img.match(/mage/i) ? 64 : 96;
+//   Particle.atlas.images[img].frameH = img.match(/mage/i) ? 64 : 96;
+//   Particle.atlas.images[img].frameCountX = Particle.atlas.images[img].width / Boss.atlas.images[img].frameW;
+// })
