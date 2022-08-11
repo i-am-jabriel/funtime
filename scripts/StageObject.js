@@ -105,16 +105,16 @@ export default class StageObject {
       frameData.frame = Math.floor(this.frameCount);
       if (frameData.frame > this.lastFrame) {
         for (let i = this.lastFrame + 1; i <= frameData.frame; i++) {
-          currentAnimation.onEnterFrame?.[i]?.();
+          currentAnimation.onEnterFrame?.[i]?.call(this, this);
         }
         this.lastFrame = frameData.frame;
       }
       if (this.frameCount >= currentAnimation.frames) {
         let transition = currentAnimation.transition;
-        if(typeof transition === 'function') transition = transition(this);
+        if(typeof transition === 'function') transition = transition.call(this, this);
         if(transition)
           this.startAnimation(transition);
-        else {
+        else if(transition !== null){
           this.frameCount %= currentAnimation.frames;
           this.lastFrame = -1;
         }
@@ -122,7 +122,11 @@ export default class StageObject {
       frameData.frame = Math.max(Math.floor(this.frameCount),0);
       if(currentAnimation.animations && this.atlas){
         const ai = this.atlas.images[currentAnimation.animations[frameData.frame]];
-        if(!ai) return prob(5) && console.warn('invalid animation', this.name, currentAnimation.animations[frameData.frame], frameData.frame);
+        if(!ai) {
+          console.warn('invalid animation', this.name, currentAnimation.animations[frameData.frame], frameData.frame);
+          debugger;
+          return
+        }
         Object.assign(frameData, ai, { frameW: ai.width, frameH: ai.height });
       }
       if(frameData.frameCountX){
@@ -238,7 +242,7 @@ export default class StageObject {
       this.damageNumber.stagger = 0;
     }
     this.damageNumber.value += damage;
-    this.damageNumber.text = this.damageNumber.value.between(0, 1) ? this.damageNumber.value.toFixed(1) : Math.round(this.damageNumber.value);
+    this.damageNumber.text = this.damageNumber.value.between(0, 1) ? this.damageNumber.value.toFixed(2) : Math.round(this.damageNumber.value);
     const weight = 4 / (this.weight ** .6);
     if(prob(this.damageNumber.stagger += damage * weight * .1 )){
       this.damageNumber.stagger = 0;
@@ -253,9 +257,9 @@ export default class StageObject {
       const forceX = damage * .07 * Math.cos(theta) * weight;
       const forceY = damage * .09 * Math.sin(theta) * weight - Random.range(.004, .006)
       applyOverTime(time, (x, dt) => {
-        this.gravityForce -= this.gravityForce * dt * .0003 * x * weight;
-        this.x += forceX * dt;
-        this.y += forceY * dt;
+        this.gravityForce -= this.gravityForce * dt * .003 * x * weight;
+        this.x += forceX * dt * 10;
+        this.y += forceY * dt * 10;
       });
     }
     this.damageNumber.timer = setTimeout(() => {

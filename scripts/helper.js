@@ -152,12 +152,19 @@ Array.prototype.extend({
       if(!this.includes(element))return;
       this.remove(element);
       this.push(element);
+  },
+  lerp(v){
+    return this[this.lerpIndex(v)];
+  },
+  lerpIndex(v){
+    return Math.floor(lerp(0, this.length - 1, v));
   }
 });
 
 export let debug = true;
 export let playing = true;
 export const players = [];
+export const events = [];
 export const setPlaying = n => playing = n;
 export const canvas = document.querySelector("canvas");
 export const camera = {x: 0, y:0}
@@ -171,33 +178,40 @@ Object.assign(canvas, {
 export const context = canvas.getContext("2d");
 setTimeout(() => canvas.focus(), 200);
 
+
+// do this function every frame until a is false then run b
+export function doUntil(a, b) {
+  const f = dt => !a(dt) && f.stop();
+  f.extend({stop: () => {
+    f.running = false;
+    events.remove(f);
+    b?.();
+  }});
+  events.push(f);
+  f(0);
+  return f;
+}
+export const doUntilAsync = a => new Promise(res => doUntil(a, res))
+
 export const frameCount = new Range(0, 0);
 export function applyOverTime(t,a,b) {
   let count = 0
-  let time = 0;
-  let f = (now) => {
-      if(frameCount.value)return window.requestAnimationFrame(f);
-      // let now = Date.now();
-      if(!playing){
-          time = now;
-          return window.requestAnimationFrame(f);
-      }
-      if(!f.running) return;
-      if(!time) time = now;
-      let dt = now - time;
-      count += dt;
-      time = now;
+  let f = (dt) => {
+      count += dt * 10;
       let val = Math.min(1,count/t);
       a(val, dt);
       if(val === 1){
         f.running = false;
+        events.remove(f);
         if(b)b();
-      }else window.requestAnimationFrame(f);
+      }
+      //else window.requestAnimationFrame(f);
   }
   f.running = true;
-  f.extend({stop: () => f.running = false});
+  f.extend({stop: () => f.running = false || events.remove(f)});
   // f.stop = () => stop = true;
   f(0);
+  events.push(f);
   return f;
 }
 //Apply Over Time Forwards and Backwards
@@ -315,6 +329,7 @@ export const createContext = (parent = '.game-container') => {
   const newCanvas = document.createElement('canvas');
   parent = typeof parent === 'string' ? document.querySelector(parent) : parent;
   parent.appendChild(newCanvas);
+  newCanvas.copyValues(canvas, 'w','h','width','height');
   return newCanvas.getContext('2d');
 }
 

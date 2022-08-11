@@ -1,8 +1,8 @@
+import { Player } from "./scripts/Player.js";
 import Boss from "./scripts/Boss/Boss.js";
 import DamageNumber from "./scripts/DamageNumber.js";
 import Enemy from "./scripts/Enemy.js";
-import { render, canvas, context, coin, playing, setPlaying, debug, players} from "./scripts/helper.js";
-import { Player } from "./scripts/Player.js";
+import { render, canvas, context, coin, playing, setPlaying, debug, players, events} from "./scripts/helper.js";
 
 
 // create a mario object
@@ -42,6 +42,8 @@ function draw(now) {
   context.fillStyle = coin.color;
   // draw a square at the coin's position
   context.fillRect(coin.x, coin.y, coin.w, coin.h);
+
+  events.forEach((event) => event(dt));
 
   // context.fillText('hi', mario.x, mario.y);
 
@@ -110,7 +112,7 @@ window.addEventListener("gamepaddisconnected", e => gamepad = null);
 window.addEventListener("keydown", (e) => {
   if (e.key === "Escape") {
     setPlaying(!playing);
-    if (playing) draw(lastTick);
+    if (playing) draw(0);
   }
   if (debug && e.key.toLowerCase() === 'p') window.debug()
   // stop the event from bubbling  (stop the key presses from doing what they normally do)

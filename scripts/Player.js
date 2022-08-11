@@ -1,7 +1,7 @@
+import { PlayerHUD} from './UI/HUD.js';
 import { canvas, updateScore, isColliding, coin, coinSFX, applyOverTime, Random, lerp, wait, Range } from './helper.js';
 import StageObject from './StageObject.js';
 import Fireball from './Fireball.js';
-import HUD from './UI/HUD.js';
 
 export class Player extends StageObject{
   x = 200;
@@ -12,7 +12,8 @@ export class Player extends StageObject{
   drawX = 2;
   drawY = 4;
   weight = .3;
-  health = new Range(-1, -1);
+  health = new Range(0, 4, 4);
+  energy = new Range(0, 4, 0);
   name = 'mario';
   hitboxOffset = 0.3;
   turbo = false;
@@ -136,9 +137,9 @@ export class Player extends StageObject{
         0: () => {
           let force = .5 * this.direction;
           applyOverTime(300, (x, dt) => {
-            if(this.left || this.right) this.x += force * ((1-x) ** 1.4) * dt;
+            if(this.left || this.right) this.x += force * ((1-x) ** 1.4) * dt * 10;
             // this.gravityForce -= .001 * dt;
-            this.gravityForce -=  this.gravityForce * .003 * dt * x;
+            this.gravityForce -=  this.gravityForce * .03 * dt * x;
             // if(this.jumpPower.value > .1) this.jumpPower.value -= this.jumpPower.value * .4 * dt;
             // else this.jumpPower.value = 0;
           });
@@ -146,7 +147,7 @@ export class Player extends StageObject{
           // this.jumpPower.value *= .4;
         },
         2: () => {
-          applyOverTime(125, (x, dt) => this.aoeAttack(40, -40, 125, 110, dt * Random.range(.06, .12)));
+          applyOverTime(125, (x, dt) => this.aoeAttack(40, -40, 125, 110, dt * Random.range(.6, 1.2)));
           // this.gravityForce *= .99;
         }
       },
@@ -175,6 +176,7 @@ export class Player extends StageObject{
   constructor(){
     super();
     this.img = Player.img;
+    this.hud = new PlayerHUD(this);
   }
   get canAttack(){
     return this.inAnimation('idle', 'run', 'slide', 'jump', 'airborne', 'crouch', 'doubleJump','land')
@@ -300,13 +302,16 @@ export class Player extends StageObject{
       setTimeout(() => (this.wallJump = false), 350);
     }
   }
-  takeDamage(attacker,damage){
-    console.log('ouch',attacker.name||attacker.constructor.name,'dealt',damage);
+  takeDamage(attacker, damage){
     StageObject.prototype.takeDamage.apply(this, arguments);
+    console.log('ouch',attacker.name||attacker.constructor.name,'dealt',damage, this.health.value, '/', this.health.max);
     this.startAnimation('hurt', true);
     this.intangible = true;
     (this.intangibleTimer ||= new Range(0, 2)).value = 0;
     wait(2500).then(() => this.intangible = false);
+  }
+  destroy(){
+    console.log('game over');
   }
 };
 Player.img = new Image();

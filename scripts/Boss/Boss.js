@@ -33,7 +33,7 @@ export default class Boss extends Enemy{
     // this.actionRate = .1;
     // this.actionRate = .8;
     this.actionRate = 8;
-    this.attacks = ['swing', 'stomp', 'jump','dive','run']//, ...Array.from(new Array(10) ,() => 'stomp')];
+    this.attacks = ['swing', 'stomp', 'jump','dive','run', ...Array.from(new Array(10) ,() => 'dive')];
     this.inverseDirection = true;
     this.animations = {
       idle: {
@@ -101,9 +101,9 @@ export default class Boss extends Enemy{
           2: () => {
             this.animationPaused = true;
             this.attack.push(applyOverTime(1200, (x, dt) => {
-              this.x += dt * (this.hitbox.cx > mario.hitbox.cx ? -1 : 1) * .1;
-              this.y -= (.1 + (.4 * ((1 - x) ** 1.2) )) * dt;
-              this.gravityForce = this.gravityForce.moveTowards(0, this.gravityForce * (.15 + x * .35) * dt);
+              this.x += dt * (this.hitbox.cx > mario.hitbox.cx ? -1 : 1) * 2;
+              this.y -= (.1 + (.4 * ((1 - x) ** 1.2) )) * dt * 10;
+              this.gravityForce = this.gravityForce.moveTowards(0, this.gravityForce * (.15 + x * .35) * dt * 10);
             }, () => this.animationPaused = false));
           },
         },
@@ -146,7 +146,7 @@ export default class Boss extends Enemy{
             }, () => {
               const endPos = this.x - 500 * this.direction, startPos = this.x;
               this.attack =  applyOverTime(1300, x => {
-                x.between(.25, .94) && this.aoeAttack(-20, this.hitbox.h * .1, this.hitbox.w * .75, this.hitbox.h * .8 , .5, players);
+                x.between(.25, .94) && this.aoeAttack(-20, this.hitbox.h * .1, this.hitbox.w * .75, this.hitbox.h * .8 , .25, players);
                 this.x = lerp(startPos, endPos + 100 * this.direction * x, (x ** 3.2));
               },()=> this.attack = null || (this.animationPaused = false));
             });
@@ -168,7 +168,7 @@ export default class Boss extends Enemy{
       const direction = this.hitbox.cx < mario.hitbox.cx ? -1 : 1;
       if(this.direction !== direction){
         const start = this.x, end = start - direction * (this.cx - this.hitbox.cx);
-        this.turning = applyOverTime(400 * this.weight * .5 + 50, (x) => {
+        this.turning = applyOverTime(400 * this.weight * .5 + 50, x => {
           this.scaleX = lerp(.6, 1, Math.abs(x - .5) * 2);
           if(x >= .5) this.direction = direction * 1;
           this.x = lerp(start, end, x);
