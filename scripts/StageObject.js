@@ -66,7 +66,7 @@ export default class StageObject {
     //   frameCountX = currentAnimation?.frameCountX || this.frameCountX,
     //   frameRate = currentAnimation?.frameRate || this.frameRate || .15;
     const frameData = Object.assign({x: 0, y: 0, frameX: 0, frameY: 0, frameW: 0, frameH: 0, frame:0}, 
-      this.objectFromKeys('frameCountX', 'frameW', 'frameH', 'frameRate'),
+      this.objectFromKeys('frameCountX', 'frameW', 'frameH', 'frameRate', 'frameCount'),
       currentAnimation);
     currentAnimation?.onEveryFrame?.(dt);
     if(debug){
@@ -100,15 +100,21 @@ export default class StageObject {
       if(ai.frameRate) frameRate = ai.frameRate;*/
       Object.assign(frameData, ai);
     }
+
+    // advance frame count and handle onEnterFrame Events
+
     if(this.animations){
-      if(!this.animationPaused) this.frameCount += dt * frameData.frameRate;
-      frameData.frame = Math.floor(this.frameCount);
-      if (frameData.frame > this.lastFrame) {
-        for (let i = this.lastFrame + 1; i <= frameData.frame; i++) {
+      if(!this.animationPaused && frameData.frameRate) this.frameCount += dt * frameData.frameRate;
+      frameData.frameCount = Math.floor(this.frameCount);
+      if (frameData.frameCount > this.lastFrame) {
+        for (let i = this.lastFrame + 1; i <= frameData.frameCount; i++) {
           currentAnimation.onEnterFrame?.[i]?.call(this, this);
         }
-        this.lastFrame = frameData.frame;
+        this.lastFrame = frameData.frameCount;
       }
+      frameData.frameCount = Math.floor(this._frameCount || this.frameCount);
+      // if(this.name === 'heart' && this.index === 3) debugger;
+      if(!this.currentAnimation) debugger;
       if (this.frameCount >= currentAnimation.frames) {
         let transition = currentAnimation.transition;
         if(typeof transition === 'function') transition = transition.call(this, this);
@@ -118,19 +124,19 @@ export default class StageObject {
           this.frameCount %= currentAnimation.frames;
           this.lastFrame = -1;
         }
+        frameData.frameCount = Math.max(Math.floor(this._frameCount || this.frameCount),0);
       }
-      frameData.frame = Math.max(Math.floor(this.frameCount),0);
       if(currentAnimation.animations && this.atlas){
-        const ai = this.atlas.images[currentAnimation.animations[frameData.frame]];
+        const ai = this.atlas.images[currentAnimation.animations[frameData.frameCount]];
         if(!ai) {
-          console.warn('invalid animation', this.name, currentAnimation.animations[frameData.frame], frameData.frame);
+          prob(5) && console.warn('invalid animation', this.name, currentAnimation.animations[frameData.frameCount], frameData.frameCount);
           debugger;
           return
         }
         Object.assign(frameData, ai, { frameW: ai.width, frameH: ai.height });
       }
       if(frameData.frameCountX){
-        frameData.frameX += (currentAnimation.startX || 0) + frameData.frame;
+        frameData.frameX += (currentAnimation.startX || 0) + frameData.frameCount;
         let offsetY = frameData.frameX < frameData.frameCountX - 1 ? 0 : Math.floor(frameData.frameX / frameData.frameCountX);
         frameData.frameY += (currentAnimation.startY || 0) + offsetY;
         frameData.frameX %= frameData.frameCountX;
@@ -140,6 +146,14 @@ export default class StageObject {
     const width = this.w * (this.scaleX || 1), halfW = width * .5;
     const height = this.h * (this.scaleY || 1), halfH = height * .5;
     context.translate(this.x + halfW, this.y + halfH);
+    if(this.mask){
+      // context.globalCompositeOperation = 'source-atop';
+      context.beginPath();
+      context.fillStyle = 'transparent';
+      // context.rect(this.mask.x - halfW, this.mask.y - halfH, (1 - this.mask.w) * width, (1 - this.mask.h) * height);
+      this.mask.r !== undefined && context.arc(this.mask.x - halfW, this.mask.y - halfH, (1 - this.mask.r) * width, 0, Math.PI * 2)
+      context.clip();
+    }
     // context.translate(this.x,)
     context.fillStyle = this.color;
     if(this.renderMethod === 'rect') context.fillRect(-halfW, -halfH, width, height);
@@ -152,10 +166,11 @@ export default class StageObject {
     if(this.rotation)
       context.rotate(this.rotation);
     // this.name && prob(3) && console.log(frameData)
-    // if(Object.values(frameData).some(x => isNaN(x))){
+    // if(Object.valuxes(frameData).some(x => isNaN(x))){
     //   console.warn(frameData, 'frame', frame)
     //   debugger;
     // }
+    context.beginPath();
     if(this.img) 
       context.drawImage(this.img, frameData.x + frameData.frameX * frameData.frameW, frameData.y + frameData.frameY * frameData.frameH, frameData.frameW, frameData.frameH, -halfW, -halfH, width, height);
     if(this.text) {

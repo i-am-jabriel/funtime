@@ -3,7 +3,7 @@ import { Particle } from "../../Particle.js";
 
 export default class Spike extends Particle{
   static async spawn(owner){
-    const count = 12, start = owner.hitbox.cx - 50 * owner.direction, end = owner.hitbox.cx - 500 * owner.direction;
+    const count = 12, start = owner.hitbox.cx - 50 * owner.realDirection, end = owner.hitbox.cx - 500 * owner.realDirection;
     for(let i = 0; i < count; i++){
       Particle.spawn('Spike', {
         owner,

@@ -147,7 +147,7 @@ export class Player extends StageObject{
           // this.jumpPower.value *= .4;
         },
         2: () => {
-          applyOverTime(125, (x, dt) => this.aoeAttack(40, -40, 125, 110, dt * Random.range(.6, 1.2)));
+          applyOverTime(125, (x, dt) => this.aoeAttack(40, -40, 125, 110, dt * Random.range(.6, 1.2)) && (this.energy.value = (this.energy.value + .02 * dt).round(.01)));
           // this.gravityForce *= .99;
         }
       },
@@ -304,7 +304,6 @@ export class Player extends StageObject{
   }
   takeDamage(attacker, damage){
     StageObject.prototype.takeDamage.apply(this, arguments);
-    console.log('ouch',attacker.name||attacker.constructor.name,'dealt',damage, this.health.value, '/', this.health.max);
     this.startAnimation('hurt', true);
     this.intangible = true;
     (this.intangibleTimer ||= new Range(0, 2)).value = 0;

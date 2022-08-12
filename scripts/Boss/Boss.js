@@ -20,6 +20,7 @@ export default class Boss extends Enemy{
     this.w = 275;
     this.h = 275;
     this.weight = 4;
+    this.realDirection = 1;
     this.originalH = this.h;
     this.breathe = new Range(0, 40);
     this.breathe.direction = 1;
@@ -144,7 +145,7 @@ export default class Boss extends Enemy{
               this.x += this.direction * .5 * dt * x;
               this.y += this.direction * .3 * dt * (1-x);
             }, () => {
-              const endPos = this.x - 500 * this.direction, startPos = this.x;
+              const endPos = this.x - 500 * this.realDirection, startPos = this.x;
               this.attack =  applyOverTime(1300, x => {
                 x.between(.25, .94) && this.aoeAttack(-20, this.hitbox.h * .1, this.hitbox.w * .75, this.hitbox.h * .8 , .25, players);
                 this.x = lerp(startPos, endPos + 100 * this.direction * x, (x ** 3.2));
@@ -166,12 +167,13 @@ export default class Boss extends Enemy{
     Enemy.prototype.onEnterFrame.call(this, dt);
     if(this.animation === 'idle' && !this.turning) {
       const direction = this.hitbox.cx < mario.hitbox.cx ? -1 : 1;
+      this.realDirection = direction;
       if(this.direction !== direction){
-        const start = this.x, end = start - direction * (this.cx - this.hitbox.cx);
-        this.turning = applyOverTime(400 * this.weight * .5 + 50, x => {
-          this.scaleX = lerp(.6, 1, Math.abs(x - .5) * 2);
+        const start = this.x, end = start - direction * (this.cx - this.hitbox.cx) * .5;
+        this.turning = applyOverTime(450 * this.weight * .75 + 75, x => {
+          this.scaleX = lerp(.55, 1, Math.abs(x - .5) * 2);
           if(x >= .5) this.direction = direction * 1;
-          this.x = lerp(start, end, x);
+          this.x = lerp(start, end, x ** .5);
         }, () => {
           // this.direction = direction * -1;
           this.turning = null;
@@ -192,8 +194,8 @@ export default class Boss extends Enemy{
     if(this.animation === 'run'){
       // this.x = this.x.moveTowards(canvas.width * .2 - this.w * .5, this.speed * dt * 100);
       let direction = canvas.width * .5 - this.hitbox.cx > 0 || -1;
-      this.x += this.speed * 375 * dt * direction / (this.weight * .25);
-      this.direction = direction * -1;
+      this.x += this.speed * 375 * dt * direction / (this.weight * .4);
+      // this.direction = direction * -1;
     }
     if(this.animation === 'idle' && prob(this.action += this.actionRate * dt))
       this.startAnimation(this.attacks.pick());
