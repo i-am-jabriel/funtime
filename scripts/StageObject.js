@@ -185,6 +185,7 @@ export default class StageObject {
       }
     }
     context.restore();
+    this.onAfterDraw?.();
   }
   aoeAttack(x, y, w, h, damage, targets = enemies) {
     let hitbox = x;

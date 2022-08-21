@@ -20,10 +20,10 @@ export class Player extends StageObject{
   direction = 1;
   gravityForce = 0;
   color = 'rgba(255, 100, 0, 0.05)';
-  speed = 1.9;
+  speed = 1.75;
   renderMethod = 'string';
   // explosive force of jump
-  jumpPower = new Range(0, 8.8, 0);
+  jumpPower = new Range(0, 8.2, 0);
   // how fast it tapers (bigger = faster)
   jumpDamp = .16;
   up = false;
@@ -135,7 +135,7 @@ export class Player extends StageObject{
       hitboxOffset: .7,
       onEnterFrame: {
         0: () => {
-          let force = .5 * this.direction;
+          let force = .45 * this.direction;
           applyOverTime(300, (x, dt) => {
             if(this.left || this.right) this.x += force * ((1-x) ** 1.4) * dt * 10;
             // this.gravityForce -= .001 * dt;
@@ -149,6 +149,9 @@ export class Player extends StageObject{
         2: () => {
           applyOverTime(125, (x, dt) => this.aoeAttack(40, -40, 125, 110, dt * Random.range(.6, 1.2)) && (this.energy.value = (this.energy.value + .02 * dt).round(.01)));
           // this.gravityForce *= .99;
+        },
+        5: () => {
+          this.pauseAnimation(200);
         }
       },
       transition: 'idle'
@@ -259,9 +262,10 @@ export class Player extends StageObject{
     if (this.swing && this.canAttack ){
       this.startAnimation('swing');
     }
-    if (this.fireball && this.canFireball && this.canAttack)
+    if (this.fireball && this.canFireball && this.canAttack && this.energy.value >= 1){
       this.startAnimation('fireball');
-
+      this.energy.value--;
+    }
     // check if mario is colliding with the coin
     if (isColliding(mario, coin)) {
       // move the coin to a random place on the screen
@@ -310,7 +314,7 @@ export class Player extends StageObject{
     wait(2500).then(() => this.intangible = false);
   }
   destroy(){
-    console.log('game over');
+    // console.log('game over');
   }
 };
 Player.img = new Image();

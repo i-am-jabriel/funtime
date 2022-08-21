@@ -122,6 +122,7 @@ export class PlayerHUD {
       // img: null,
       onEnterFrame: this.energyOnEnterFrame, 
     }));
+    this.drawEnergyBars();
     wait(100).then(HUD.draw);
 
     player.health.onValue.push(() => {
@@ -160,6 +161,15 @@ export class PlayerHUD {
   }
   energyOnEnterFrame(dt){
     this.bar.draw(dt);
+  }
+  drawEnergyBars(){
+    const context = createContext();
+    for(let i = 0; i < this.energy.length - 1; i++){
+      context.beginPath();
+      context.moveTo(this.energy[i].x + this.energy[i].w, this.energy[i].y);
+      context.lineTo(this.energy[i].x + this.energy[i].w, this.energy[i].y + this.energy[i].h * .9);
+      context.stroke();
+    }
   }
 }
 window.HUD = HUD;

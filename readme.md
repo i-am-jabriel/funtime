@@ -9,6 +9,7 @@ Hero
   -energy
   -health
   -fireball 1 energy bar
+  -hookshot 1 energy bar
   -ultimate 4 energy
     -flurry attack
     -multi fireball housenka
@@ -56,3 +57,10 @@ mage
 Ooze
 
   phase 1
+
+
+
+The Arbitor
+  phase 1
+    - instakill move
+    - transforms into final phase first act boss

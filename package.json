@@ -1,5 +1,12 @@
 {
   "name": "funtime",
-  "version": "0.0.1",
-  "type": "module"
+  "packageManager": "yarn@3.2.2",
+  "type": "module",
+  "devDependencies": {
+    "glob": "^8.0.3",
+    "mkdirp": "^1.0.4"
+  },
+  "scripts": {
+    "trim": "node utils/TrimAtlas"
+  }
 }

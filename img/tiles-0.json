@@ -1,0 +1,1693 @@
+{"frames": {
+
+"Bar Street Pixel Art Tileset/3 Objects/Props/Prop_09.png":
+{
+	"frame": {"x":1904,"y":256,"w":5,"h":11},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":5,"h":11},
+	"sourceSize": {"w":5,"h":11}
+},
+"Bar Street Pixel Art Tileset/3 Objects/Props/Prop_16.png":
+{
+	"frame": {"x":1070,"y":1996,"w":5,"h":11},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":5,"h":11},
+	"sourceSize": {"w":5,"h":11}
+},
+"Bar Street Pixel Art Tileset/3 Objects/Props/Prop_22.png":
+{
+	"frame": {"x":892,"y":938,"w":10,"h":20},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":10,"h":20},
+	"sourceSize": {"w":10,"h":20}
+},
+"Bar Street Pixel Art Tileset/3 Objects/Props/Prop_24.png":
+{
+	"frame": {"x":1917,"y":1908,"w":9,"h":20},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":9,"h":20},
+	"sourceSize": {"w":9,"h":20}
+},
+"business-center-tileset-pixel-art/3 Objects/Chest2_open.png":
+{
+	"frame": {"x":581,"y":1981,"w":192,"h":21},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":192,"h":21},
+	"sourceSize": {"w":192,"h":21}
+},
+"business-center-tileset-pixel-art/3 Objects/Fence3.png":
+{
+	"frame": {"x":466,"y":478,"w":5,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":5,"h":16},
+	"sourceSize": {"w":5,"h":16}
+},
+"business-center-tileset-pixel-art/3 Objects/Fence4.png":
+{
+	"frame": {"x":820,"y":605,"w":5,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":5,"h":16},
+	"sourceSize": {"w":5,"h":16}
+},
+"business-center-tileset-pixel-art/3 Objects/Fence5.png":
+{
+	"frame": {"x":432,"y":960,"w":16,"h":2},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":2},
+	"sourceSize": {"w":16,"h":2}
+},
+"business-center-tileset-pixel-art/3 Objects/Tree6.png":
+{
+	"frame": {"x":1239,"y":1307,"w":43,"h":70},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":43,"h":70},
+	"sourceSize": {"w":43,"h":70}
+},
+"business-center-tileset-pixel-art/3 Objects/Vending_machine6.png":
+{
+	"frame": {"x":713,"y":2004,"w":32,"h":43},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":43},
+	"sourceSize": {"w":32,"h":43}
+},
+"castle-platformer-pixel-art-tileset/PNG/Items/speed8.png":
+{
+	"frame": {"x":1893,"y":1596,"w":8,"h":29},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":8,"h":29},
+	"sourceSize": {"w":8,"h":29}
+},
+"castle-platformer-pixel-art-tileset/PNG/Objects/big_spikes1.png":
+{
+	"frame": {"x":816,"y":1996,"w":64,"h":51},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":51},
+	"sourceSize": {"w":64,"h":51}
+},
+"castle-platformer-pixel-art-tileset/PNG/Objects/big_spikes2.png":
+{
+	"frame": {"x":882,"y":1996,"w":64,"h":51},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":51},
+	"sourceSize": {"w":64,"h":51}
+},
+"castle-platformer-pixel-art-tileset/PNG/Objects/fire_trap10.png":
+{
+	"frame": {"x":1410,"y":2010,"w":128,"h":37},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":37},
+	"sourceSize": {"w":128,"h":37}
+},
+"castle-platformer-pixel-art-tileset/PNG/Objects/flag3.png":
+{
+	"frame": {"x":1240,"y":609,"w":59,"h":28},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":59,"h":28},
+	"sourceSize": {"w":59,"h":28}
+},
+"castle-platformer-pixel-art-tileset/PNG/Objects/spikes_trap1.png":
+{
+	"frame": {"x":1410,"y":1300,"w":73,"h":5},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":73,"h":5},
+	"sourceSize": {"w":73,"h":5}
+},
+"castle-platformer-pixel-art-tileset/PNG/tiles/tile3.png":
+{
+	"frame": {"x":1014,"y":1996,"w":54,"h":51},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":54,"h":51},
+	"sourceSize": {"w":54,"h":51}
+},
+"castle-platformer-pixel-art-tileset/PNG/tiles/tile13.png":
+{
+	"frame": {"x":948,"y":1996,"w":64,"h":51},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":51},
+	"sourceSize": {"w":64,"h":51}
+},
+"castle-platformer-pixel-art-tileset/PNG/tiles/tile16.png":
+{
+	"frame": {"x":1540,"y":2010,"w":64,"h":37},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":37},
+	"sourceSize": {"w":64,"h":37}
+},
+"chinese-street-tileset-pixel-art/1 Tiles/Tile_48.png":
+{
+	"frame": {"x":2034,"y":174,"w":13,"h":22},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":13,"h":22},
+	"sourceSize": {"w":13,"h":22}
+},
+"chinese-street-tileset-pixel-art/1 Tiles/Tile_63.png":
+{
+	"frame": {"x":1917,"y":1850,"w":9,"h":32},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":9,"h":32},
+	"sourceSize": {"w":9,"h":32}
+},
+"chinese-street-tileset-pixel-art/1 Tiles/Tile_70.png":
+{
+	"frame": {"x":925,"y":443,"w":18,"h":32},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":18,"h":32},
+	"sourceSize": {"w":18,"h":32}
+},
+"chinese-street-tileset-pixel-art/3 Objects/Banner1.png":
+{
+	"frame": {"x":323,"y":1996,"w":226,"h":48},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":226,"h":48},
+	"sourceSize": {"w":226,"h":48}
+},
+"chinese-street-tileset-pixel-art/3 Objects/Bush3.png":
+{
+	"frame": {"x":1201,"y":2017,"w":15,"h":30},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":15,"h":30},
+	"sourceSize": {"w":15,"h":30}
+},
+"chinese-street-tileset-pixel-art/3 Objects/Decoration1.png":
+{
+	"frame": {"x":1273,"y":1379,"w":9,"h":15},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":9,"h":15},
+	"sourceSize": {"w":9,"h":15}
+},
+"chinese-street-tileset-pixel-art/3 Objects/Decoration7.png":
+{
+	"frame": {"x":1554,"y":1268,"w":18,"h":14},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":18,"h":14},
+	"sourceSize": {"w":18,"h":14}
+},
+"chinese-street-tileset-pixel-art/3 Objects/Fence1.png":
+{
+	"frame": {"x":1162,"y":1091,"w":6,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":6,"h":16},
+	"sourceSize": {"w":6,"h":16}
+},
+"Desert Village 2D Tileset/PNG/Building/Canopy_03.png":
+{
+	"frame": {"x":1357,"y":1554,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128}
+},
+"Desert Village 2D Tileset/PNG/Building/Decor_Roof_01.png":
+{
+	"frame": {"x":1741,"y":1406,"w":160,"h":157},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":160,"h":157},
+	"sourceSize": {"w":160,"h":157}
+},
+"Desert Village 2D Tileset/PNG/Building/Decor_Roof_02.png":
+{
+	"frame": {"x":1487,"y":1528,"w":159,"h":157},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":159,"h":157},
+	"sourceSize": {"w":159,"h":157}
+},
+"Desert Village 2D Tileset/PNG/Building/Door_02.png":
+{
+	"frame": {"x":1580,"y":801,"w":128,"h":240},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":240},
+	"sourceSize": {"w":128,"h":240}
+},
+"Desert Village 2D Tileset/PNG/Building/Door_03.png":
+{
+	"frame": {"x":1911,"y":256,"w":128,"h":252},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":252},
+	"sourceSize": {"w":128,"h":252}
+},
+"Desert Village 2D Tileset/PNG/Building/Door_04.png":
+{
+	"frame": {"x":1904,"y":1,"w":128,"h":253},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":253},
+	"sourceSize": {"w":128,"h":253}
+},
+"Desert Village 2D Tileset/PNG/Building/Ladder_01.png":
+{
+	"frame": {"x":466,"y":929,"w":350,"h":33},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":350,"h":33},
+	"sourceSize": {"w":350,"h":33}
+},
+"Desert Village 2D Tileset/PNG/Building/Pillar_02.png":
+{
+	"frame": {"x":1118,"y":801,"w":42,"h":320},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":42,"h":320},
+	"sourceSize": {"w":42,"h":320}
+},
+"Desert Village 2D Tileset/PNG/Building/Roof_A_02.png":
+{
+	"frame": {"x":945,"y":315,"w":320,"h":160},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":320,"h":160},
+	"sourceSize": {"w":320,"h":160}
+},
+"Desert Village 2D Tileset/PNG/Building/Roof_B_02.png":
+{
+	"frame": {"x":820,"y":639,"w":320,"h":160},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":320,"h":160},
+	"sourceSize": {"w":320,"h":160}
+},
+"Desert Village 2D Tileset/PNG/Building/Stone_Window_01.png":
+{
+	"frame": {"x":1907,"y":999,"w":140,"h":142},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":140,"h":142},
+	"sourceSize": {"w":140,"h":142}
+},
+"Desert Village 2D Tileset/PNG/Building/Stone_Window_02.png":
+{
+	"frame": {"x":1458,"y":1040,"w":114,"h":160},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":114,"h":160},
+	"sourceSize": {"w":114,"h":160}
+},
+"Desert Village 2D Tileset/PNG/Building/Stone_Window_03.png":
+{
+	"frame": {"x":1903,"y":1403,"w":126,"h":159},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":126,"h":159},
+	"sourceSize": {"w":126,"h":159}
+},
+"Desert Village 2D Tileset/PNG/Building/Wall_A_01.png":
+{
+	"frame": {"x":1148,"y":1411,"w":66,"h":301},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":66,"h":301},
+	"sourceSize": {"w":66,"h":301}
+},
+"Desert Village 2D Tileset/PNG/Building/Wall_A_02.png":
+{
+	"frame": {"x":1,"y":1743,"w":320,"h":301},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":320,"h":301},
+	"sourceSize": {"w":320,"h":301}
+},
+"Desert Village 2D Tileset/PNG/Building/Wall_A_03.png":
+{
+	"frame": {"x":1150,"y":1714,"w":66,"h":301},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":66,"h":301},
+	"sourceSize": {"w":66,"h":301}
+},
+"Desert Village 2D Tileset/PNG/Building/Wall_B_01.png":
+{
+	"frame": {"x":1075,"y":1411,"w":71,"h":301},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":71,"h":301},
+	"sourceSize": {"w":71,"h":301}
+},
+"Desert Village 2D Tileset/PNG/Building/Wall_B_02.png":
+{
+	"frame": {"x":1582,"y":1,"w":320,"h":301},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":320,"h":301},
+	"sourceSize": {"w":320,"h":301}
+},
+"Desert Village 2D Tileset/PNG/Building/Wall_B_03.png":
+{
+	"frame": {"x":1077,"y":1714,"w":71,"h":301},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":71,"h":301},
+	"sourceSize": {"w":71,"h":301}
+},
+"Desert Village 2D Tileset/PNG/Building/Wall_C_01.png":
+{
+	"frame": {"x":1205,"y":769,"w":67,"h":303},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":67,"h":303},
+	"sourceSize": {"w":67,"h":303}
+},
+"Desert Village 2D Tileset/PNG/Building/Wall_C_02.png":
+{
+	"frame": {"x":1,"y":1438,"w":320,"h":303},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":320,"h":303},
+	"sourceSize": {"w":320,"h":303}
+},
+"Desert Village 2D Tileset/PNG/Building/Wall_C_03.png":
+{
+	"frame": {"x":1274,"y":769,"w":67,"h":303},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":67,"h":303},
+	"sourceSize": {"w":67,"h":303}
+},
+"Desert Village 2D Tileset/PNG/Building/Wide_Door_01.png":
+{
+	"frame": {"x":690,"y":964,"w":212,"h":256},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":212,"h":256},
+	"sourceSize": {"w":212,"h":256}
+},
+"Desert Village 2D Tileset/PNG/Building/Wide_Door_02.png":
+{
+	"frame": {"x":688,"y":1222,"w":246,"h":256},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":246,"h":256},
+	"sourceSize": {"w":246,"h":256}
+},
+"Desert Village 2D Tileset/PNG/Building/Wide_Door_03.png":
+{
+	"frame": {"x":904,"y":895,"w":212,"h":256},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":212,"h":256},
+	"sourceSize": {"w":212,"h":256}
+},
+"Desert Village 2D Tileset/PNG/Building/Wide_Door_04.png":
+{
+	"frame": {"x":936,"y":1153,"w":232,"h":256},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":232,"h":256},
+	"sourceSize": {"w":232,"h":256}
+},
+"Desert Village 2D Tileset/PNG/Environment/Decor_Carpet.png":
+{
+	"frame": {"x":432,"y":1222,"w":254,"h":212},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":254,"h":212},
+	"sourceSize": {"w":254,"h":212}
+},
+"Desert Village 2D Tileset/PNG/Environment/Dry_Well.png":
+{
+	"frame": {"x":323,"y":1438,"w":275,"h":298},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":275,"h":298},
+	"sourceSize": {"w":275,"h":298}
+},
+"Desert Village 2D Tileset/PNG/Environment/Fence_01.png":
+{
+	"frame": {"x":1928,"y":1694,"w":119,"h":124},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":119,"h":124},
+	"sourceSize": {"w":119,"h":124}
+},
+"Desert Village 2D Tileset/PNG/Environment/Fence_03.png":
+{
+	"frame": {"x":1928,"y":1820,"w":119,"h":124},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":119,"h":124},
+	"sourceSize": {"w":119,"h":124}
+},
+"Desert Village 2D Tileset/PNG/Environment/Palm_Tree.png":
+{
+	"frame": {"x":1,"y":960,"w":429,"h":476},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":429,"h":476},
+	"sourceSize": {"w":429,"h":476}
+},
+"Desert Village 2D Tileset/PNG/Environment/Plant_03.png":
+{
+	"frame": {"x":1917,"y":1946,"w":128,"h":72},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":72},
+	"sourceSize": {"w":128,"h":72}
+},
+"Desert Village 2D Tileset/PNG/Environment/Sign_01.png":
+{
+	"frame": {"x":1731,"y":1565,"w":160,"h":121},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":160,"h":121},
+	"sourceSize": {"w":160,"h":121}
+},
+"Desert Village 2D Tileset/PNG/Environment/Tree.png":
+{
+	"frame": {"x":1,"y":1,"w":470,"h":475},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":470,"h":475},
+	"sourceSize": {"w":470,"h":475}
+},
+"desert-2d-tileset-pixel-art/3 Objects/Grass/2.png":
+{
+	"frame": {"x":2041,"y":329,"w":6,"h":7},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":6,"h":7},
+	"sourceSize": {"w":6,"h":7}
+},
+"desert-2d-tileset-pixel-art/3 Objects/Pyramid/1.png":
+{
+	"frame": {"x":1142,"y":639,"w":160,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":160,"h":128},
+	"sourceSize": {"w":160,"h":128}
+},
+"desert-2d-tileset-pixel-art/3 Objects/Stones/1.png":
+{
+	"frame": {"x":1205,"y":1074,"w":32,"h":15},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":15},
+	"sourceSize": {"w":32,"h":15}
+},
+"desert-2d-tileset-pixel-art/3 Objects/Trees/4.png":
+{
+	"frame": {"x":1776,"y":1688,"w":150,"h":160},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":150,"h":160},
+	"sourceSize": {"w":150,"h":160}
+},
+"dungeon-platformer-pixel-art-tileset/PNG/Details_Objects/chain1.png":
+{
+	"frame": {"x":1909,"y":2020,"w":91,"h":27},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":91,"h":27},
+	"sourceSize": {"w":91,"h":27}
+},
+"dungeon-platformer-pixel-art-tileset/PNG/Details_Objects/chain2.png":
+{
+	"frame": {"x":551,"y":2004,"w":160,"h":42},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":160,"h":42},
+	"sourceSize": {"w":160,"h":42}
+},
+"dungeon-platformer-pixel-art-tileset/PNG/Details_Objects/plant9.png":
+{
+	"frame": {"x":1710,"y":954,"w":195,"h":88},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":195,"h":88},
+	"sourceSize": {"w":195,"h":88}
+},
+"dungeon-platformer-pixel-art-tileset/PNG/Details_Objects/runes_blue-green5.png":
+{
+	"frame": {"x":1160,"y":1123,"w":8,"h":14},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":8,"h":14},
+	"sourceSize": {"w":8,"h":14}
+},
+"dungeon-platformer-pixel-art-tileset/PNG/Details_Objects/runes_blue-green9.png":
+{
+	"frame": {"x":1162,"y":1109,"w":6,"h":8},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":6,"h":8},
+	"sourceSize": {"w":6,"h":8}
+},
+"dungeon-platformer-pixel-art-tileset/PNG/Details_Objects/runes_blue-green10.png":
+{
+	"frame": {"x":1160,"y":1139,"w":8,"h":8},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":8,"h":8},
+	"sourceSize": {"w":8,"h":8}
+},
+"dungeon-platformer-pixel-art-tileset/PNG/Details_Objects/runes_blue-green16.png":
+{
+	"frame": {"x":2041,"y":269,"w":6,"h":8},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":6,"h":8},
+	"sourceSize": {"w":6,"h":8}
+},
+"dungeon-platformer-pixel-art-tileset/PNG/Details_Objects/runes_blue-green20.png":
+{
+	"frame": {"x":2034,"y":99,"w":13,"h":23},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":13,"h":23},
+	"sourceSize": {"w":13,"h":23}
+},
+"dungeon-platformer-pixel-art-tileset/PNG/Details_Objects/runes_blue9.png":
+{
+	"frame": {"x":2041,"y":289,"w":6,"h":8},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":6,"h":8},
+	"sourceSize": {"w":6,"h":8}
+},
+"dungeon-platformer-pixel-art-tileset/PNG/Details_Objects/runes_blue13.png":
+{
+	"frame": {"x":1909,"y":2007,"w":6,"h":11},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":6,"h":11},
+	"sourceSize": {"w":6,"h":11}
+},
+"dungeon-platformer-pixel-art-tileset/PNG/Details_Objects/runes_blue16.png":
+{
+	"frame": {"x":2041,"y":279,"w":6,"h":8},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":6,"h":8},
+	"sourceSize": {"w":6,"h":8}
+},
+"dungeon-platformer-pixel-art-tileset/PNG/Details_Objects/runes_blue18.png":
+{
+	"frame": {"x":1917,"y":1884,"w":9,"h":22},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":9,"h":22},
+	"sourceSize": {"w":9,"h":22}
+},
+"dungeon-platformer-pixel-art-tileset/PNG/Details_Objects/runes_blue19.png":
+{
+	"frame": {"x":2034,"y":124,"w":13,"h":23},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":13,"h":23},
+	"sourceSize": {"w":13,"h":23}
+},
+"dungeon-platformer-pixel-art-tileset/PNG/Details_Objects/runes_golden9.png":
+{
+	"frame": {"x":2041,"y":309,"w":6,"h":8},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":6,"h":8},
+	"sourceSize": {"w":6,"h":8}
+},
+"dungeon-platformer-pixel-art-tileset/PNG/Details_Objects/runes_golden13.png":
+{
+	"frame": {"x":2041,"y":256,"w":6,"h":11},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":6,"h":11},
+	"sourceSize": {"w":6,"h":11}
+},
+"dungeon-platformer-pixel-art-tileset/PNG/Details_Objects/runes_golden15.png":
+{
+	"frame": {"x":466,"y":496,"w":5,"h":8},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":5,"h":8},
+	"sourceSize": {"w":5,"h":8}
+},
+"dungeon-platformer-pixel-art-tileset/PNG/Details_Objects/runes_golden16.png":
+{
+	"frame": {"x":2041,"y":299,"w":6,"h":8},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":6,"h":8},
+	"sourceSize": {"w":6,"h":8}
+},
+"dungeon-platformer-pixel-art-tileset/PNG/Details_Objects/runes_golden20.png":
+{
+	"frame": {"x":2034,"y":149,"w":13,"h":23},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":13,"h":23},
+	"sourceSize": {"w":13,"h":23}
+},
+"dungeon-platformer-pixel-art-tileset/PNG/Details_Objects/scull2.png":
+{
+	"frame": {"x":1284,"y":1610,"w":70,"h":71},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":70,"h":71},
+	"sourceSize": {"w":70,"h":71}
+},
+"dungeon-platformer-pixel-art-tileset/PNG/Details_Objects/scull3.png":
+{
+	"frame": {"x":1304,"y":609,"w":106,"h":111},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":106,"h":111},
+	"sourceSize": {"w":106,"h":111}
+},
+"dungeon-platformer-pixel-art-tileset/PNG/Details_Objects/spikes_platform3.png":
+{
+	"frame": {"x":1458,"y":1202,"w":94,"h":80},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":94,"h":80},
+	"sourceSize": {"w":94,"h":80}
+},
+"dungeon-platformer-pixel-art-tileset/PNG/Details_Objects/spikes_roll_bat.png":
+{
+	"frame": {"x":936,"y":1411,"w":67,"h":67},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":67,"h":67},
+	"sourceSize": {"w":67,"h":67}
+},
+"dungeon-platformer-pixel-art-tileset/PNG/Items/arrow8.png":
+{
+	"frame": {"x":1893,"y":1627,"w":8,"h":29},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":8,"h":29},
+	"sourceSize": {"w":8,"h":29}
+},
+"dungeon-platformer-pixel-art-tileset/PNG/Items/bottle7.png":
+{
+	"frame": {"x":1142,"y":769,"w":18,"h":30},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":18,"h":30},
+	"sourceSize": {"w":18,"h":30}
+},
+"dungeon-platformer-pixel-art-tileset/PNG/Items/bottle8.png":
+{
+	"frame": {"x":2034,"y":67,"w":13,"h":30},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":13,"h":30},
+	"sourceSize": {"w":13,"h":30}
+},
+"dungeon-platformer-pixel-art-tileset/PNG/Items/crystal8.png":
+{
+	"frame": {"x":1105,"y":801,"w":11,"h":30},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":11,"h":30},
+	"sourceSize": {"w":11,"h":30}
+},
+"Free Park Zone Tileset/1 Tiles/Tile_91.png":
+{
+	"frame": {"x":815,"y":767,"w":3,"h":30},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":3,"h":30},
+	"sourceSize": {"w":3,"h":30}
+},
+"Free Park Zone Tileset/3 Objects/Bushes/15.png":
+{
+	"frame": {"x":1170,"y":1396,"w":38,"h":13},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":38,"h":13},
+	"sourceSize": {"w":38,"h":13}
+},
+"Free Park Zone Tileset/3 Objects/Fence/2_1.png":
+{
+	"frame": {"x":1884,"y":1236,"w":17,"h":41},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":17,"h":41},
+	"sourceSize": {"w":17,"h":41}
+},
+"Free Park Zone Tileset/3 Objects/Fence/4_1.png":
+{
+	"frame": {"x":899,"y":895,"w":3,"h":41},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":3,"h":41},
+	"sourceSize": {"w":3,"h":41}
+},
+"Free Park Zone Tileset/3 Objects/Grass/1.png":
+{
+	"frame": {"x":551,"y":1996,"w":8,"h":6},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":8,"h":6},
+	"sourceSize": {"w":8,"h":6}
+},
+"Free Park Zone Tileset/3 Objects/Grass/5.png":
+{
+	"frame": {"x":1731,"y":1551,"w":8,"h":8},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":8,"h":8},
+	"sourceSize": {"w":8,"h":8}
+},
+"Free Park Zone Tileset/3 Objects/Grass/6.png":
+{
+	"frame": {"x":1037,"y":1473,"w":7,"h":5},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":7,"h":5},
+	"sourceSize": {"w":7,"h":5}
+},
+"Free Park Zone Tileset/3 Objects/Grass/9.png":
+{
+	"frame": {"x":1046,"y":1473,"w":6,"h":5},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":6,"h":5},
+	"sourceSize": {"w":6,"h":5}
+},
+"Free Park Zone Tileset/3 Objects/Grass/12.png":
+{
+	"frame": {"x":1037,"y":1473,"w":7,"h":5},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":7,"h":5},
+	"sourceSize": {"w":7,"h":5}
+},
+"Free Park Zone Tileset/3 Objects/Leaf/5.png":
+{
+	"frame": {"x":1634,"y":1520,"w":6,"h":6},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":6,"h":6},
+	"sourceSize": {"w":6,"h":6}
+},
+"Free Park Zone Tileset/3 Objects/Other/Rapm3.png":
+{
+	"frame": {"x":1763,"y":2007,"w":144,"h":39},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":144,"h":39},
+	"sourceSize": {"w":144,"h":39}
+},
+"Free Park Zone Tileset/3 Objects/Other/Tree3.png":
+{
+	"frame": {"x":1412,"y":609,"w":175,"h":190},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":175,"h":190},
+	"sourceSize": {"w":175,"h":190}
+},
+"Free Park Zone Tileset/3 Objects/Other/Tree4.png":
+{
+	"frame": {"x":1704,"y":1044,"w":175,"h":190},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":175,"h":190},
+	"sourceSize": {"w":175,"h":190}
+},
+"free-swamp-game-tileset-pixel-art/3 Objects/Grass/9.png":
+{
+	"frame": {"x":2041,"y":319,"w":6,"h":8},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":6,"h":8},
+	"sourceSize": {"w":6,"h":8}
+},
+"free-swamp-game-tileset-pixel-art/3 Objects/Pointers/3.png":
+{
+	"frame": {"x":2034,"y":222,"w":13,"h":21},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":13,"h":21},
+	"sourceSize": {"w":13,"h":21}
+},
+"free-swamp-game-tileset-pixel-art/3 Objects/Ridges/2.png":
+{
+	"frame": {"x":1118,"y":1123,"w":40,"h":28},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":40,"h":28},
+	"sourceSize": {"w":40,"h":28}
+},
+"free-swamp-game-tileset-pixel-art/3 Objects/Ridges/3.png":
+{
+	"frame": {"x":1218,"y":2006,"w":109,"h":41},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":109,"h":41},
+	"sourceSize": {"w":109,"h":41}
+},
+"free-swamp-game-tileset-pixel-art/3 Objects/Willows/2.png":
+{
+	"frame": {"x":1741,"y":1236,"w":141,"h":168},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":141,"h":168},
+	"sourceSize": {"w":141,"h":168}
+},
+"free-swamp-game-tileset-pixel-art/3 Objects/Willows/3.png":
+{
+	"frame": {"x":1710,"y":769,"w":199,"h":183},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":199,"h":183},
+	"sourceSize": {"w":199,"h":183}
+},
+"ghetto-tileset-pixel-art/1 Tiles/Tile_43.png":
+{
+	"frame": {"x":1239,"y":1379,"w":32,"h":15},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":15},
+	"sourceSize": {"w":32,"h":15}
+},
+"ghetto-tileset-pixel-art/3 Objects/Box8.png":
+{
+	"frame": {"x":666,"y":1468,"w":20,"h":10},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":20,"h":10},
+	"sourceSize": {"w":20,"h":10}
+},
+"ghetto-tileset-pixel-art/3 Objects/Box9.png":
+{
+	"frame": {"x":816,"y":1981,"w":18,"h":13},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":18,"h":13},
+	"sourceSize": {"w":18,"h":13}
+},
+"ghetto-tileset-pixel-art/3 Objects/Flashlight3.png":
+{
+	"frame": {"x":1881,"y":1044,"w":24,"h":96},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":96},
+	"sourceSize": {"w":24,"h":96}
+},
+"ghetto-tileset-pixel-art/3 Objects/Grass9.png":
+{
+	"frame": {"x":2034,"y":245,"w":13,"h":9},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":13,"h":9},
+	"sourceSize": {"w":13,"h":9}
+},
+"Inferno Village 2D Tileset/PNG/Building/Decor_Roof_01.png":
+{
+	"frame": {"x":1286,"y":1847,"w":160,"h":157},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":160,"h":157},
+	"sourceSize": {"w":160,"h":157}
+},
+"Inferno Village 2D Tileset/PNG/Building/Decor_Roof_02.png":
+{
+	"frame": {"x":1622,"y":1688,"w":152,"h":160},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":152,"h":160},
+	"sourceSize": {"w":152,"h":160}
+},
+"Inferno Village 2D Tileset/PNG/Building/Door_01.png":
+{
+	"frame": {"x":1911,"y":758,"w":128,"h":239},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":239},
+	"sourceSize": {"w":128,"h":239}
+},
+"Inferno Village 2D Tileset/PNG/Building/Door_02.png":
+{
+	"frame": {"x":1574,"y":1043,"w":128,"h":239},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":239},
+	"sourceSize": {"w":128,"h":239}
+},
+"Inferno Village 2D Tileset/PNG/Building/Door_03.png":
+{
+	"frame": {"x":1357,"y":1307,"w":128,"h":245},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":245},
+	"sourceSize": {"w":128,"h":245}
+},
+"Inferno Village 2D Tileset/PNG/Building/Door_04.png":
+{
+	"frame": {"x":1911,"y":510,"w":128,"h":246},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":246},
+	"sourceSize": {"w":128,"h":246}
+},
+"Inferno Village 2D Tileset/PNG/Building/Pillar_02.png":
+{
+	"frame": {"x":1162,"y":769,"w":41,"h":320},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":41,"h":320},
+	"sourceSize": {"w":41,"h":320}
+},
+"Inferno Village 2D Tileset/PNG/Building/Roof_A_04.png":
+{
+	"frame": {"x":473,"y":443,"w":352,"h":160},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":352,"h":160},
+	"sourceSize": {"w":352,"h":160}
+},
+"Inferno Village 2D Tileset/PNG/Building/Roof_A_05.png":
+{
+	"frame": {"x":466,"y":605,"w":352,"h":160},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":352,"h":160},
+	"sourceSize": {"w":352,"h":160}
+},
+"Inferno Village 2D Tileset/PNG/Building/Roof_B_02.png":
+{
+	"frame": {"x":1589,"y":607,"w":320,"h":160},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":320,"h":160},
+	"sourceSize": {"w":320,"h":160}
+},
+"Inferno Village 2D Tileset/PNG/Building/Roof_B_04.png":
+{
+	"frame": {"x":466,"y":767,"w":347,"h":160},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":347,"h":160},
+	"sourceSize": {"w":347,"h":160}
+},
+"Inferno Village 2D Tileset/PNG/Building/Roof_B_05.png":
+{
+	"frame": {"x":827,"y":477,"w":347,"h":160},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":347,"h":160},
+	"sourceSize": {"w":347,"h":160}
+},
+"Inferno Village 2D Tileset/PNG/Building/Stone_Window_01.png":
+{
+	"frame": {"x":1763,"y":1850,"w":152,"h":155},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":152,"h":155},
+	"sourceSize": {"w":152,"h":155}
+},
+"Inferno Village 2D Tileset/PNG/Building/Stone_Window_02.png":
+{
+	"frame": {"x":1460,"y":1687,"w":160,"h":160},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":160,"h":160},
+	"sourceSize": {"w":160,"h":160}
+},
+"Inferno Village 2D Tileset/PNG/Building/Stone_Window_03.png":
+{
+	"frame": {"x":1903,"y":1143,"w":144,"h":160},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":144,"h":160},
+	"sourceSize": {"w":144,"h":160}
+},
+"Inferno Village 2D Tileset/PNG/Building/Wall_A_01.png":
+{
+	"frame": {"x":1216,"y":1396,"w":66,"h":301},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":66,"h":301},
+	"sourceSize": {"w":66,"h":301}
+},
+"Inferno Village 2D Tileset/PNG/Building/Wall_A_02.png":
+{
+	"frame": {"x":1267,"y":306,"w":320,"h":301},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":320,"h":301},
+	"sourceSize": {"w":320,"h":301}
+},
+"Inferno Village 2D Tileset/PNG/Building/Wall_A_03.png":
+{
+	"frame": {"x":1218,"y":1699,"w":66,"h":301},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":66,"h":301},
+	"sourceSize": {"w":66,"h":301}
+},
+"Inferno Village 2D Tileset/PNG/Building/Wall_B_02.png":
+{
+	"frame": {"x":1589,"y":304,"w":320,"h":301},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":320,"h":301},
+	"sourceSize": {"w":320,"h":301}
+},
+"Inferno Village 2D Tileset/PNG/Building/Wall_B_03.png":
+{
+	"frame": {"x":1284,"y":1307,"w":71,"h":301},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":71,"h":301},
+	"sourceSize": {"w":71,"h":301}
+},
+"Inferno Village 2D Tileset/PNG/Building/Wall_C_01.png":
+{
+	"frame": {"x":1343,"y":769,"w":67,"h":303},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":67,"h":303},
+	"sourceSize": {"w":67,"h":303}
+},
+"Inferno Village 2D Tileset/PNG/Building/Wall_C_02.png":
+{
+	"frame": {"x":1260,"y":1,"w":320,"h":303},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":320,"h":303},
+	"sourceSize": {"w":320,"h":303}
+},
+"Inferno Village 2D Tileset/PNG/Building/Wall_C_03.png":
+{
+	"frame": {"x":1170,"y":1091,"w":67,"h":303},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":67,"h":303},
+	"sourceSize": {"w":67,"h":303}
+},
+"Inferno Village 2D Tileset/PNG/Building/Wide_Door_01.png":
+{
+	"frame": {"x":847,"y":1480,"w":226,"h":256},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":226,"h":256},
+	"sourceSize": {"w":226,"h":256}
+},
+"Inferno Village 2D Tileset/PNG/Building/Wide_Door_02.png":
+{
+	"frame": {"x":600,"y":1480,"w":245,"h":256},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":245,"h":256},
+	"sourceSize": {"w":245,"h":256}
+},
+"Inferno Village 2D Tileset/PNG/Building/Wide_Door_03.png":
+{
+	"frame": {"x":323,"y":1738,"w":256,"h":256},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":256},
+	"sourceSize": {"w":256,"h":256}
+},
+"Inferno Village 2D Tileset/PNG/Building/Wide_Door_04.png":
+{
+	"frame": {"x":837,"y":1738,"w":238,"h":256},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":238,"h":256},
+	"sourceSize": {"w":238,"h":256}
+},
+"Inferno Village 2D Tileset/PNG/Environment/Cauldron.png":
+{
+	"frame": {"x":473,"y":1,"w":470,"h":440},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":470,"h":440},
+	"sourceSize": {"w":470,"h":440}
+},
+"Inferno Village 2D Tileset/PNG/Environment/Demonic_Banner.png":
+{
+	"frame": {"x":432,"y":964,"w":256,"h":256},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":256},
+	"sourceSize": {"w":256,"h":256}
+},
+"Inferno Village 2D Tileset/PNG/Environment/Demonic_Fence_01.png":
+{
+	"frame": {"x":1448,"y":1849,"w":159,"h":159},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":159,"h":159},
+	"sourceSize": {"w":159,"h":159}
+},
+"Inferno Village 2D Tileset/PNG/Environment/Demonic_Fence_03.png":
+{
+	"frame": {"x":1609,"y":1850,"w":152,"h":159},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":152,"h":159},
+	"sourceSize": {"w":152,"h":159}
+},
+"Inferno Village 2D Tileset/PNG/Environment/Demonic_Plant_01.png":
+{
+	"frame": {"x":945,"y":1,"w":313,"h":312},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":313,"h":312},
+	"sourceSize": {"w":313,"h":312}
+},
+"Inferno Village 2D Tileset/PNG/Environment/Demonic_Plant_02.png":
+{
+	"frame": {"x":1928,"y":1564,"w":119,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":119,"h":128},
+	"sourceSize": {"w":119,"h":128}
+},
+"Inferno Village 2D Tileset/PNG/Environment/Demonic_Sculpture_01.png":
+{
+	"frame": {"x":581,"y":1738,"w":254,"h":241},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":254,"h":241},
+	"sourceSize": {"w":254,"h":241}
+},
+"Inferno Village 2D Tileset/PNG/Environment/Demonic_Street_Lantern.png":
+{
+	"frame": {"x":1,"y":478,"w":463,"h":480},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":463,"h":480},
+	"sourceSize": {"w":463,"h":480}
+},
+"lab-game-tileset-pixel-art/3 Objects/Chair3.png":
+{
+	"frame": {"x":2034,"y":198,"w":13,"h":22},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":13,"h":22},
+	"sourceSize": {"w":13,"h":22}
+},
+"lab-game-tileset-pixel-art/3 Objects/Door1.png":
+{
+	"frame": {"x":1554,"y":1202,"w":18,"h":64},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":18,"h":64},
+	"sourceSize": {"w":18,"h":64}
+},
+"lab-game-tileset-pixel-art/3 Objects/Door3.png":
+{
+	"frame": {"x":904,"y":1153,"w":30,"h":64},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":30,"h":64},
+	"sourceSize": {"w":30,"h":64}
+},
+"lab-game-tileset-pixel-art/3 Objects/Tube_05.png":
+{
+	"frame": {"x":2034,"y":1,"w":13,"h":32},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":13,"h":32},
+	"sourceSize": {"w":13,"h":32}
+},
+"lab-game-tileset-pixel-art/3 Objects/Tube_16.png":
+{
+	"frame": {"x":1884,"y":1279,"w":17,"h":24},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":17,"h":24},
+	"sourceSize": {"w":17,"h":24}
+},
+"lab-game-tileset-pixel-art/3 Objects/Web4.png":
+{
+	"frame": {"x":1396,"y":753,"w":13,"h":14},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":13,"h":14},
+	"sourceSize": {"w":13,"h":14}
+},
+"mine-tileset-platformer-pixel-art/3 Objects/Pillars/2.png":
+{
+	"frame": {"x":778,"y":1981,"w":36,"h":66},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":36,"h":66},
+	"sourceSize": {"w":36,"h":66}
+},
+"Mountain-platformer-pixel-art-tileset/PNG/items/Health/hp7.png":
+{
+	"frame": {"x":666,"y":1436,"w":20,"h":30},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":20,"h":30},
+	"sourceSize": {"w":20,"h":30}
+},
+"Mountain-platformer-pixel-art-tileset/PNG/items/Speed/speed8.png":
+{
+	"frame": {"x":1731,"y":1520,"w":8,"h":29},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":8,"h":29},
+	"sourceSize": {"w":8,"h":29}
+},
+"Mountain-platformer-pixel-art-tileset/PNG/items/Speed/speed13.png":
+{
+	"frame": {"x":1396,"y":722,"w":14,"h":29},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":14,"h":29},
+	"sourceSize": {"w":14,"h":29}
+},
+"Mountain-platformer-pixel-art-tileset/PNG/items/Star/star7.png":
+{
+	"frame": {"x":2031,"y":1533,"w":16,"h":29},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":29},
+	"sourceSize": {"w":16,"h":29}
+},
+"Mountain-platformer-pixel-art-tileset/PNG/items/Star/star8.png":
+{
+	"frame": {"x":1105,"y":833,"w":11,"h":29},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":11,"h":29},
+	"sourceSize": {"w":11,"h":29}
+},
+"Mountain-platformer-pixel-art-tileset/PNG/Objects/platform2_drawning9.png":
+{
+	"frame": {"x":1005,"y":1473,"w":30,"h":5},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":30,"h":5},
+	"sourceSize": {"w":30,"h":5}
+},
+"Mountain-platformer-pixel-art-tileset/PNG/Tiles_ground/ground_tile10.png":
+{
+	"frame": {"x":600,"y":1436,"w":64,"h":42},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":42},
+	"sourceSize": {"w":64,"h":42}
+},
+"platformer-pixel-art-cave-2d-tileset/Tiles/Back_Prefab_2.png":
+{
+	"frame": {"x":1884,"y":1305,"w":160,"h":96},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":160,"h":96},
+	"sourceSize": {"w":160,"h":96}
+},
+"platformer-pixel-art-cave-2d-tileset/Tiles/Back_Prefab_5.png":
+{
+	"frame": {"x":815,"y":801,"w":288,"h":92},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":288,"h":92},
+	"sourceSize": {"w":288,"h":92}
+},
+"platformer-pixel-art-hell-2d-tileset/Objects/Rocks/2.png":
+{
+	"frame": {"x":827,"y":443,"w":96,"h":32},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":96,"h":32},
+	"sourceSize": {"w":96,"h":32}
+},
+"platformer-pixel-art-hell-2d-tileset/Tiles/Back_Prefab_2.png":
+{
+	"frame": {"x":1884,"y":1305,"w":160,"h":96},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":160,"h":96},
+	"sourceSize": {"w":160,"h":96}
+},
+"platformer-pixel-art-hell-2d-tileset/Tiles/Back_Prefab_5.png":
+{
+	"frame": {"x":815,"y":801,"w":288,"h":92},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":288,"h":92},
+	"sourceSize": {"w":288,"h":92}
+},
+"platformer-pixel-art-tileset/Tiles/Back_Prefab_2.png":
+{
+	"frame": {"x":1884,"y":1305,"w":160,"h":96},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":160,"h":96},
+	"sourceSize": {"w":160,"h":96}
+},
+"platformer-pixel-art-tileset/Tiles/Back_Prefab_5.png":
+{
+	"frame": {"x":815,"y":801,"w":288,"h":92},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":288,"h":92},
+	"sourceSize": {"w":288,"h":92}
+},
+"ruins-game-tileset-pixel-art/3 Objects/Ladders/1.png":
+{
+	"frame": {"x":1412,"y":1040,"w":38,"h":32},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":38,"h":32},
+	"sourceSize": {"w":38,"h":32}
+},
+"ruins-game-tileset-pixel-art/3 Objects/Pine-trees/2.png":
+{
+	"frame": {"x":1410,"y":1074,"w":46,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":46,"h":224},
+	"sourceSize": {"w":46,"h":224}
+},
+"ruins-game-tileset-pixel-art/3 Objects/Pine-trees/3.png":
+{
+	"frame": {"x":1903,"y":1564,"w":23,"h":112},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":23,"h":112},
+	"sourceSize": {"w":23,"h":112}
+},
+"ruins-game-tileset-pixel-art/3 Objects/Ruins/3.png":
+{
+	"frame": {"x":1893,"y":1678,"w":31,"h":8},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":31,"h":8},
+	"sourceSize": {"w":31,"h":8}
+},
+"ruins-game-tileset-pixel-art/3 Objects/Ruins/12.png":
+{
+	"frame": {"x":747,"y":2004,"w":29,"h":43},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":29,"h":43},
+	"sourceSize": {"w":29,"h":43}
+},
+"simple-platformer-tileset-pixel-art/3 Objects/2 Trees/1.png":
+{
+	"frame": {"x":1239,"y":1074,"w":169,"h":231},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":169,"h":231},
+	"sourceSize": {"w":169,"h":231}
+},
+"simple-platformer-tileset-pixel-art/3 Objects/2 Trees/3.png":
+{
+	"frame": {"x":1176,"y":477,"w":89,"h":115},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":89,"h":115},
+	"sourceSize": {"w":89,"h":115}
+},
+"simple-platformer-tileset-pixel-art/3 Objects/2 Trees/4.png":
+{
+	"frame": {"x":1412,"y":801,"w":166,"h":237},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":166,"h":237},
+	"sourceSize": {"w":166,"h":237}
+},
+"simple-platformer-tileset-pixel-art/3 Objects/3 Bushes/2.png":
+{
+	"frame": {"x":1656,"y":769,"w":52,"h":30},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":52,"h":30},
+	"sourceSize": {"w":52,"h":30}
+},
+"simple-platformer-tileset-pixel-art/3 Objects/6 Stones/6.png":
+{
+	"frame": {"x":815,"y":895,"w":82,"h":32},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":82,"h":32},
+	"sourceSize": {"w":82,"h":32}
+},
+"simple-platformer-tileset-pixel-art/3 Objects/7 Grass/9.png":
+{
+	"frame": {"x":1616,"y":1520,"w":16,"h":6},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":6},
+	"sourceSize": {"w":16,"h":6}
+},
+"snow-2d-game-tileset-pixel-art/3 Objects/Stones/8.png":
+{
+	"frame": {"x":1675,"y":2011,"w":63,"h":36},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":63,"h":36},
+	"sourceSize": {"w":63,"h":36}
+},
+"snow-2d-game-tileset-pixel-art/3 Objects/Trees/1.png":
+{
+	"frame": {"x":1487,"y":1284,"w":127,"h":242},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":127,"h":242},
+	"sourceSize": {"w":127,"h":242}
+},
+"snow-2d-game-tileset-pixel-art/3 Objects/Trees/2.png":
+{
+	"frame": {"x":1616,"y":1284,"w":123,"h":234},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":123,"h":234},
+	"sourceSize": {"w":123,"h":234}
+},
+"snow-2d-game-tileset-pixel-art/3 Objects/Trees/6.png":
+{
+	"frame": {"x":1648,"y":1520,"w":81,"h":161},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":81,"h":161},
+	"sourceSize": {"w":81,"h":161}
+},
+"Tileset_forest_pixelart/Details/16/detail_0015_stones5.png":
+{
+	"frame": {"x":1917,"y":1930,"w":9,"h":13},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":9,"h":13},
+	"sourceSize": {"w":9,"h":13}
+},
+"Tileset_forest_pixelart/Details/32/detail_0003_grass4.png":
+{
+	"frame": {"x":1240,"y":594,"w":20,"h":13},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":20,"h":13},
+	"sourceSize": {"w":20,"h":13}
+},
+"Tileset_forest_pixelart/Details/32/detail_0019_stones9.png":
+{
+	"frame": {"x":1881,"y":1206,"w":20,"h":28},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":20,"h":28},
+	"sourceSize": {"w":20,"h":28}
+},
+"Tileset_forest_pixelart/Objects/32/object_0005_usable_liana_corner.png":
+{
+	"frame": {"x":1881,"y":1142,"w":20,"h":30},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":20,"h":30},
+	"sourceSize": {"w":20,"h":30}
+},
+"Tileset_forest_pixelart/Objects/32/object_0007_usable_liana_filler2.png":
+{
+	"frame": {"x":1740,"y":2011,"w":21,"h":32},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":21,"h":32},
+	"sourceSize": {"w":21,"h":32}
+},
+"Tileset_forest_pixelart/Objects/128/object_0003_bush1.png":
+{
+	"frame": {"x":1005,"y":1411,"w":68,"h":60},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":68,"h":60},
+	"sourceSize": {"w":68,"h":60}
+},
+"Tileset_forest_pixelart/Objects/256/tree.png":
+{
+	"frame": {"x":1286,"y":1684,"w":172,"h":161},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":172,"h":161},
+	"sourceSize": {"w":172,"h":161}
+},
+"Tileset_forest_pixelart/Objects_Animated/Crystal/crystal8.png":
+{
+	"frame": {"x":2034,"y":35,"w":13,"h":30},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":13,"h":30},
+	"sourceSize": {"w":13,"h":30}
+},
+"Tileset_forest_pixelart/Objects_Animated/Hit_point/hit_poimt7.png":
+{
+	"frame": {"x":1881,"y":1174,"w":20,"h":30},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":20,"h":30},
+	"sourceSize": {"w":20,"h":30}
+},
+"Tileset_forest_pixelart/Objects_Animated/Liana1/liana1__1.png":
+{
+	"frame": {"x":2031,"y":1403,"w":14,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":14,"h":128},
+	"sourceSize": {"w":14,"h":128}
+},
+"Tileset_forest_pixelart/Objects_Animated/Liana2/liana2_5.png":
+{
+	"frame": {"x":1704,"y":1236,"w":35,"h":42},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":35,"h":42},
+	"sourceSize": {"w":35,"h":42}
+},
+"Tileset_forest_pixelart/Objects_Animated/Liana4/liana4_5.png":
+{
+	"frame": {"x":1458,"y":1284,"w":27,"h":14},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":27,"h":14},
+	"sourceSize": {"w":27,"h":14}
+},
+"Tileset_forest_pixelart/Objects_Animated/Liana7/liana7.png":
+{
+	"frame": {"x":2002,"y":2020,"w":45,"h":27},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":45,"h":27},
+	"sourceSize": {"w":45,"h":27}
+},
+"Tileset_forest_pixelart/Objects_Animated/Liana8/liana8_1.png":
+{
+	"frame": {"x":1606,"y":2011,"w":67,"h":36},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":67,"h":36},
+	"sourceSize": {"w":67,"h":36}
+},
+"Tileset_forest_pixelart/Objects_Animated/Liana8/liana8_5.png":
+{
+	"frame": {"x":818,"y":929,"w":72,"h":33},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":72,"h":33},
+	"sourceSize": {"w":72,"h":33}
+},
+"Tileset_forest_pixelart/Objects_Animated/Speed/speed8.png":
+{
+	"frame": {"x":1893,"y":1565,"w":8,"h":29},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":8,"h":29},
+	"sourceSize": {"w":8,"h":29}
+},
+"Tileset_forest_pixelart/Objects_Animated/Spike1/spikr1_4.png":
+{
+	"frame": {"x":1304,"y":722,"w":90,"h":45},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":90,"h":45},
+	"sourceSize": {"w":90,"h":45}
+},
+"Tileset_forest_pixelart/Objects_Animated/Spike2/spike2_3.png":
+{
+	"frame": {"x":1329,"y":2006,"w":79,"h":41},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":79,"h":41},
+	"sourceSize": {"w":79,"h":41}
+},
+"Tileset_forest_pixelart/Objects_Animated/Spike3/spike3_4.png":
+{
+	"frame": {"x":1589,"y":769,"w":65,"h":30},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":65,"h":30},
+	"sourceSize": {"w":65,"h":30}
+},
+"Tileset_forest_pixelart/Objects_Animated/Spike4/spike4.png":
+{
+	"frame": {"x":1893,"y":1658,"w":8,"h":18},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":8,"h":18},
+	"sourceSize": {"w":8,"h":18}
+},
+"Tileset_forest_pixelart/Objects_Animated/Star/star8.png":
+{
+	"frame": {"x":1105,"y":864,"w":11,"h":29},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":11,"h":29},
+	"sourceSize": {"w":11,"h":29}
+},
+"Tileset_forest_pixelart/Tiles/Ground_grass_0017_tile.png":
+{
+	"frame": {"x":1176,"y":594,"w":62,"h":43},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":62,"h":43},
+	"sourceSize": {"w":62,"h":43}
+},
+"Tileset_forest_pixelart/Tiles/Ground_grass_0040_tile.png":
+{
+	"frame": {"x":1136,"y":2017,"w":63,"h":30},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":63,"h":30},
+	"sourceSize": {"w":63,"h":30}
+},
+"Tileset_forest_pixelart/Tiles/Ground_grass_0042_tile.png":
+{
+	"frame": {"x":1070,"y":2017,"w":64,"h":30},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":30},
+	"sourceSize": {"w":64,"h":30}
+}},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "tiles-0.png",
+	"format": "RGBA8888",
+	"size": {"w":2048,"h":2048},
+	"scale": "1",
+	"related_multi_packs": [ "tiles-1.json", "tiles-2.json" ],
+	"smartupdate": "$TexturePacker:SmartUpdate:612b42e8458309f45fead1c8dc55a754:88e826923f154e4bb15ecf5f4fefc5bb:5ee46a86d12200a850c1187a4a46081e$"
+}
+}
