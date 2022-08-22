@@ -1,16 +1,21 @@
 export const render = [];
+export const mouseTargets = [];
 
 export const wait = ms => new Promise(res => setTimeout(res, ms));
 
 Object.defineProperty(Object.prototype, 'extend', {
   value: function(data, soft){ 
-      for(let key in data){
-          let property = Object.getOwnPropertyDescriptor(data, key);
-          if(!property.writable) data[key] = property;
-          else data[key] = {value:data[key], writable: !!soft};
-          // data[key] = {value:data[key], writable: !!soft};
-      }
-      Object.defineProperties(this, data)
+      // for(let key in data){
+      //     let property = Object.getOwnPropertyDescriptor(data, key);
+      //     if(!property.writable) data[key] = property;
+      //     else data[key] = {value:data[key], writable: !!soft};
+      //     // data[key] = {value:data[key], writable: !!soft};
+      // }
+      Object.defineProperties(this, Object.keys(data).reduce((output, key) => {
+        const property = Object.getOwnPropertyDescriptor(data, key);
+        output[key] = property.writable ? {value: data[key], writable: !!soft} : property;
+        return output;
+      }, {}));
       return this;
   },
   writable: true,
@@ -46,8 +51,11 @@ Number.prototype.extend({
       if(round != 1) return  +(this * value).toFixed(round);
       else return this * value;
   },
-  scaleByWidth(){return this * (window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth) / elementReferences?.['canvas']?.width / zoom;},
-  scaleByHeight(){return this * (window.innerHeight|| document.documentElement.clientHeight|| document.body.clientHeight) / elementReferences?.['canvas']?.height /  zoom;},
+  // scaleByWidth(){return this * (window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth) / canvas?.width / camera.zoom;},
+  // scaleByHeight(){return this * (window.innerHeight|| document.documentElement.clientHeight|| document.body.clientHeight) / canvas?.height /  camera.zoom;},
+  get scaleByWidth(){return this *  canvas.width / window.innerWidth / camera.zoom;},
+  get scaleByHeight(){return this * canvas.height / window.innerHeight / camera.zoom;},
+  
   moveTowards(value, maxStep){return this > value ? Math.max(this - maxStep, value) : Math.min(this + maxStep, value)},
   moveTowardsTheta(theta, delta) {
     const diff = theta - this;
@@ -167,7 +175,7 @@ export const players = [];
 export const events = [];
 export const setPlaying = n => playing = n;
 export const canvas = document.querySelector("canvas");
-export const camera = {x: 0, y:0}
+export const camera = {x: 0, y:0, zoom: 1}
 canvas.w = canvas.width * .9;
 canvas.h = canvas.height * 1.2;
 canvas.x += canvas.width * .5;
@@ -303,11 +311,68 @@ Object.prototype.extend({
   objectFromKeys(...args){
     return args.reduce((a,c) => this[c] !== undefined ? a.setProp(c, this[c]) : a , {});
   },
-  copyValues(obj, ...properties){
-    properties.forEach(key => this[key] = obj[key]);
+  copyProperties(obj, ...properties){
+    if(typeof properties[0] === 'string')
+      properties.forEach(key => this[key] = obj[key]);
+    else {
+      properties = properties[0];
+      const keys = Object.keys(properties);
+      keys.forEach(key => this[key] = obj[properties[key]]);
+    }
     return this;
   }
 });
+
+export const mouse = {x:0, y:0, w:5, h:5};
+export const mouseDebug = {
+  color: 'black',
+  draw:() => {
+    context.fillStyle = mouseDebug.color;
+    context.fillRect(mouse.x - 5, mouse.y - 5, mouse.w + 6, mouse.h + 6);
+  }
+}
+if(debug){
+  render.push(mouseDebug);
+  window.mouse = mouse;
+}
+export const onMouseMove = (e) => {
+  e && Object.assign(mouse, {x: e.clientX.scaleByWidth, y: e.clientY.scaleByHeight});
+      //new Point(e.clientX * elementReferences['canvas'].width / document.body.clientWidth, e.clientY * elementReferences['canvas'].height / document.body.clientHeight)
+  const clickable = [];
+  for(const obj of mouseTargets){
+      const contains = obj.isMouseOver?.(mouse) || isColliding(obj.hitbox || obj, mouse);
+      if(contains && obj.onClick) clickable.push(obj);
+      if(contains && !obj.mouseOver){
+          obj.mouseOver = true;
+          obj.onMouseOver?.();
+      }
+      if(!contains && obj.mouseOver){
+          obj.mouseOver = false;
+          obj.onMouseOut?.();
+      }
+  }
+  mouseDebug.color = 'black';
+  canvas.style.cursor= clickable.length ? 'pointer' : 'inherit';
+  // mouseDebug.color = clickable.length ? 'yellow' : 'black';
+  return clickable.length && clickable;
+}
+
+export const onMouseClick = (e) => {
+  e && Object.assign(mouse, {x: e.clientX.scaleByWidth, y: e.clientY.scaleByHeight});
+      //new Point(e.clientX * elementReferences['canvas'].width / document.body.clientWidth, e.clientY * elementReferences['canvas'].height / document.body.clientHeight)
+  for(const obj of mouseTargets){
+    const contains = obj.isMouseOver?.(mouse) || isColliding(obj.hitbox || obj, mouse);
+    if(contains){
+        obj.onClick?.();
+        return obj;
+    }
+  }
+}
+
+export const addMouseListeners = () => {
+  window.addEventListener('mousemove', onMouseMove);
+  window.addEventListener('mousedown', onMouseClick);
+}
 
 // export const camelCaser = (str, proper) => str?.toLowerCase().replace(proper ? /[ _]+./ : / +./gi, x => x.toUpperCase().slice(-1));
 // export const camelCaser = (str, proper) => {
@@ -329,7 +394,7 @@ export const createContext = (parent = '.game-container') => {
   const newCanvas = document.createElement('canvas');
   parent = typeof parent === 'string' ? document.querySelector(parent) : parent;
   parent.appendChild(newCanvas);
-  newCanvas.copyValues(canvas, 'w','h','width','height');
+  newCanvas.copyProperties(canvas, 'w','h','width','height');
   return newCanvas.getContext('2d');
 }
 

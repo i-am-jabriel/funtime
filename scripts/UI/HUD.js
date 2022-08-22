@@ -68,7 +68,7 @@ export default class HUD extends StageObject {
   static context = createContext();
   constructor(data, addToRender = true){
     super(data);
-    Object.assign(this.copyValues(HUD, 'animations', 'atlas', 'img', 'context'), data);
+    Object.assign(this.copyProperties(HUD, 'animations', 'atlas', 'img', 'context'), data);
     addToRender && HUD.render.push(this);
     // wait(400).then(()=>render.push(this));
   }

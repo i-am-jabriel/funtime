@@ -66,7 +66,7 @@ export default class StageObject {
     //   frameCountX = currentAnimation?.frameCountX || this.frameCountX,
     //   frameRate = currentAnimation?.frameRate || this.frameRate || .15;
     const frameData = Object.assign({x: 0, y: 0, frameX: 0, frameY: 0, frameW: 0, frameH: 0, frame:0}, 
-      this.objectFromKeys('frameCountX', 'frameW', 'frameH', 'frameRate', 'frameCount'),
+      this.objectFromKeys('frameCountX', 'frameW', 'frameH', 'frameRate', 'frameCount','img'),
       currentAnimation);
     currentAnimation?.onEveryFrame?.(dt);
     if(debug){
@@ -89,7 +89,7 @@ export default class StageObject {
       if(this.intangibleTimer.value >= 1) this.intangibleTimer.value %= 1;
       if(this.intangibleTimer.value > .5) return;
     }
-    if(this.atlas && (this.atlas.unpacked || this.atlasUnpacked)) {
+    if(this.atlas && (this.atlas.unpacked || this.atlasUnpacked) && currentAnimation) {
       const ai = this.atlas.images[currentAnimation.animation];
       if(!ai) return prob(5) && console.warn('invalid animation', this.name, currentAnimation.animation);
       /*if(ai.x) x = ai.x;
@@ -142,6 +142,15 @@ export default class StageObject {
         frameData.frameX %= frameData.frameCountX;
       }
     }
+    if(this.atlas && !this.animations) {
+      const ai = this.atlas.images[this.animation];
+      if(!ai) {
+        prob(50) && console.warn('invalid animation', this.name, this.animation, frameData.frameCount);
+        debugger;
+        return
+      }
+      Object.assign(frameData, ai, { frameW: ai.width, frameH: ai.height })
+    }
     context.save();
     const width = this.w * (this.scaleX || 1), halfW = width * .5;
     const height = this.h * (this.scaleY || 1), halfH = height * .5;
@@ -171,13 +180,14 @@ export default class StageObject {
     //   debugger;
     // }
     context.beginPath();
-    if(this.img) 
-      context.drawImage(this.img, frameData.x + frameData.frameX * frameData.frameW, frameData.y + frameData.frameY * frameData.frameH, frameData.frameW, frameData.frameH, -halfW, -halfH, width, height);
+    if(frameData.img) 
+      context.drawImage(frameData.img, frameData.x + frameData.frameX * frameData.frameW, frameData.y + frameData.frameY * frameData.frameH, frameData.frameW, frameData.frameH, -halfW, -halfH, width, height);
     if(this.text) {
       context.textAlign = 'center';
+      context.textBaseline = 'middle';
       context.font = `${this.fontSize}px ${this.font}`;
       context.fillStyle = this.color;
-      context.fillText(this.text, -halfW, -halfH, width);
+      context.fillText(this.text, 0, 0, width);
       if(this.stroke){
         context.strokeStyle = this.stroke;
         context.font = `${this.font} ${this.fontSize * 1.5}px`;

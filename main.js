@@ -1,8 +1,10 @@
+import { render, canvas, context, coin, playing, setPlaying, debug, players, events, addMouseListeners} from "./scripts/helper.js";
 import { Player } from "./scripts/Player.js";
 import Boss from "./scripts/Boss/Boss.js";
 import DamageNumber from "./scripts/DamageNumber.js";
 import Enemy from "./scripts/Enemy.js";
-import { render, canvas, context, coin, playing, setPlaying, debug, players, events} from "./scripts/helper.js";
+import './scripts/Level Builder/LevelBuilder.js';
+
 
 
 // create a mario object
@@ -137,3 +139,5 @@ if(debug){
   window.debug=()=>(new DamageNumber(13, mario.cx, mario.cy));
   window.render = render;
 }
+
+addMouseListeners();

@@ -1,6 +1,6 @@
 import glob from 'glob';
 import fs from 'fs';
-import {confirm} from './helper.js';
+import {confirm} from './utils.js';
 import mkdirp from 'mkdirp';
 const dir = process.argv[2];
 

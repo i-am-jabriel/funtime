@@ -7,9 +7,9 @@ export class Atlas {
   
   fetchJsonAddImages(jsonUrls, img, formatter){
     if(typeof jsonUrls === 'string') jsonUrls = [jsonUrls]
-    return Promise.all(jsonUrls.map(jsonUrl => fetch(jsonUrl)
+    return Promise.all(jsonUrls.map((jsonUrl, i) => fetch(jsonUrl)
       .then(res => res.json())
-      .then(json => this.addImagesFromJson(json, img, formatter))));
+      .then(json => this.addImagesFromJson(json, img?.[i] || img, formatter))));
   }
   add(type, atlasImage){
       this.images[type] = atlasImage;
@@ -20,7 +20,7 @@ export class Atlas {
       this.addImages(Object.keys(json.frames)
         .reduce((a, c) => {
           const ai = a[(formatter ? formatter(c) : c).replace(/\..{3,4}$|\.$/, '')] = new AtlasImage();
-          ai.copyValues(json.frames[c].frame, 'x','y','w','h');
+          ai.copyProperties(json.frames[c].frame, 'x','y','w','h');
           ai.img = img;
           ai.width = ai.w - 1;
           ai.height = ai.h - 1;
