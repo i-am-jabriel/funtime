@@ -13,11 +13,12 @@ import './scripts/Level Builder/LevelBuilder.js';
 const mario = new Player;
 players.push(mario);
 window.mario = mario;
+render.push(mario);
 
 window.boss = new Boss('Ogre');
 
 // setInterval(() => new Enemy, 2000);
-setInterval(() => new Enemy, 20000);
+setInterval(() => mario.rendering && new Enemy, 20000);
 
 canvas.imageSmoothingEnabled = false;
 
@@ -39,7 +40,7 @@ function draw(now) {
   
   render.forEach((obj) => obj.draw(dt));
   
-  mario.draw(dt);
+  // mario.draw(dt);
   // set the coins color
   context.fillStyle = coin.color;
   // draw a square at the coin's position

@@ -63,6 +63,16 @@ Number.prototype.extend({
   }
 });
 
+String.prototype.extend({
+  nthIndex(pat, n){
+    let L= this.length, i= -1;
+    while(n-- && i++<L){
+        i= this.indexOf(pat, i);
+        if (i < 0) break;
+    }
+    return i;
+  }
+});
 
 export class Random{
   static range(min, max){
@@ -166,6 +176,11 @@ Array.prototype.extend({
   },
   lerpIndex(v){
     return Math.floor(lerp(0, this.length - 1, v));
+  },
+  onFirst(fn){
+    const wrap = (...args) => fn(...args) ^ this.remove(wrap);
+    this.push(wrap);
+    return this;
   }
 });
 
@@ -276,7 +291,6 @@ export const directions = ['up','down','left','right'];
 export const getThetaFromDirections = obj => {
   const bools = directions.reduce((a, c) => a + obj[c], 0);
   if(bools === 0) return directionToRad[obj.direction === 1 ? 'right' : 'left'];
-  // console.log((obj.right && obj.down ? Math.PI : 0) + directions.reduce((a, c) => a + obj[c] * directionToRad[c], 0) / bools);
   return (obj.right && obj.down ? Math.PI : 0) + directions.reduce((a, c) => a + obj[c] * directionToRad[c], 0) / bools;
 }
 
@@ -323,10 +337,11 @@ Object.prototype.extend({
   }
 });
 
-export const mouse = {x:0, y:0, w:5, h:5};
+export const mouse = {x:0, y:0, w:1, h:1};
 export const mouseDebug = {
   color: 'black',
   draw:() => {
+    return
     context.fillStyle = mouseDebug.color;
     context.fillRect(mouse.x - 5, mouse.y - 5, mouse.w + 6, mouse.h + 6);
   }
@@ -352,8 +367,8 @@ export const onMouseMove = (e) => {
       }
   }
   mouseDebug.color = 'black';
-  canvas.style.cursor= clickable.length ? 'pointer' : 'inherit';
-  // mouseDebug.color = clickable.length ? 'yellow' : 'black';
+  document.body.style.cursor = clickable.length ? 'pointer' : 'inherit';
+  mouseDebug.color = clickable.length ? 'yellow' : 'black';
   return clickable.length && clickable;
 }
 
@@ -361,17 +376,18 @@ export const onMouseClick = (e) => {
   e && Object.assign(mouse, {x: e.clientX.scaleByWidth, y: e.clientY.scaleByHeight});
       //new Point(e.clientX * elementReferences['canvas'].width / document.body.clientWidth, e.clientY * elementReferences['canvas'].height / document.body.clientHeight)
   for(const obj of mouseTargets){
-    const contains = obj.isMouseOver?.(mouse) || isColliding(obj.hitbox || obj, mouse);
+    const contains = (obj.isMouseOver?.(mouse) || isColliding(obj.hitbox || obj, mouse)) && obj.onClick;
     if(contains){
-        obj.onClick?.();
+        obj.onClick();
         return obj;
     }
   }
 }
-
+export const onMouseUp = [];
 export const addMouseListeners = () => {
   window.addEventListener('mousemove', onMouseMove);
   window.addEventListener('mousedown', onMouseClick);
+  window.addEventListener('mouseup', e => onMouseUp.forEach(x => x(e)));
 }
 
 // export const camelCaser = (str, proper) => str?.toLowerCase().replace(proper ? /[ _]+./ : / +./gi, x => x.toUpperCase().slice(-1));

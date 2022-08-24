@@ -1,5 +1,5 @@
 import { Atlas } from '../Atlas.js';
-import { arrayFrom, camelCaser, createContext, doUntil, prob, newImage, wait } from '../helper.js';
+import { arrayFrom, camelCaser, createContext, doUntil, prob, newImage, wait, context } from '../helper.js';
 import StageObject from '../StageObject.js';
 
 export default class HUD extends StageObject {
@@ -7,8 +7,14 @@ export default class HUD extends StageObject {
   static atlas = new Atlas();
   static rendering = false;
   static render = [];
+  static context = createContext();
+  static overlayContext = createContext();
+  static clear(overlay){
+    HUD.context?.clearRect(0, 0, HUD.context.canvas.width, HUD.context.canvas.width);
+    overlay && HUD.overlayContext.clearRect(0, 0, HUD.overlayContext.canvas.width, HUD.overlayContext.canvas.height);
+  }
   static refresh(dt){
-      HUD.context?.clearRect(0, 0, HUD.context.canvas.width, HUD.context.canvas.width);
+      HUD.clear();
       const running = HUD.render.reduce((a, c) => {
           c.draw.call(c, dt);
           return c.updating || a;
@@ -65,7 +71,6 @@ export default class HUD extends StageObject {
 
     }
   }
-  static context = createContext();
   constructor(data, addToRender = true){
     super(data);
     Object.assign(this.copyProperties(HUD, 'animations', 'atlas', 'img', 'context'), data);
@@ -91,6 +96,7 @@ export class PlayerHUD {
       w: 40,
       x: 15 + 40 * i,
       y: 10,
+      noHitbox: true,
       frameCount: HUD.animations.heart.animations.length - 1,
       index: i,
       value: 1,
@@ -104,11 +110,13 @@ export class PlayerHUD {
       x: 15 + 60 * i - 2 * (i === 3),
       y: 50,
       index: i,
+      noHitbox: true,
       // value: 0 + (i === 3 ? .5 : 0),
       value: 1,
       segment: i - (i > 1),
       bar: new HUD({
         name: 'energy bar',
+        noHitbox: true,
         animation: 'energyBar',
         index: i,
         h: 18,
@@ -122,7 +130,7 @@ export class PlayerHUD {
       // img: null,
       onEnterFrame: this.energyOnEnterFrame, 
     }));
-    this.drawEnergyBars();
+    this.drawEnergyBarSeperators();
     wait(100).then(HUD.draw);
 
     player.health.onValue.push(() => {
@@ -162,13 +170,12 @@ export class PlayerHUD {
   energyOnEnterFrame(dt){
     this.bar.draw(dt);
   }
-  drawEnergyBars(){
-    const context = createContext();
+  drawEnergyBarSeperators(){
     for(let i = 0; i < this.energy.length - 1; i++){
-      context.beginPath();
-      context.moveTo(this.energy[i].x + this.energy[i].w, this.energy[i].y);
-      context.lineTo(this.energy[i].x + this.energy[i].w, this.energy[i].y + this.energy[i].h * .9);
-      context.stroke();
+      HUD.overlayContext.beginPath();
+      HUD.overlayContext.moveTo(this.energy[i].x + this.energy[i].w, this.energy[i].y);
+      HUD.overlayContext.lineTo(this.energy[i].x + this.energy[i].w, this.energy[i].y + this.energy[i].h * .9);
+      HUD.overlayContext.stroke();
     }
   }
 }

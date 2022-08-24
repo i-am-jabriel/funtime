@@ -1,8 +1,13 @@
 import {Atlas} from './Atlas.js';
 import {arrayFrom, debug, newImage} from './helper.js';
+import StageObject from './StageObject.js';
 
-export default class Tile {
+export default class Tile extends StageObject {
   static atlas = new Atlas;
+  constructor(data){
+    super();
+    Object.assign(this, Tile.objectFromKeys('atlas'), data);
+  }
 }
 
 export const onLoad = [];

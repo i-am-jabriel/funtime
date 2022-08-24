@@ -17,6 +17,7 @@ export class Player extends StageObject{
   name = 'mario';
   hitboxOffset = 0.3;
   turbo = false;
+  rendering = true;
   direction = 1;
   gravityForce = 0;
   color = 'rgba(255, 100, 0, 0.05)';
@@ -126,10 +127,10 @@ export class Player extends StageObject{
       transition: 'idle'
     },
     swing: {
-      startX: 4,
+      startX: 3,
       startY: 13,
-      frames: 5,
-      frameRate: .2,
+      frames: 6,
+      frameRate: .24,
       hitboxXOffset: -.3,
       hitboxYOffset: 0.2,
       hitboxOffset: .7,
@@ -150,8 +151,8 @@ export class Player extends StageObject{
           applyOverTime(125, (x, dt) => this.aoeAttack(40, -40, 125, 110, dt * Random.range(.6, 1.2)) && (this.energy.value = (this.energy.value + .02 * dt).round(.01)));
           // this.gravityForce *= .99;
         },
-        5: () => {
-          this.pauseAnimation(200);
+        4: () => {
+          this.pauseAnimation(50);
         }
       },
       transition: 'idle'

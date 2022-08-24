@@ -1,44 +1,41 @@
 import { canvas, debug, context as mainContext, enemies, isColliding, prob, Random, applyOverTime, updateScore, lerp } from "./helper.js";
 
 export default class StageObject {
-  hitboxOffset = 1;
   gravityForce = 0;
   gravityRate = 0.05;
   frameCount = 0;
   frameRate = .14;
   lastFrame = -1;
-  _direction = 1
+  _direction = 1;
+  children = [];
+  get currentAnimation(){ return this.animations?.[this.animation] || this.atlas?.images[this.animation] || this.animations?.['idle']; }
+  get cx() { return this.hitbox.x + this.hitbox.w * 0.5;}
+  get cy() { return this.hitbox.y + this.hitbox.h * 0.5;}
+  get isOffstage() { return !isColliding(canvas, this.hitbox) }
   get direction() { return this._direction * (this.inverseDirection ? -1 : 1)};
   set direction(value) { this._direction = value * (this.inverseDirection ? -1 : 1); }
   get canBeAttacked() { return !this.intangible && this.hitBoxOffset !== 0; }
+  get globalX() {return (this.parent?.globalX || 0) + this.x; }
+  get globalY() {return (this.parent?.globalY || 0) + this.y; }
   get hitbox() {
     const currentAnimation = this.currentAnimation;
-    if(!this.animations || !currentAnimation) return this;
+    if(this.noHitbox) return this;
     if (this._hitbox) return this._hitbox;
-    const hitboxOffset = currentAnimation.hitboxOffset || this.hitboxOffset || 0;
+    const hitboxOffset = currentAnimation?.hitboxOffset || this.hitboxOffset || 0;
     const width = this.w * (this.scaleX || 1);
     const height = this.h * (this.scaleY || 1);
-    const xOffset = width * (currentAnimation.hitboxXOffset || this.hitboxXOffset || 0) * this.direction;
-    const yOffset = height * (currentAnimation.hitboxYOffset || this.hitboxYOffset || 0);
+    const xOffset = width * (currentAnimation?.hitboxXOffset || this.hitboxXOffset || 0) * this.direction;
+    const yOffset = height * (currentAnimation?.hitboxYOffset || this.hitboxYOffset || 0);
+    // if(hitboxOffset === 0 && width === this.w && height === this.h && !xOffset && !yOffset) return this;
     return Object.assign(this._hitbox = {
-      x: this.x + width * hitboxOffset * 0.5 + xOffset,
-      y: this.y + height * hitboxOffset * 0.5 + yOffset,
+      x: this.globalX + width * hitboxOffset * 0.5 + xOffset,
+      y: this.globalY + height * hitboxOffset * 0.5 + yOffset,
       w: width - width * hitboxOffset,
       h: height - height * hitboxOffset
     },{
       cx: this._hitbox.x + this._hitbox.w * .5,
       cy: this._hitbox.y + this._hitbox.h * .5
     });
-  }
-  get currentAnimation(){ return this.animations && (this.animations[this.animation] || this.animations['idle']); }
-  get cx() {
-    return this.hitbox.x + this.hitbox.w * 0.5;
-  }
-  get cy() {
-    return this.hitbox.y + this.hitbox.h * 0.5;
-  }
-  get isOffstage(){
-    return !isColliding(canvas, this.hitbox)
   }
   inAnimation(...args) {
     return args.includes(this.animation);
@@ -55,7 +52,7 @@ export default class StageObject {
     this.lastFrame = -1;
   }
   draw(dt){
-    this._hitbox = null;
+    if(this.moving) this._hitbox = null;
     this.onEnterFrame?.(dt);
     this.hasGravity && this.gravity(dt);
     const context = this.context || mainContext;
@@ -70,7 +67,7 @@ export default class StageObject {
       currentAnimation);
     currentAnimation?.onEveryFrame?.(dt);
     if(debug){
-      if(this.hitbox && this.name){
+      if(this._hitbox && this.name){
         context.fillStyle = "rgba(255, 255, 0, 0.1)";
         context.fillRect(this.hitbox.x, this.hitbox.y, this.hitbox.w, this.hitbox.h);
       }
@@ -154,7 +151,7 @@ export default class StageObject {
     context.save();
     const width = this.w * (this.scaleX || 1), halfW = width * .5;
     const height = this.h * (this.scaleY || 1), halfH = height * .5;
-    context.translate(this.x + halfW, this.y + halfH);
+    context.translate(this.globalX + halfW, this.globalY + halfH);
     if(this.mask){
       // context.globalCompositeOperation = 'source-atop';
       context.beginPath();
@@ -191,10 +188,11 @@ export default class StageObject {
       if(this.stroke){
         context.strokeStyle = this.stroke;
         context.font = `${this.font} ${this.fontSize * 1.5}px`;
-        context.strokeText(this.text, -halfW, -halfH, width);
+        context.strokeText(this.text, 0, 0, width);
       }
     }
     context.restore();
+    this.children.forEach(child => child.draw(dt));
     this.onAfterDraw?.();
   }
   aoeAttack(x, y, w, h, damage, targets = enemies) {
@@ -269,12 +267,12 @@ export default class StageObject {
     }
     this.damageNumber.value += damage;
     this.damageNumber.text = this.damageNumber.value.between(0, 1) ? this.damageNumber.value.toFixed(2) : Math.round(this.damageNumber.value);
-    const weight = 4 / (this.weight ** .6);
-    if(prob(this.damageNumber.stagger += damage * weight * .1 )){
+    const weight = 5 / (this.weight ** .5);
+    if(prob(this.damageNumber.stagger += damage * weight * .02 )){
       this.damageNumber.stagger = 0;
       if(this.animation !== 'hurt') this.startAnimation('hurt', true);
     }
-    if(this.hasGravity && (this.weight < 1 || !(Math.ceil(this.damageNumber.stagger) % Math.round(7 * this.weight).clamp(0, 20)))){
+    if(this.hasGravity && (this.weight < 1 || !(Math.ceil(this.damageNumber.stagger) % Math.round(6 * this.weight).clamp(0, 20)))){
       this.damageNumber.stagger++;
       // TODO: fix hitbox sourcing angels
       // const theta = attacker.rotation || this.getRotation(source || attacker);
@@ -297,5 +295,18 @@ export default class StageObject {
       return false;
     }
     return true;
+  }
+  addChild(child){
+    if(Array.isArray(child)) return child.forEach(x => this.addChild(x));
+    if(child.parent === this) return;
+    if(child.parent) child.parent.remove(child);
+    this.children.push(child);
+    child.parent = this;
+  }
+  removeChild(child){
+    if(Array.isArray(child)) return child.forEach(x => this.removeChild(x));
+    if(child.parent !== this) return;
+    child.parent.remove(child);
+    child.parent = null;
   }
 }

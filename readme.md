@@ -64,3 +64,29 @@ The Arbitor
   phase 1
     - instakill move
     - transforms into final phase first act boss
+
+
+
+Level Builder
+  - Autosave to local storage
+  - Clear
+  - Play Button
+  - Different Tabs
+    - Triggers
+      - Spawn Points
+      - Camera Lock
+      - Instadeath
+      - Cutscenes?
+      - Dialouge?
+    - Objects / Traps
+    - Enemies
+  - Global Settings
+  - Snap
+    - To Grid
+    - To Other items
+    - Strength Slider
+  - Zoom in / Zoom out
+  - Resize / Rotate
+  - Multi select
+  - Save
+  - Load

@@ -146,8 +146,8 @@ export default class Boss extends Enemy{
               this.y += this.direction * .3 * dt * (1-x);
             }, () => {
               const endPos = this.x - 500 * this.realDirection, startPos = this.x;
-              this.attack =  applyOverTime(1300, x => {
-                x.between(.25, .94) && this.aoeAttack(-20, this.hitbox.h * .1, this.hitbox.w * .75, this.hitbox.h * .8 , .25, players);
+              this.attack =  applyOverTime(1400, x => {
+                x.between(.25, .94) && this.aoeAttack(-60, this.hitbox.h * .1, this.hitbox.w * .75, this.hitbox.h * .8 , .25, players);
                 this.x = lerp(startPos, endPos + 100 * this.direction * x, (x ** 3.2));
               },()=> this.attack = null || (this.animationPaused = false));
             });
