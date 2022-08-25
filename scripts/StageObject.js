@@ -1,4 +1,4 @@
-import { canvas, debug, context as mainContext, enemies, isColliding, prob, Random, applyOverTime, updateScore, lerp } from "./helper.js";
+import { canvas, debug, context as mainContext, enemies, isColliding, prob, Random, applyOverTime, updateScore, lerp, getDistance, camera } from "./helper.js";
 
 export default class StageObject {
   gravityForce = 0;
@@ -15,8 +15,8 @@ export default class StageObject {
   get direction() { return this._direction * (this.inverseDirection ? -1 : 1)};
   set direction(value) { this._direction = value * (this.inverseDirection ? -1 : 1); }
   get canBeAttacked() { return !this.intangible && this.hitBoxOffset !== 0; }
-  get globalX() {return (this.parent?.globalX || 0) + this.x; }
-  get globalY() {return (this.parent?.globalY || 0) + this.y; }
+  get globalX() {return (this.parent?.globalX || 0) + this.x + camera.x * (!this.hud || 0); }
+  get globalY() {return (this.parent?.globalY || 0) + this.y + camera.y * (!this.hud || 0)}
   get hitbox() {
     const currentAnimation = this.currentAnimation;
     if(this.noHitbox) return this;
@@ -37,6 +37,23 @@ export default class StageObject {
       cy: this._hitbox.y + this._hitbox.h * .5
     });
   }
+  static hitboxProperties = {x: 1,
+    y: 1,
+    w: 1,
+    h: 1,
+    hitboxOffset: 1,
+    hitboxXOffset: 1,
+    hitboxYOffset: 1,
+  }
+  constructor(data){
+    return Object.assign(new Proxy(this, {
+      get: (target, prop, reciever) => Reflect.get(target, prop,reciever),
+      set: (target, prop, value, reciever) => {
+        StageObject.hitboxProperties[prop] && (target._hitbox = null);
+        return Reflect.set(target, prop, value, reciever)
+      }
+    }), data);
+  }
   inAnimation(...args) {
     return args.includes(this.animation);
   }
@@ -51,8 +68,14 @@ export default class StageObject {
     this.frameCount = 0;
     this.lastFrame = -1;
   }
+  lastPosition = {x: 0, y:0};
   draw(dt){
-    if(this.moving) this._hitbox = null;
+    const newPos = {x: this.globalX, y: this.globalY};
+    if(getDistance(this.lastPosition, newPos)){
+      this.lastPosition = newPos;
+      this._hitbox = null;
+    }
+    // if(this.moving) this._hitbox = null;
     this.onEnterFrame?.(dt);
     this.hasGravity && this.gravity(dt);
     const context = this.context || mainContext;
@@ -298,6 +321,7 @@ export default class StageObject {
   }
   addChild(child){
     if(Array.isArray(child)) return child.forEach(x => this.addChild(x));
+    if(!child) debugger;
     if(child.parent === this) return;
     if(child.parent) child.parent.remove(child);
     this.children.push(child);

@@ -1,4 +1,4 @@
-import {canvas, context, debug, mouseTargets, render, lerp, applyOverTime, isColliding, mouse, enemies, doUntil, onMouseUp} from '../helper.js';
+import {canvas, context, debug, mouseTargets, render, lerp, applyOverTime, isColliding, mouse, enemies, doUntil, onMouseUp, wait, rvar, Range, directions, waitForEvent, camera} from '../helper.js';
 import StageObject from '../StageObject.js';
 import Tile, {onLoad} from '../Tile.js';
 import HUD from '../UI/HUD.js';
@@ -7,11 +7,14 @@ const tileList = []
 const chapters = {};
 const chapterList = [];
 const state = {
-  levelData: {},
+  tiles: [],
+  controls: {},
+  selection: [],
   _index: 0,
   panel: Object.assign(new StageObject, {
     name: 'levelbuilder bottom panel',
     renderMethod: 'rect',
+    hud: true,
     color: 'rgba(90,90,90,.6)',
     x: 0,
     y: canvas.height,
@@ -32,41 +35,69 @@ const state = {
       this.active = !deactivate;
       const startY = this.h, endY = deactivate ? 0 : this.size;
       if(this.activating) this.activating.stop();
-      state.currentTile.moving = true;
-      state.currentTile.arrows.forEach(arrow => arrow.moving = true);
       this.activating = applyOverTime(500, x => {
         const num = lerp(startY, endY, x ** 1.5);
         this.y = canvas.height - num;
         this.h = num;
-      }, () => {
-        this.activating = null;
-        state.currentTile.moving = false;
-        state.currentTile.arrows.forEach(arrow => arrow.moving = false);
-      });
+      }, () => this.activating = null);
     },
     toggle() { this.activate(this.active); }
   }),
   currentTile: Object.assign(new StageObject, {
     x: canvas.width * .5,
     y: canvas.height * .5,
+    hud: true,
     atlas: Tile.atlas,
     name: 'lb',
-    onClick: function() {
+    followMouse(mousedown, child){
+      if(!mousedown){
+        mousedown = {value: true};
+        onMouseUp.onFirst(() => mousedown.value = false);
+      }
+      if(!child) state.selection.forEach(selected => selected !== this && selected.followMouse(mousedown, true));
+      let lastPos = mouse.objectFromKeys('x', 'y');
+      doUntil(() => {
+        this.x -= lastPos.x - mouse.x;
+        this.y -= lastPos.y - mouse.y;
+        lastPos = mouse.objectFromKeys('x','y');
+        // this.x = mouse.x - state.currentTile.currentAnimation.w * .5;
+        // this.y = mouse.y - state.currentTile.currentAnimation.h * .5;
+        return mousedown.value && !this.stop;
+      }, () => this.stop = false);
+    },
+    async tileOnClick() {
+      let mousedown = {value: true}
+      onMouseUp.onFirst(() => mousedown.value = false);
+      await wait(200);
+      if(!mousedown.value) {
+        this.selected = !this.selected;
+        state.selection[this.selected ? 'push' : 'remove'](this);
+      }
+      else if(this.selected) this.followMouse(mousedown);
+    },
+    tileOnEnterFrame(){
+      if(!this.selected) return;
+      context.strokeStyle = 'green';
+      context.lineWidth = 3;
+      context.strokeRect(this.hitbox.x - 20, this.hitbox.y -20, this.hitbox.w + 40, this.hitbox.h + 40);
+      context.lineWidth = 1;
+    },
+    onClick() {
       let tile = new Tile({
         animation: tileList[state._index],
-        x: mouse.x - state.currentTile.currentAnimation.w * .5,
-        y: mouse.y - state.currentTile.currentAnimation.h * .5,
+        x: mouse.x - state.currentTile.currentAnimation.w * .5 - camera.x,
+        y: mouse.y - state.currentTile.currentAnimation.h * .5 - camera.y,
         w: state.currentTile.currentAnimation.w,
-        h: state.currentTile.currentAnimation.h
+        h: state.currentTile.currentAnimation.h,
+        followMouse: state.currentTile.followMouse,
+        onEnterFrame: state.currentTile.tileOnEnterFrame,
+        onClick: state.currentTile.tileOnClick,
       });
+      tile.followMouse();
       render.push(tile);
-      let mousedown = true;
-      onMouseUp.onFirst(() => mousedown = false);
-      doUntil(() => {
-        tile.x = mouse.x - state.currentTile.currentAnimation.w * .5;
-        tile.y = mouse.y - state.currentTile.currentAnimation.h * .5;
-        return mousedown;
-      })
+      state.tiles.push(tile);
+      mouseTargets.push(tile);
+      return tile;
     },
     // onEnterFrame: (dt) => {
     //   state.arrows.forEach(x => x.draw(dt));
@@ -76,10 +107,10 @@ const state = {
       color: 'darkgreen',
       fontSize: 30,
       font: 'arial',
+      hud: true,
       direction: i < 2 ? -1 : 1,
       w: 40,
       h: 40,
-      moving: true,
       onClick: function(){ builder[i.between(0, 3) ? 'next' : 'skip'](this.direction) },
       onEnterFrame: function(){
         context.fillStyle = 'rgba(0,0,255,0.1)';
@@ -145,6 +176,68 @@ const builder = {
   chapterList
 }
 const initialState = {...state};
+
+const keyMap = {
+  arrowup: 'up',
+  w: 'up',
+  arrowdown: 'down',
+  s: 'down',
+  arrowleft: 'left',
+  a: 'left',
+  arrowright: 'right',
+  d: 'right',
+  shift: 'shift',
+  alt: 'control',
+  ' ': 'space',
+  '+': 'zoomIn',
+  '=': 'zoomIn',
+  '_': 'zoomOut',
+  '-': 'zoomOut',
+}
+let placingTile = false;
+const nextTime = new Range(0, 10);
+const onKeyDown = e => {
+  e.preventDefault();
+  console.log(e.key);
+  const control = keyMap[e.key.toLowerCase()];
+  if(!control) return;
+  if(control === 'space') {
+    if(!placingTile)placingTile = state.currentTile.onClick();
+  }
+  state.controls[control] = true;
+  if(state.controls.moving || !directions.includes(control)) return;
+  state.controls.moving = true;
+  doUntil(onEnterFrame);
+} 
+const onKeyUp = e => {
+  e.preventDefault();
+  const control = keyMap[e.key.toLowerCase()];
+  if(!control) return;
+  if(control === 'space') {
+    if(placingTile){
+      placingTile.stop = true;
+      placingTile = null;
+    }
+  }
+  state.controls[control] = false;
+  state.controls.moving = directions.some(x => state.controls[x]);
+  if(!state.controls.moving) nextTime.value = 0;
+}
+const onEnterFrame = dt => {
+  if(state.panel.active && (nextTime.value -= dt) <= 0){
+    nextTime.value = nextTime.max;
+    if(state.controls.left || state.controls.right){
+      builder[state.controls.control ? 'skip' : 'next']((state.controls.right || -1) * ((state.controls.shift * 4) || 1));
+    }
+  }
+  if(!state.panel.active){
+    if(state.controls.up) camera.y += 5 * dt;
+    if(state.controls.down) camera.y -= 5 * dt;
+    if(state.controls.left) camera.x += 5 * dt;
+    if(state.controls.right) camera.x -= 5 * dt;
+  }
+  return state.controls.moving;
+}
 export const levelBuilder = () => {
   // setPlaying(false);
   render.length = 0;
@@ -160,6 +253,8 @@ export const levelBuilder = () => {
   // render.moveToBack(mouseDebug);
   window.debug = builder.toggle;
   window.builder = builder;
+  window.addEventListener('keydown', onKeyDown);
+  window.addEventListener('keyup', onKeyUp);
   // window.addEventListener
 
   // console.log(state, tileList, chapterList);

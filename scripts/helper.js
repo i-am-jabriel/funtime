@@ -396,6 +396,8 @@ export const camelCaser = (str, keys = ' ') => str?.toLowerCase().replace(keys i
   // return str?.toLowerCase().replace(proper ? /[ _]+./ : / +./gi, x => x.toUpperCase().slice(-1)).replace(proper ? /[ _]+./ : / +./gi, x => x.toUpperCase().slice(-1));
 // }
 
+export const getDistance = (a, b) => (((a.x - b.x) ** 2) + ((a.y - b.y) ** 2)) ** .5;
+
 export function arrayFrom(a, b, pre='', post=''){
   let max = Math.max(a, b);
   let min = Math.min(a, b);
@@ -415,3 +417,69 @@ export const createContext = (parent = '.game-container') => {
 }
 
 export const newImage = (src) => { return new Image().setProp('src',src); }
+
+export function rvar (name, value, context = {}) {
+  // If `this` is a `rvar` instance
+  if (this instanceof rvar) {
+    // Inside `rvar` context...
+
+    // Internal object value
+    this.value = value;
+
+    // Object `name` property
+    Object.defineProperty(this, 'name', { value: name });
+
+    // Object `hasValue` property
+    Object.defineProperty(this, 'hasValue', {
+      get: function () {
+        // If the internal object value is not `undefined`
+        return this.value !== undefined;
+      }
+    });
+
+    // Copy value constructor for type-check
+    if ((value !== undefined) && (value !== null)) {
+      this.constructor = value.constructor;
+    }
+
+    // To String method
+    this.toString = function () {
+      // Convert the internal value to string
+      return this.value + '';
+    };
+  } else {
+    // Outside `rvar` context...
+
+    // Initialice `rvar` object
+    if (!rvar.refs) {
+      rvar.refs = {};
+    }
+
+    // Store variable
+    rvar.refs[name] = new rvar(name, value, context);
+
+    // Define variable at context
+    Object.defineProperty(context, name, {
+      // Getter
+      get: function () { return rvar.refs[name]; },
+      // Setter
+      set: function (v) { rvar.refs[name].value = v; },
+      // Can be overrided?
+      configurable: true
+    });
+
+    // Return object reference
+    return context[name];
+  }
+}
+
+export function waitForEvent(element = window, event = 'click') {
+  let listener;
+  return new Promise(resolve => {
+      listener = event => {
+          listener.close();
+          resolve(event);
+      };
+      element.addEventListener(event, listener.setProp('close', () => element.removeEventListener(event, listener)));
+  }).setProp('listener', listener);
+}

@@ -86,6 +86,17 @@ Level Builder
     - To Other items
     - Strength Slider
   - Zoom in / Zoom out
+  - Single Object Properties
+    - Tags
+    - Name
+    - Slope
+    - Hitbox
+    - Layer
+    - Arrangement
+      - Move Forward
+      - Move Backwards
+      - Move to back
+      - Move to front
   - Resize / Rotate
   - Multi select
   - Save
