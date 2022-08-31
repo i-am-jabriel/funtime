@@ -72,10 +72,12 @@ Level Builder
   - Clear
   - Play Button
   - Different Tabs
+    - Tiles
     - Triggers
       - Spawn Points
       - Camera Lock
       - Instadeath
+      - Boundary
       - Cutscenes?
       - Dialouge?
     - Objects / Traps
@@ -92,6 +94,7 @@ Level Builder
     - Slope
     - Hitbox
     - Layer
+    - Health
     - Arrangement
       - Move Forward
       - Move Backwards

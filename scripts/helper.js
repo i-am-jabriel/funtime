@@ -180,7 +180,7 @@ Array.prototype.extend({
   onFirst(fn){
     const wrap = (...args) => fn(...args) ^ this.remove(wrap);
     this.push(wrap);
-    return this;
+    return wrap;
   }
 });
 
@@ -191,6 +191,7 @@ export const events = [];
 export const setPlaying = n => playing = n;
 export const canvas = document.querySelector("canvas");
 export const camera = {x: 0, y:0, zoom: 1}
+debug && (window.camera = camera);
 canvas.w = canvas.width * .9;
 canvas.h = canvas.height * 1.2;
 canvas.x += canvas.width * .5;
@@ -482,4 +483,38 @@ export function waitForEvent(element = window, event = 'click') {
       };
       element.addEventListener(event, listener.setProp('close', () => element.removeEventListener(event, listener)));
   }).setProp('listener', listener);
+}
+
+CanvasRenderingContext2D.prototype.extend({
+  fillMixedText(x, y, args) {
+    let defaultFillStyle = this.fillStyle;
+    let defaultFont = this.font;
+    let oX = x;
+    this.save();
+    let text, fillStyle, font, newLine;
+    for(let i = 0; i < args.length; i++) {
+        if(typeof args[i] === 'string'){
+          text = args[i];
+          newLine = true;
+        }
+        else ({ text, fillStyle, font, newLine } = args[i]);
+        if(newLine) {
+          x  = oX;
+          y += 40;
+        }
+        this.fillStyle = fillStyle || defaultFillStyle;
+        this.font = font || defaultFont;
+        this.fillText(text, x, y);
+        x += this.measureText(text).width;
+    };
+    this.restore();
+}
+})
+
+export const loadFonts = (...fonts) => {
+  let fontElement = document.createElement('div');
+  fontElement.innerHTML=`<link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?${fonts.reduce((a,c) => `${a}&family=${c.replace(/ /g, '+')}`, '')}&display=swap" rel="stylesheet">`;
+  document.body.appendChild(fontElement);
 }

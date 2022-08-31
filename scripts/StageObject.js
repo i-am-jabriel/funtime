@@ -20,18 +20,20 @@ export default class StageObject {
   get hitbox() {
     const currentAnimation = this.currentAnimation;
     if(this.noHitbox) return this;
-    if (this._hitbox) return this._hitbox;
+    if (this._hitbox?.zoom === camera.zoom) return this._hitbox;
+    const dZoom = (this._hitbox?.zoom || 1) / camera.zoom;
     const hitboxOffset = currentAnimation?.hitboxOffset || this.hitboxOffset || 0;
-    const width = this.w * (this.scaleX || 1);
-    const height = this.h * (this.scaleY || 1);
+    const width = this.w * (this.scaleX || 1) * dZoom;
+    const height = this.h * (this.scaleY || 1) * dZoom;
     const xOffset = width * (currentAnimation?.hitboxXOffset || this.hitboxXOffset || 0) * this.direction;
     const yOffset = height * (currentAnimation?.hitboxYOffset || this.hitboxYOffset || 0);
     // if(hitboxOffset === 0 && width === this.w && height === this.h && !xOffset && !yOffset) return this;
     return Object.assign(this._hitbox = {
-      x: this.globalX + width * hitboxOffset * 0.5 + xOffset,
-      y: this.globalY + height * hitboxOffset * 0.5 + yOffset,
+      x: (this.globalX + width * hitboxOffset * 0.5 + xOffset), //* dZoom,
+      y: (this.globalY + height * hitboxOffset * 0.5 + yOffset), //* dZoom,
       w: width - width * hitboxOffset,
-      h: height - height * hitboxOffset
+      h: height - height * hitboxOffset,
+      zoom: camera.zoom
     },{
       cx: this._hitbox.x + this._hitbox.w * .5,
       cy: this._hitbox.y + this._hitbox.h * .5
@@ -44,6 +46,8 @@ export default class StageObject {
     hitboxOffset: 1,
     hitboxXOffset: 1,
     hitboxYOffset: 1,
+    scaleX: 1,
+    scaleY: 1,
   }
   constructor(data){
     return Object.assign(new Proxy(this, {
@@ -90,7 +94,7 @@ export default class StageObject {
       currentAnimation);
     currentAnimation?.onEveryFrame?.(dt);
     if(debug){
-      if(this._hitbox && this.name){
+      if(this.name && !this.hud){
         context.fillStyle = "rgba(255, 255, 0, 0.1)";
         context.fillRect(this.hitbox.x, this.hitbox.y, this.hitbox.w, this.hitbox.h);
       }
@@ -172,9 +176,20 @@ export default class StageObject {
       Object.assign(frameData, ai, { frameW: ai.width, frameH: ai.height })
     }
     context.save();
-    const width = this.w * (this.scaleX || 1), halfW = width * .5;
-    const height = this.h * (this.scaleY || 1), halfH = height * .5;
-    context.translate(this.globalX + halfW, this.globalY + halfH);
+    const zoom = (!this.hud  * camera.zoom) || 1;
+    const width = this.w * (this.scaleX || 1) * zoom, halfW = width * .5;
+    const height = this.h * (this.scaleY || 1) * zoom, halfH = height * .5;
+    context.translate(this.globalX * zoom + halfW, this.globalY * zoom + halfH);
+    if(this.backgroundColor){
+      context.globalAlpha = .5;
+      context.fillStyle = this.backgroundColor;
+      context.fillRect(-halfW, -halfH, width, height);
+      context.globalAlpha = 1;
+    }
+    // context.translate(this.hitbox.cx, this.hitbox.cy);
+    if(this.alpha !== undefined){
+      context.globalAlpha = this.alpha;
+    }
     if(this.mask){
       // context.globalCompositeOperation = 'source-atop';
       context.beginPath();
@@ -203,15 +218,20 @@ export default class StageObject {
     if(frameData.img) 
       context.drawImage(frameData.img, frameData.x + frameData.frameX * frameData.frameW, frameData.y + frameData.frameY * frameData.frameH, frameData.frameW, frameData.frameH, -halfW, -halfH, width, height);
     if(this.text) {
-      context.textAlign = 'center';
-      context.textBaseline = 'middle';
       context.font = `${this.fontSize}px ${this.font}`;
       context.fillStyle = this.color;
-      context.fillText(this.text, 0, 0, width);
-      if(this.stroke){
-        context.strokeStyle = this.stroke;
-        context.font = `${this.font} ${this.fontSize * 1.5}px`;
-        context.strokeText(this.text, 0, 0, width);
+      if(!Array.isArray(this.text)){
+        context.textAlign = 'center';
+        context.textBaseline = 'middle';
+        context.fillText(this.text, 0, 0, width);
+        if(this.stroke){
+          context.strokeStyle = this.stroke;
+          context.font = `${this.font} ${this.fontSize * 1.5}px`;
+          context.strokeText(this.text, 0, 0, width);
+        }
+      } else {
+        const text = this.text.reduce((a,c) => a + c.text, '');
+        context.fillMixedText(-context.measureText(text).width * .4 - halfW * .2, 0, this.text);
       }
     }
     context.restore();

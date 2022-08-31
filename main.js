@@ -1,4 +1,4 @@
-import { render, canvas, context, coin, playing, setPlaying, debug, players, events, addMouseListeners} from "./scripts/helper.js";
+import { render, canvas, context, coin, playing, setPlaying, debug, players, events, addMouseListeners, loadFonts} from "./scripts/helper.js";
 import { Player } from "./scripts/Player.js";
 import Boss from "./scripts/Boss/Boss.js";
 import DamageNumber from "./scripts/DamageNumber.js";
@@ -6,6 +6,7 @@ import Enemy from "./scripts/Enemy.js";
 import './scripts/Level Builder/LevelBuilder.js';
 
 
+loadFonts('Patrick Hand SC', 'Silkscreen');
 
 // create a mario object
 // an object is a container of variables
@@ -142,3 +143,4 @@ if(debug){
 }
 
 addMouseListeners();
+

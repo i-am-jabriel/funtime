@@ -1,10 +1,5 @@
 import { Random, render } from "./helper.js";
 import StageObject from "./StageObject.js";
-let fonts = document.createElement('div');
-fonts.innerHTML=`<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand+SC&display=swap" rel="stylesheet">`;
-document.body.appendChild(fonts);
 
 export default class DamageNumber extends StageObject{
   constructor(text,x,y){
